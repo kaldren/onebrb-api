@@ -1,8 +1,4 @@
-﻿using AutoFixture;
-using Onebrb.API.Services.Interfaces;
-using Xunit;
-
-namespace Onebrb.API.Tests.Services
+﻿namespace Onebrb.API.Tests.Services
 {
     public class ProfileServiceTests : BaseServiceTests
     {
