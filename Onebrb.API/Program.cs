@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Onebrb.API.Services;
 using Onebrb.API.Services.Interfaces;
-using Onebrb.API.Tests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +16,6 @@ builder.Services.AddSwaggerGen();
 
 // DI
 builder.Services.AddScoped<IProfileService, ProfileService>();
-builder.Services.AddUnitTestsServices();
 
 var app = builder.Build();
 
