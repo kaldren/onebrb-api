@@ -1,5 +1,4 @@
 ﻿using AutoFixture;
-using Onebrb.API.Services;
 using Onebrb.API.Services.Interfaces;
 using Xunit;
 
@@ -9,9 +8,9 @@ namespace Onebrb.API.Tests.Services
     {
         private readonly IProfileService profileService;
 
-        public ProfileServiceTests()
+        public ProfileServiceTests(IProfileService profileService)
         {
-            this.profileService = new ProfileService();
+            this.profileService = profileService;
         }
 
         [Fact]
