@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onebrb.API.Services.Interfaces;
+using Onebrb.API.Services.Models;
 
 namespace Onebrb.API.Controllers
 {
@@ -6,6 +8,19 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
+        private readonly IProfileService profileService;
 
+        public ProfileController(IProfileService profileService)
+        {
+            this.profileService = profileService;
+        }
+
+        [HttpGet("{profileId}")]
+        public async Task<ActionResult<ProfileModel>> GetProfileAsync(int profileId)
+        {
+            var profile = await profileService.GetProfileAsync(profileId);
+
+            return Ok(profile);
+        }
     }
 }
