@@ -18,9 +18,17 @@ namespace Onebrb.API.Controllers
         [HttpGet("{profileId}")]
         public async Task<ActionResult<ProfileModel>> GetProfileAsync(int profileId)
         {
-            var profile = await profileService.GetProfileAsync(profileId);
+            try
+            {
+                var profile = await profileService.GetProfileAsync(profileId);
+            }
+            catch (Exception ex)
+            {
 
-            return Ok(profile);
+                throw;
+            }
+
+            return null;
         }
     }
 }

@@ -10,16 +10,16 @@
         }
 
         [Fact]
-        public async void GetProfileAsync_InvalidProfileId_ShouldThrow404()
+        public async void GetProfileAsync_InvalidProfileId_Throws404NotFoundException()
         {
             // Arrange
             int profileId = fixture.Create<int>();
 
             // Act
-            var result = await profileService.GetProfileAsync(profileId);
+            Task result() => profileService.GetProfileAsync(profileId);
 
             // Assert
-            Assert.NotNull(result);
+            //Assert.ThrowsAsync<NotFound404Exception>;
         }
     }
 }
