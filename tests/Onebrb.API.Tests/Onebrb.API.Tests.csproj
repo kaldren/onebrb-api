@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Onebrb.API\Onebrb.API.csproj" />
+    <ProjectReference Include="..\..\src\Onebrb.API\Onebrb.API.csproj" />
   </ItemGroup>
 
 </Project>
