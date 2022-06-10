@@ -1,4 +1,6 @@
-﻿namespace Onebrb.API.Tests.Services
+﻿using Onebrb.Core;
+
+namespace Onebrb.API.Tests.Services
 {
     public class ProfileServiceTests : BaseServiceTests
     {

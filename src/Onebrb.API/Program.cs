@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
-using Onebrb.API.Services;
-using Onebrb.API.Services.Interfaces;
+using Onebrb.Core.Services;
+using Onebrb.Core.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Onebrb.API.Services.Interfaces;
-using Onebrb.API.Services.Models;
+using Onebrb.Core.Models;
+using Onebrb.Core.Services.Interfaces;
 
 namespace Onebrb.API.Controllers
 {

@@ -1,4 +1,4 @@
-﻿namespace Onebrb.API.Services.Models
+﻿namespace Onebrb.Core.Models
 {
     public class ProfileModel
     {

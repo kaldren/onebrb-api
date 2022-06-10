@@ -1,7 +1,7 @@
-﻿using Onebrb.API.Services.Interfaces;
-using Onebrb.API.Services.Models;
+﻿using Onebrb.Core.Models;
+using Onebrb.Core.Services.Interfaces;
 
-namespace Onebrb.API.Services
+namespace Onebrb.Core.Services
 {
     public class ProfileService : IProfileService
     {
