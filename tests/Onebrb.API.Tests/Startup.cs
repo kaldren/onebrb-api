@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Onebrb.Core.Interfaces;
-using Onebrb.Services.Profiles;
+using Onebrb.Core.Services.Profiles;
 
 namespace Onebrb.API.Tests
 {
