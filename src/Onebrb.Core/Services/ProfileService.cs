@@ -1,4 +1,4 @@
-﻿using Onebrb.Core.Domain.Profile;
+﻿using Onebrb.Core.Domain;
 using Onebrb.Core.Interfaces;
 
 namespace Onebrb.Core.Services

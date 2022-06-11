@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Core.Domain.Profile
+﻿namespace Onebrb.Core.Domain
 {
     public class Profile
     {
