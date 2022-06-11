@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onebrb.Core.Domain.Profile;
-using Onebrb.Core.Services.Profiles;
+using Onebrb.Core.Interfaces;
 
 namespace Onebrb.API.Controllers
 {
