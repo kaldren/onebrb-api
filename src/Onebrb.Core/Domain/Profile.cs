@@ -13,5 +13,15 @@
         /// Gets or sets the email
         /// </summary>
         public string Email { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the phone number
+        /// </summary>
+        public string Phone { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets short information about the services the person provides
+        /// </summary>
+        public string About { get; set; }
     }
 }
