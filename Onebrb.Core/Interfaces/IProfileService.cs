@@ -1,6 +1,6 @@
 ﻿using Onebrb.Core.Domain.Profile;
 
-namespace Onebrb.Core.Services.Interfaces
+namespace Onebrb.Core.Interfaces
 {
     public interface IProfileService
     {

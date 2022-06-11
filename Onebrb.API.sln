@@ -11,9 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2350A94E-B13
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CC2A6B24-E4F7-44CA-9E59-46B0D7957EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onebrb.Core", "Onebrb.Core\Onebrb.Core.csproj", "{496AD84B-B425-49F4-8190-79AEE38789DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.Core", "Onebrb.Core\Onebrb.Core.csproj", "{496AD84B-B425-49F4-8190-79AEE38789DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onebrb.Infrastructure", "Onebrb.Infrastructure\Onebrb.Infrastructure.csproj", "{85A13082-F4D0-4851-9ACD-5F639C5F0D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.Infrastructure", "Onebrb.Infrastructure\Onebrb.Infrastructure.csproj", "{85A13082-F4D0-4851-9ACD-5F639C5F0D22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onebrb.Services", "Onebrb.Services\Onebrb.Services.csproj", "{2D5095D0-D970-45C0-B146-1FF5903CDDBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{85A13082-F4D0-4851-9ACD-5F639C5F0D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85A13082-F4D0-4851-9ACD-5F639C5F0D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85A13082-F4D0-4851-9ACD-5F639C5F0D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5095D0-D970-45C0-B146-1FF5903CDDBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5095D0-D970-45C0-B146-1FF5903CDDBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5095D0-D970-45C0-B146-1FF5903CDDBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5095D0-D970-45C0-B146-1FF5903CDDBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{50E78BED-A92D-46B8-B965-E962389D4B30} = {CC2A6B24-E4F7-44CA-9E59-46B0D7957EC3}
 		{496AD84B-B425-49F4-8190-79AEE38789DA} = {2350A94E-B13E-4917-9FC4-D914D8EF4BB4}
 		{85A13082-F4D0-4851-9ACD-5F639C5F0D22} = {2350A94E-B13E-4917-9FC4-D914D8EF4BB4}
+		{2D5095D0-D970-45C0-B146-1FF5903CDDBA} = {2350A94E-B13E-4917-9FC4-D914D8EF4BB4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99C1D44D-F06E-4E5D-B8D3-29B687D6A35D}

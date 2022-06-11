@@ -1,4 +1,4 @@
-﻿using Onebrb.Core;
+﻿using Onebrb.Core.Interfaces;
 
 namespace Onebrb.API.Tests.Services
 {
