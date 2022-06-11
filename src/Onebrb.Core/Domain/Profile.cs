@@ -22,6 +22,6 @@
         /// <summary>
         /// Gets or sets short information about the services the person provides
         /// </summary>
-        public string About { get; set; }
+        public string About { get; set; } = string.Empty;
     }
 }
