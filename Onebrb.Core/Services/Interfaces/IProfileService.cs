@@ -1,9 +1,9 @@
-﻿using Onebrb.Core.Models;
+﻿using Onebrb.Core.Domain.Profile;
 
 namespace Onebrb.Core.Services.Interfaces
 {
     public interface IProfileService
     {
-        Task<ProfileModel> GetProfileAsync(int id);
+        Task<Profile> GetProfileAsync(int id);
     }
 }

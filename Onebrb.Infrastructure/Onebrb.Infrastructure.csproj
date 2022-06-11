@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Onebrb.Core\Onebrb.Core.csproj" />
+  </ItemGroup>
+
 </Project>

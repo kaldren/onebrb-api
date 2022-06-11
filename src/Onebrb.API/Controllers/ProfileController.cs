@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Onebrb.Core.Models;
+using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Services.Interfaces;
 
 namespace Onebrb.API.Controllers
@@ -16,7 +16,7 @@ namespace Onebrb.API.Controllers
         }
 
         [HttpGet("{profileId}")]
-        public async Task<ActionResult<ProfileModel>> GetProfileAsync(int profileId)
+        public async Task<ActionResult<Profile>> GetProfileAsync(int profileId)
         {
             try
             {
