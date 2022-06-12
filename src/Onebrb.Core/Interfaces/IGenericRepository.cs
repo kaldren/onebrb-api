@@ -10,35 +10,26 @@ namespace Onebrb.Core.Interfaces
         /// <param name="id">Entity identifier</param>
         /// <returns>
         /// A task that represents the asynchronous operation
-        /// The task result contains the entity entry
+        /// The task result contains the entity entry or null
         /// </returns>
-        TEntity GetByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(int id);
 
         /// <summary>
         /// Inserts a single entity
         /// </summary>
         /// <param name="id">Entity</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// </returns>
-        Task InsertAsync(TEntity entity);
+        void Insert(TEntity entity);
 
         /// <summary>
         /// Updates a single entity
         /// </summary>
         /// <param name="id">Entity</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// </returns>
-        Task UpdateAsync(TEntity entity);
+        void Update(TEntity entity);
 
         /// <summary>
         /// Deletes a single entity
         /// </summary>
         /// <param name="id">Entity</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// </returns>
-        Task DeleteAsync(TEntity entity);
+        void Delete(TEntity entity);
     }
 }
