@@ -3,9 +3,14 @@
     public class Profile : BaseEntity
     {
         /// <summary>
-        /// Gets or sets the profile name
+        /// Gets or sets the profile first name
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the profile last name
+        /// </summary>
+        public string LastName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the email

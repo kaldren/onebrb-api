@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Onebrb.Core.Interfaces;
 using Onebrb.Core.Services;
 using Onebrb.Infrastructure;
@@ -13,7 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<OnebrbDbContext>();
+
+// Data
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDbContext<OnebrbDbContext>(options =>
+  options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext")));
 
 // DI
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGenericRepository<>));
@@ -28,6 +33,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
+    app.UseMigrationsEndPoint();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<OnebrbDbContext>();
+    context.Database.EnsureCreated();
+    DbInitializer.Initialize(context);
 }
 
 app.UseCors("AllowOrigin");

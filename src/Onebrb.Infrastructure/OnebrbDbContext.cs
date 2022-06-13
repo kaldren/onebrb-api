@@ -10,5 +10,10 @@ namespace Onebrb.Infrastructure
         }
 
         public DbSet<Profile> Profiles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Profile>().ToTable("Profiles");
+        }
     }
 }
