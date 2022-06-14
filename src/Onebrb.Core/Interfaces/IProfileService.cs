@@ -9,7 +9,7 @@ namespace Onebrb.Core.Interfaces
         /// </summary>
         /// <param name="id">The id of the profile</param>
         /// <returns>
-        /// Asynchronously returns the entity, or null if no entity is found.
+        /// Asynchronously returns the <typeparamref name="Profile" /> entity, or null if no entity is found.
         /// </returns>
         Task<Profile?> GetProfileAsync(int id);
     }
