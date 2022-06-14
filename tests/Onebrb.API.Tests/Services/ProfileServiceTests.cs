@@ -1,4 +1,5 @@
-﻿using Onebrb.Core.Interfaces;
+﻿using Onebrb.Core.Domain.Profile;
+using Onebrb.Core.Interfaces;
 
 namespace Onebrb.API.Tests.Services
 {
@@ -12,16 +13,16 @@ namespace Onebrb.API.Tests.Services
         }
 
         [Fact]
-        public async void GetProfileAsync_InvalidProfileId_Throws404NotFoundException()
+        public async void GetProfileAsync_ProfileIdNotExists_ReturnsNull()
         {
             // Arrange
             int profileId = fixture.Create<int>();
 
             // Act
-            Task result() => profileService.GetProfileAsync(profileId);
+            Profile response = await profileService.GetProfileAsync(profileId);
 
             // Assert
-            //Assert.ThrowsAsync<NotFound404Exception>;
+            Assert.Null(response);
         }
     }
 }

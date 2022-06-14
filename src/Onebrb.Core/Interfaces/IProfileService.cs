@@ -5,13 +5,12 @@ namespace Onebrb.Core.Interfaces
     public interface IProfileService
     {
         /// <summary>
-        /// Gets profile
+        /// Gets a profile entity by id.
         /// </summary>
-        /// <param name="id">Profile identifier</param>
+        /// <param name="id">The id of the profile</param>
         /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the profile entity
+        /// Asynchronously returns the entity, or null if no entity is found.
         /// </returns>
-        Task<Profile> GetProfileAsync(int id);
+        Task<Profile?> GetProfileAsync(int id);
     }
 }
