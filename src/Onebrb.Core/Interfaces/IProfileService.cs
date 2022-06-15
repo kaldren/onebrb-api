@@ -11,6 +11,6 @@ namespace Onebrb.Core.Interfaces
         /// <returns>
         /// Asynchronously returns the <typeparamref name="Profile" /> entity, or null if no entity is found.
         /// </returns>
-        Task<Profile?> GetProfileAsync(int id);
+        Task<Profile?> GetProfileAsync(long id);
     }
 }

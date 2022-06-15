@@ -17,7 +17,7 @@ namespace Onebrb.Infrastructure
             onebrbDbContext.Set<TEntity>().Remove(entity);
         }
 
-        public async Task<TEntity?> GetByIdAsync(int id)
+        public async Task<TEntity?> GetByIdAsync(long id)
         {
             return await onebrbDbContext.Set<TEntity>().FindAsync(id);
         }

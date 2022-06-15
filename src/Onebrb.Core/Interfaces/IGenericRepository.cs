@@ -11,7 +11,7 @@ namespace Onebrb.Core.Interfaces
         /// <returns>
         /// Asynchronously returns the <typeparamref name="TEntity" /> entity, or null if no entity is found.
         /// </returns>
-        Task<TEntity?> GetByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(long id);
 
         /// <summary>
         /// Inserts a single <typeparamref name="TEntity" /> entity.

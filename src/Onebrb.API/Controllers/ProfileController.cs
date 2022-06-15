@@ -8,25 +8,19 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private readonly IProfileService profileService;
+        private readonly IProfileService _profileService;
 
-        public ProfileController(IProfileService profileService)
+        public ProfileController(
+            IProfileService profileService
+        )
         {
-            this.profileService = profileService;
+            this._profileService = profileService;
         }
 
         [HttpGet("{profileId}")]
         public async Task<ActionResult<Profile>> GetProfileAsync(int profileId)
         {
-            try
-            {
-                var profile = await profileService.GetProfileAsync(profileId);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            var profile = await _profileService.GetProfileAsync(profileId);
 
             return null;
         }
