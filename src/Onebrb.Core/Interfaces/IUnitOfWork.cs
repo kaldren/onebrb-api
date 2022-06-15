@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Infrastructure
+﻿namespace Onebrb.Core.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

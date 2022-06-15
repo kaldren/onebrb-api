@@ -1,4 +1,6 @@
-﻿namespace Onebrb.Infrastructure
+﻿using Onebrb.Core.Interfaces;
+
+namespace Onebrb.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {

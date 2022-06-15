@@ -3,8 +3,13 @@
     public interface IEntity<T>
     {
         /// <summary>
-        /// Entity identifier
+        /// The Id of a given entity.
         /// </summary>
         T Id { get; set; }
+
+        /// <summary>
+        /// The IsDeleted property of a given entity.
+        /// </summary>
+        bool IsDeleted { get; set; }
     }
 }

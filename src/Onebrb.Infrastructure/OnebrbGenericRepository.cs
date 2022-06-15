@@ -1,4 +1,5 @@
-﻿using Onebrb.Core.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using Onebrb.Core.Domain;
 using Onebrb.Core.Interfaces;
 
 namespace Onebrb.Infrastructure
@@ -6,30 +7,32 @@ namespace Onebrb.Infrastructure
     public class OnebrbGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly OnebrbDbContext onebrbDbContext;
+        private DbSet<TEntity> dbSet;
 
         public OnebrbGenericRepository(OnebrbDbContext onebrbDbContext)
         {
             this.onebrbDbContext = onebrbDbContext;
+            this.dbSet = onebrbDbContext.Set<TEntity>();
         }
 
         public void Delete(TEntity entity)
         {
-            onebrbDbContext.Set<TEntity>().Remove(entity);
+            this.dbSet.Remove(entity);
         }
 
         public async Task<TEntity?> GetByIdAsync(long id)
         {
-            return await onebrbDbContext.Set<TEntity>().FindAsync(id);
+            return await this.dbSet.FindAsync(id);
         }
 
         public void Insert(TEntity entity)
         {
-            onebrbDbContext.Set<TEntity>().Add(entity);
+            this.dbSet.Add(entity);
         }
 
         public void Update(TEntity entity)
         {
-            onebrbDbContext.Set<TEntity>().Update(entity);
+            this.dbSet.Update(entity);
         }
     }
 }
