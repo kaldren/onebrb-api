@@ -19,7 +19,7 @@ namespace Onebrb.API.Tests.Services
             int profileId = fixture.Create<int>();
 
             // Act
-            Profile response = await profileService.GetProfileAsync(profileId);
+            Profile? response = await profileService.GetProfileAsync(profileId);
 
             // Assert
             Assert.Null(response);

@@ -7,6 +7,11 @@ namespace Onebrb.Core.Services
     {
         private readonly IGenericRepository<Profile> profileRepository;
 
+        public ProfileService()
+        {
+
+        }
+
         public ProfileService(IGenericRepository<Profile> profileRepository)
         {
             this.profileRepository = profileRepository;
@@ -14,8 +19,7 @@ namespace Onebrb.Core.Services
 
         public async Task<Profile?> GetProfileAsync(long id)
         {
-            var profile = await profileRepository.GetByIdAsync(id);
-            return null;
+            return await profileRepository.GetByIdAsync(id);
         }
     }
 }

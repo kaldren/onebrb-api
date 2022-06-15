@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Onebrb.Core\Onebrb.Core.csproj" />
+    <ProjectReference Include="..\..\src\Onebrb.Infrastructure\Onebrb.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,11 @@ namespace Onebrb.Infrastructure
         private readonly OnebrbDbContext onebrbDbContext;
         private DbSet<TEntity> dbSet;
 
+        public OnebrbGenericRepository()
+        {
+
+        }
+
         public OnebrbGenericRepository(OnebrbDbContext onebrbDbContext)
         {
             this.onebrbDbContext = onebrbDbContext;
