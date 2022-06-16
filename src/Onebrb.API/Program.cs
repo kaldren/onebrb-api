@@ -26,6 +26,18 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOnebrbSPA", policy =>
+    {
+        policy.WithOrigins("https://localhost:7130")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Initialize(context);
 }
 
-app.UseCors("AllowOrigin");
+app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod());
 
 app.UseHttpsRedirection();
 
