@@ -26,5 +26,10 @@
         /// Gets or sets short information about the services the person provides
         /// </summary>
         public string About { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the QR code for a given profile
+        /// </summary>
+        public string QRCode { get; set; } = Guid.NewGuid().ToString();
     }
 }

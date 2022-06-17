@@ -62,7 +62,7 @@ using (var scope = app.Services.CreateScope())
 //app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod());
 app.UseCors(options => options.AllowAnyMethod());
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 //app.UseAuthentication();
 //app.UseAuthorization();
