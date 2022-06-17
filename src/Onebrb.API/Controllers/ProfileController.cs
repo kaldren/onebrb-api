@@ -6,11 +6,11 @@ namespace Onebrb.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfileController : ControllerBase
+    public class ProfilesController : ControllerBase
     {
         private readonly IProfileService _profileService;
 
-        public ProfileController(
+        public ProfilesController(
             IProfileService profileService
         )
         {
