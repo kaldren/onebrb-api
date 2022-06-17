@@ -59,7 +59,8 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Initialize(context);
 }
 
-app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod());
+//app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod());
+app.UseCors(options => options.AllowAnyMethod());
 
 app.UseHttpsRedirection();
 
