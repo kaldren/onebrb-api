@@ -38,6 +38,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Lowercase routes
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
