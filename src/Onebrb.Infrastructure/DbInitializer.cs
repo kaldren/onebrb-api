@@ -1,4 +1,5 @@
-﻿using Onebrb.Core.Domain.Profile;
+﻿using Onebrb.Core.Domain.Country;
+using Onebrb.Core.Domain.Profile;
 
 namespace Onebrb.Infrastructure
 {
@@ -11,6 +12,7 @@ namespace Onebrb.Infrastructure
                 return;
             }
 
+            // Add profiles
             var profiles = new Profile[]
             {
                 new Profile {FirstName = "John", LastName="Doe", Email = "john@example.com", About = "Number one plumber in Veliko Varnovo", Phone = "0888 123456"},
@@ -21,6 +23,41 @@ namespace Onebrb.Infrastructure
             };
 
             onebrbDbContext.Profiles.AddRange(profiles);
+
+            // Add countries & cities
+            var countries = new Country[]
+            {
+                new Country {
+                    Name="Bulgaria",
+                    Cities = new City[] {
+                        new City {Name = "Veliko Tarnovo"},
+                        new City {Name = "Sofia"},
+                        new City {Name = "Varna"},
+                        new City {Name = "Bourgas"},
+                    }
+                },
+                new Country {
+                    Name="USA",
+                    Cities = new City[] {
+                        new City {Name = "Los Angeles"},
+                        new City {Name = "Las Vegas"},
+                        new City {Name = "New York City"},
+                        new City {Name = "Chicago"},
+                    }
+                },
+                new Country {
+                    Name="Germany",
+                    Cities = new City[] {
+                        new City {Name = "Munich"},
+                        new City {Name = "Berlin"},
+                        new City {Name = "Frankfurt"},
+                        new City {Name = "Hamburg"},
+                    }
+                },
+            };
+
+            onebrbDbContext.Countries.AddRange(countries);
+
             onebrbDbContext.SaveChanges();
         }
     }

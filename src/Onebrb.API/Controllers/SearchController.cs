@@ -19,13 +19,13 @@ namespace Onebrb.API.Controllers
         {
             return new List<Profile>()
             {
-                new Profile {FirstName = "John", LastName="Doe", Email = "john@example.com", About = "Number one plumber in Veliko Varnovo", Phone = "0888 123456"},
-                new Profile {FirstName = "John", LastName="Boe", Email = "johnb@example.com", About = "Number two plumber in Veliko Varnovo", Phone = "0888 222456"},
-                new Profile {FirstName = "John", LastName="Soe", Email = "johns@example.com", About = "Number three plumber in Veliko Varnovo", Phone = "0888 333456"},
-                new Profile {FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222"},
-                new Profile {FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333"},
-                new Profile {FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444"},
-                new Profile {FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555"}
+                new Profile {Id = 1, FirstName = "John", LastName="Doe", Email = "john@example.com", About = "Number one plumber in Veliko Varnovo", Phone = "0888 123456"},
+                new Profile {Id = 2, FirstName = "John", LastName="Boe", Email = "johnb@example.com", About = "Number two plumber in Veliko Varnovo", Phone = "0888 222456"},
+                new Profile {Id = 2, FirstName = "John", LastName="Soe", Email = "johns@example.com", About = "Number three plumber in Veliko Varnovo", Phone = "0888 333456"},
+                new Profile {Id = 2, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222"},
+                new Profile {Id = 2, FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333"},
+                new Profile {Id = 2, FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444"},
+                new Profile {Id = 2, FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555"}
             };
         }
     }
