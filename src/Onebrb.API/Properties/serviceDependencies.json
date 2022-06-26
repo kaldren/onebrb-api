@@ -3,11 +3,6 @@
     "identityapp1": {
       "type": "identityapp",
       "dynamicId": null
-    },
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:OnebrbContext",
-      "dynamicId": null
     }
   }
 }

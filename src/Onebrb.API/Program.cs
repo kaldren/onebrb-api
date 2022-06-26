@@ -1,14 +1,17 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
 using Onebrb.Core.Services;
 using Onebrb.Infrastructure;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,16 +31,16 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
 // CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOnebrbSPA", policy =>
-    {
-        policy.WithOrigins("https://localhost:7130")
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials();
-    });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowOnebrbSPA", policy =>
+//    {
+//        policy.WithOrigins("https://localhost:7130", "https://localhost:7130/profiles")
+//        .AllowAnyMethod()
+//        .AllowAnyHeader()
+//        .AllowCredentials();
+//    });
+//});
 
 // Lowercase routes
 builder.Services.Configure<RouteOptions>(options =>
@@ -67,12 +70,12 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Initialize(context);
 }
 
-app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod());
+//app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
