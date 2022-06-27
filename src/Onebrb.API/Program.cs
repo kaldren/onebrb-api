@@ -5,7 +5,6 @@ using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
 using Onebrb.Core.Services;
 using Onebrb.Infrastructure;
-using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +21,9 @@ builder.Services.AddSwaggerGen();
 // Data
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDbContext<OnebrbDbContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext")));
+  //options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"))
+  options.UseInMemoryDatabase("Onebrb")
+);
 
 // DI
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGenericRepository<>));
