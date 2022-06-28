@@ -1,4 +1,5 @@
 ﻿using Onebrb.Core.Domain;
+using System.Linq.Expressions;
 
 namespace Onebrb.Core.Interfaces
 {
@@ -12,6 +13,15 @@ namespace Onebrb.Core.Interfaces
         /// Asynchronously returns the <typeparamref name="TEntity" /> entity, or null if no entity is found.
         /// </returns>
         Task<TEntity?> GetByIdAsync(long id);
+
+        /// <summary>
+        /// Gets a single entity.
+        /// </summary>
+        /// <param name="id">Entity identifier</param>
+        /// <returns>
+        /// Asynchronously returns the <typeparamref name="TEntity" /> entity, or null if no entity is found.
+        /// </returns>
+        Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>> func);
 
         /// <summary>
         /// Inserts a single <typeparamref name="TEntity" /> entity.

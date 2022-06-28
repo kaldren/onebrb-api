@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Onebrb.Core.Domain;
 using Onebrb.Core.Interfaces;
+using System.Linq.Expressions;
 
 namespace Onebrb.Infrastructure
 {
@@ -23,6 +24,11 @@ namespace Onebrb.Infrastructure
         public void Delete(TEntity entity)
         {
             this.dbSet.Remove(entity);
+        }
+
+        public async Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>> func)
+        {
+            return await this.dbSet.Where(func).FirstOrDefaultAsync();
         }
 
         public async Task<TEntity?> GetByIdAsync(long id)
