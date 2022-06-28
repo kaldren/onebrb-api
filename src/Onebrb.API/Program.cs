@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
@@ -7,15 +8,11 @@ using Onebrb.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//// Add services to the container.
+// Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureADB2C"));
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
-//builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
-
-// Adds Microsoft Identity platform (Azure AD B2C) support to protect this Api
-
-// End of the Microsoft Identity platform block    
+builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
 
 builder.Services.AddControllers();
 
@@ -42,9 +39,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOnebrbSPA", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("https://localhost:7130")
         .AllowAnyMethod()
-        .AllowAnyHeader();
+        .AllowAnyHeader()
+        .AllowCredentials();
     });
 });
 
@@ -76,7 +74,7 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Initialize(context);
 }
 
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
