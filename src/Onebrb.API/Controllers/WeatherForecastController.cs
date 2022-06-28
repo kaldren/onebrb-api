@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Identity.Web.Resource;
 
 namespace Onebrb.API.Controllers
 {
     //[Authorize]
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]    //[Authorize]
-    [Authorize]    //[Authorize]
     [ApiController]
     [Route("[controller]")]
-    //[RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+    //[RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

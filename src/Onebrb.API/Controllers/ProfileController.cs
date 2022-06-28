@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Web.Resource;
 using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Interfaces;
 
 namespace Onebrb.API.Controllers
 {
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]    //[Authorize]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

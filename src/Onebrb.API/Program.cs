@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
@@ -8,11 +7,18 @@ using Onebrb.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//// Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureADB2C"));
 
-builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
+//builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
+
+// Adds Microsoft Identity platform (Azure AD B2C) support to protect this Api
+
+// End of the Microsoft Identity platform block    
+
+builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -32,16 +38,16 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
 // CORS
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowOnebrbSPA", policy =>
-//    {
-//        policy.WithOrigins("https://localhost:7130", "https://localhost:7130/profiles")
-//        .AllowAnyMethod()
-//        .AllowAnyHeader()
-//        .AllowCredentials();
-//    });
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOnebrbSPA", policy =>
+    {
+        policy.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
 
 // Lowercase routes
 builder.Services.Configure<RouteOptions>(options =>
@@ -71,7 +77,7 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Initialize(context);
 }
 
-//app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
 app.UseHttpsRedirection();
 
