@@ -13,12 +13,14 @@ namespace Onebrb.Infrastructure
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Entity<Profile>()
-                .ToTable("Profiles");
+                .ToTable("Profiles")
+                .HasMany(p => p.Comments);
 
             modelBuilder
                 .Entity<City>()
@@ -30,6 +32,13 @@ namespace Onebrb.Infrastructure
                 .Entity<Country>()
                 .ToTable("Countries")
                 .HasMany(p => p.Cities);
+
+            modelBuilder
+                .Entity<Comment>()
+                .ToTable("Comments")
+                .HasOne(p => p.Author)
+                .WithMany(p => p.Comments)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

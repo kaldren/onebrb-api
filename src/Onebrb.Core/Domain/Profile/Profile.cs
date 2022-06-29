@@ -26,5 +26,10 @@
         /// Gets or sets short information about the services the person provides
         /// </summary>
         public string About { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the comments
+        /// </summary>
+        public ICollection<Comment> Comments { get; set; }
     }
 }

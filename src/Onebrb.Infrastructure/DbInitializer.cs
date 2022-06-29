@@ -58,6 +58,17 @@ namespace Onebrb.Infrastructure
 
             onebrbDbContext.Countries.AddRange(countries);
 
+
+            // Add comments
+            var comments = new Comment[]
+            {
+                new Comment { Author =  profiles[1], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-1)), Recipient = profiles[0]},
+                new Comment { Author =  profiles[2], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2)), Recipient = profiles[0]},
+                new Comment { Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
+            };
+
+            onebrbDbContext.Comments.AddRange(comments);
+
             onebrbDbContext.SaveChanges();
         }
     }

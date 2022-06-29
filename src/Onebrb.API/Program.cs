@@ -24,8 +24,8 @@ builder.Services.AddSwaggerGen();
 // Data
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDbContext<OnebrbDbContext>(options =>
-  //options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"))
-  options.UseInMemoryDatabase("Onebrb")
+  options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"))
+//options.UseInMemoryDatabase("Onebrb")
 );
 
 // DI
