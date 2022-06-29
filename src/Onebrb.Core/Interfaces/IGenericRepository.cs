@@ -21,7 +21,16 @@ namespace Onebrb.Core.Interfaces
         /// <returns>
         /// Asynchronously returns the <typeparamref name="TEntity" /> entity, or null if no entity is found.
         /// </returns>
-        Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>> func);
+        Task<TEntity?> GetSingleOrDefault(Expression<Func<TEntity, bool>> func);
+
+        /// <summary>
+        /// Gets a collection of an entity.
+        /// </summary>
+        /// <param name="id">Entity identifier</param>
+        /// <returns>
+        /// Asynchronously returns a collection of <typeparamref name="TEntity" /> entity, or null if not found.
+        /// </returns>
+        Task<ICollection<TEntity>> GetCollectionOrDefault(Expression<Func<TEntity, bool>> func);
 
         /// <summary>
         /// Inserts a single <typeparamref name="TEntity" /> entity.

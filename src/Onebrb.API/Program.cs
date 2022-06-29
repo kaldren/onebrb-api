@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
-using Onebrb.Core.Services;
+using Onebrb.Core.Services.Profiles;
 using Onebrb.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

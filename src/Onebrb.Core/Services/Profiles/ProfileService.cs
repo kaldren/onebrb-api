@@ -1,7 +1,7 @@
 ﻿using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Interfaces;
 
-namespace Onebrb.Core.Services
+namespace Onebrb.Core.Services.Profiles
 {
     public class ProfileService : IProfileService
     {
@@ -23,7 +23,7 @@ namespace Onebrb.Core.Services
 
         public async Task<Profile?> GetProfileAsync(string email)
         {
-            return await profileRepository.GetByFilterAsync(p => p.Email == email);
+            return await profileRepository.GetSingleOrDefault(p => p.Email == email);
         }
 
         public async Task<Profile?> UpdateProfileAsync(Profile profile)

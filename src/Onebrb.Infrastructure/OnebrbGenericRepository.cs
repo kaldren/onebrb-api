@@ -10,11 +10,6 @@ namespace Onebrb.Infrastructure
         private readonly OnebrbDbContext onebrbDbContext;
         private DbSet<TEntity> dbSet;
 
-        public OnebrbGenericRepository()
-        {
-
-        }
-
         public OnebrbGenericRepository(OnebrbDbContext onebrbDbContext)
         {
             this.onebrbDbContext = onebrbDbContext;
@@ -22,28 +17,21 @@ namespace Onebrb.Infrastructure
         }
 
         public void Delete(TEntity entity)
-        {
-            this.dbSet.Remove(entity);
-        }
+            => this.dbSet.Remove(entity);
 
-        public async Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>> func)
-        {
-            return await this.dbSet.Where(func).FirstOrDefaultAsync();
-        }
+        public async Task<TEntity?> GetSingleOrDefault(Expression<Func<TEntity, bool>> func)
+            => await this.dbSet.Where(func).FirstOrDefaultAsync();
+
+        public async Task<ICollection<TEntity>> GetCollectionOrDefault(Expression<Func<TEntity, bool>> func)
+            => await this.dbSet.Where(func).ToListAsync();
 
         public async Task<TEntity?> GetByIdAsync(long id)
-        {
-            return await this.dbSet.FindAsync(id);
-        }
+            => await this.dbSet.FindAsync(id);
 
         public void Insert(TEntity entity)
-        {
-            this.dbSet.Add(entity);
-        }
+            => this.dbSet.Add(entity);
 
         public void Update(TEntity entity)
-        {
-            this.dbSet.Update(entity);
-        }
+            => this.dbSet.Update(entity);
     }
 }
