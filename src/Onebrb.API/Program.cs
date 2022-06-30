@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
+using Onebrb.Core.Services.Comments;
 using Onebrb.Core.Services.Profiles;
 using Onebrb.Infrastructure;
 
@@ -33,6 +34,7 @@ builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGeneric
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 // CORS
 builder.Services.AddCors(options =>
