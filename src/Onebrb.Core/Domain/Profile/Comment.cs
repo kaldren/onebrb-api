@@ -1,4 +1,6 @@
-﻿namespace Onebrb.Core.Domain.Profile
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Onebrb.Core.Domain.Profile
 {
     public class Comment : BaseEntity
     {
@@ -8,14 +10,24 @@
         public string Content { get; set; }
 
         /// <summary>
+        /// Gets or sets the author id
+        /// </summary>
+        public long AuthorId { get; set; }
+
+        /// <summary>
         /// Gets or sets the author
         /// </summary>
-        public Profile Author { get; set; }
+        public virtual Profile Author { get; set; }
+
+        /// <summary>
+        /// Gets or sets the recipient id
+        /// </summary>
+        public long RecipientId { get; set; }
 
         /// <summary>
         /// Gets or sets the recipient
-        /// </summary>
-        public Profile Recipient { get; set; }
+        [ForeignKey(nameof(RecipientId))]
+        public virtual Profile Recipient { get; set; }
 
         /// <summary>
         /// Gets or sets the date of posting

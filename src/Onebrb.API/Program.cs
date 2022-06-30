@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
 using Onebrb.Core.Services.Comments;
 using Onebrb.Core.Services.Profiles;
 using Onebrb.Infrastructure;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
-builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
+//builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -25,9 +26,11 @@ builder.Services.AddSwaggerGen();
 // Data
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDbContext<OnebrbDbContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"))
-//options.UseInMemoryDatabase("Onebrb")
-);
+{
+    options.UseLazyLoadingProxies();
+    options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"));
+    //options.UseInMemoryDatabase("Onebrb")
+});
 
 // DI
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGenericRepository<>));

@@ -30,6 +30,6 @@
         /// <summary>
         /// Gets or sets the comments
         /// </summary>
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

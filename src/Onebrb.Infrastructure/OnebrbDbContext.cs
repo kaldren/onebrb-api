@@ -19,8 +19,7 @@ namespace Onebrb.Infrastructure
         {
             modelBuilder
                 .Entity<Profile>()
-                .ToTable("Profiles")
-                .HasMany(p => p.Comments);
+                .ToTable("Profiles");
 
             modelBuilder
                 .Entity<City>()
