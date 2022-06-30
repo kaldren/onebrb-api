@@ -18,7 +18,7 @@ namespace Onebrb.Core.Services.Profiles
 
         public async Task<Profile?> GetProfileAsync(long id)
         {
-            return await profileRepository.GetByIdAsync(id);
+            return await profileRepository.GetAsync(id);
         }
 
         public async Task<Profile?> GetProfileAsync(string email)

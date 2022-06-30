@@ -13,9 +13,9 @@ namespace Onebrb.Core.Services.Comments
         }
 
         public async Task<Comment?> GetCommentAsync(long id)
-            => await commentRepository.GetByIdAsync(id);
+            => await commentRepository.GetAsync(id);
 
         public async Task<ICollection<Comment>> GetCommentsAsync(long recipientId)
-            => await commentRepository.GetCollectionOrDefault(p => p.Recipient.Id == recipientId);
+            => await commentRepository.GetAsync(p => p.Recipient.Id == recipientId);
     }
 }

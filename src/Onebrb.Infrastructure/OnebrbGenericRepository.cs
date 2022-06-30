@@ -22,11 +22,11 @@ namespace Onebrb.Infrastructure
         public async Task<TEntity?> GetSingleOrDefault(Expression<Func<TEntity, bool>> func)
             => await this.dbSet.Where(func).FirstOrDefaultAsync();
 
-        public async Task<ICollection<TEntity>> GetCollectionOrDefault(Expression<Func<TEntity, bool>> func)
+        public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> func)
             => await this.dbSet.Where(func).ToListAsync();
 
-        public async Task<TEntity?> GetByIdAsync(long id)
-            => await this.dbSet.FindAsync(id);
+        public async Task<TEntity?> GetAsync(long id)
+            => await this.dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
 
         public void Insert(TEntity entity)
             => this.dbSet.Add(entity);
