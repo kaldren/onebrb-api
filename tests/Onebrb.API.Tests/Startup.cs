@@ -2,7 +2,7 @@
 using Moq;
 using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Interfaces;
-using Onebrb.Core.Services;
+using Onebrb.Core.Services.Profiles;
 
 namespace Onebrb.API.Tests
 {
@@ -12,9 +12,17 @@ namespace Onebrb.API.Tests
         {
             services.AddTransient<IProfileService, ProfileService>(x =>
             {
-                var mock = new Mock<IGenericRepository<Profile>>();
-                return new ProfileService(mock.Object);
+                var mockRepo = new Mock<IGenericRepository<Profile>>();
+                var mockUoW = new Mock<IUnitOfWork>();
+                return new ProfileService(mockRepo.Object, mockUoW.Object);
             });
+
+            //services.AddTransient<ICommentService, CommentService>(x =>
+            //{
+            //    var mockRepo = new Mock<IGenericRepository<Comment>>();
+            //    var mockUoW = new Mock<IUnitOfWork>();
+            //    return new CommentService(mockRepo.Object);
+            //});
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using AutoFixture;
-
-namespace Onebrb.API.Tests.Services
+﻿namespace Onebrb.API.Tests.Services
 {
     public abstract class BaseServiceTests
     {

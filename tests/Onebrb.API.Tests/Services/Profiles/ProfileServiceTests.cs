@@ -1,15 +1,15 @@
 ﻿using Onebrb.Core.Domain.Profile;
-using Onebrb.Core.Interfaces;
+using Onebrb.Core.Services.Profiles;
 
-namespace Onebrb.API.Tests.Services
+namespace Onebrb.API.Tests.Services.Profiles
 {
     public class ProfileServiceTests : BaseServiceTests
     {
-        private readonly IProfileService profileService;
+        private readonly IProfileService _profileService;
 
         public ProfileServiceTests(IProfileService profileService)
         {
-            this.profileService = profileService;
+            this._profileService = profileService;
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace Onebrb.API.Tests.Services
             int profileId = fixture.Create<int>();
 
             // Act
-            Profile? response = await profileService.GetProfileAsync(profileId);
+            Profile? response = await _profileService.GetProfileAsync(profileId);
 
             // Assert
             Assert.Null(response);
