@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Onebrb.Core.Domain.Profile;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Onebrb.API.Models;
 using Onebrb.Core.Services.Comments;
 
 namespace Onebrb.API.Controllers
@@ -11,19 +12,23 @@ namespace Onebrb.API.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
 
-        public CommentsController(ICommentService commentService)
+        public CommentsController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<ICollection<Comment>>> GetCommentsAsync([FromQuery] long recipientId)
+        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromQuery] long recipientId)
         {
             var comments = await _commentService.GetCommentsAsync(recipientId);
 
-            return Ok(comments);
+            var res = _mapper.Map<ICollection<CommentResponseModel>>(comments);
+
+            return Ok(res);
         }
     }
 }
