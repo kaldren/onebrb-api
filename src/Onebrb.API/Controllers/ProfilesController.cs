@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
-using Onebrb.Core.Domain.Profile;
+using Onebrb.API.Models;
 using Onebrb.Core.Services.Profiles;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,18 +15,21 @@ namespace Onebrb.API.Controllers
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileService _profileService;
+        private readonly IMapper _mapper;
 
         public ProfilesController(
-            IProfileService profileService
+            IProfileService profileService,
+            IMapper mapper
         )
         {
             this._profileService = profileService;
+            _mapper = mapper;
         }
 
         [HttpGet("{profileId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Profile>> GetProfileAsync(int profileId)
+        public async Task<ActionResult<Core.Domain.Profile.Profile>> GetProfileAsync(int profileId)
         {
             var profile = await _profileService.GetProfileAsync(profileId);
 
@@ -37,7 +41,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("current-profile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Profile>> GetCurrentUserProfile()
+        public async Task<ActionResult<Core.Domain.Profile.Profile>> GetCurrentUserProfileAsync()
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 
@@ -52,18 +56,18 @@ namespace Onebrb.API.Controllers
             return Ok(profile);
         }
 
-        [HttpPost]
+        [HttpPost("activate-profile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Profile>> ActivateProfile()
+        public async Task<ActionResult<ActivatedProfileResponseModel>> ActivateProfileAsync()
         {
             var profile = await _profileService.ActivateProfile();
 
-            return Ok(profile);
+            return Ok(_mapper.Map<ActivatedProfileResponseModel>(profile));
         }
 
         [HttpPatch]
-        public async Task<ActionResult> EditProfileAsync([FromBody][Required] Profile profileModel)
+        public async Task<ActionResult> EditProfileAsync([FromBody][Required] Core.Domain.Profile.Profile profileModel)
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 
