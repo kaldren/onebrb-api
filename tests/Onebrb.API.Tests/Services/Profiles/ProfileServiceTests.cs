@@ -24,5 +24,15 @@ namespace Onebrb.API.Tests.Services.Profiles
             // Assert
             Assert.Null(response);
         }
+
+        [Fact]
+        public async void ActivateProfileAsync_ProfileActivated_ReturnsProfile()
+        {
+            // Arrange & Act
+            Profile? response = await _profileService.ActivateProfile();
+
+            // Assert
+            Assert.NotNull(response);
+        }
     }
 }

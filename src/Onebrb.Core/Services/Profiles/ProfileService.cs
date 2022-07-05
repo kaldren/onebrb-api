@@ -16,6 +16,19 @@ namespace Onebrb.Core.Services.Profiles
             this.unitOfWork = unitOfWork;
         }
 
+        public async Task<Profile?> ActivateProfile()
+        {
+            // Create new Profile
+            return new Profile
+            {
+                FirstName = "Testov",
+                LastName = "Test",
+                About = "blah",
+                Email = "testov@example.com",
+                Phone = "+359888123321"
+            };
+        }
+
         public async Task<Profile?> GetProfileAsync(long id)
         {
             return await profileRepository.GetAsync(id);

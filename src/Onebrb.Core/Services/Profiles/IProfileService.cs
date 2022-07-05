@@ -30,5 +30,13 @@ namespace Onebrb.Core.Services.Profiles
         /// Asynchronously returns the <typeparamref name="Profile" /> entity, or null if the entity was not updated.
         /// </returns>
         Task<Profile?> UpdateProfileAsync(Profile profile);
+
+        /// <summary>
+        /// Activates the profile of the user.
+        /// </summary>
+        /// <returns>
+        /// Asynchronously returns the <typeparamref name="Profile" /> entity, or null if the entity was not created.
+        /// </returns>
+        Task<Profile?> ActivateProfile();
     }
 }
