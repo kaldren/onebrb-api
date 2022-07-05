@@ -21,7 +21,8 @@ namespace Onebrb.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromQuery] long recipientId)
         {
             var comments = await _commentService.GetCommentsAsync(recipientId);

@@ -23,6 +23,8 @@ namespace Onebrb.API.Controllers
         }
 
         [HttpGet("{profileId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Profile>> GetProfileAsync(int profileId)
         {
             var profile = await _profileService.GetProfileAsync(profileId);
@@ -32,7 +34,9 @@ namespace Onebrb.API.Controllers
             return Ok(profile);
         }
 
-        [HttpGet]
+        [HttpGet("current-profile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Profile>> GetCurrentUserProfile()
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
@@ -44,6 +48,16 @@ namespace Onebrb.API.Controllers
 
             if (profile == null)
                 return NotFound();
+
+            return Ok(profile);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Profile>> ActivateProfile()
+        {
+            var profile = await _profileService.ActivateProfile();
 
             return Ok(profile);
         }

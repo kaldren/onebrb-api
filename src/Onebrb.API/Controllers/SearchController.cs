@@ -15,6 +15,8 @@ namespace Onebrb.API.Controllers
 
         [HttpGet]
         [EnableQuery]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<Profile>>> SearchProfilesAsync()
         {
             return new List<Profile>()
