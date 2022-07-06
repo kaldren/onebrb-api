@@ -1,7 +1,7 @@
 ﻿using Moq;
 using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Interfaces;
-using Onebrb.Core.Services.Comments;
+using Onebrb.Services.Comments;
 using System.Linq.Expressions;
 
 namespace Onebrb.API.Tests.Services.Comments

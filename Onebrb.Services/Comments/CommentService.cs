@@ -1,7 +1,7 @@
 ﻿using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Interfaces;
 
-namespace Onebrb.Core.Services.Comments
+namespace Onebrb.Services.Comments
 {
     public class CommentService : ICommentService
     {

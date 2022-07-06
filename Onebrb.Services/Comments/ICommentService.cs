@@ -1,6 +1,6 @@
 ﻿using Onebrb.Core.Domain.Profile;
 
-namespace Onebrb.Core.Services.Comments
+namespace Onebrb.Services.Comments
 {
     public interface ICommentService
     {

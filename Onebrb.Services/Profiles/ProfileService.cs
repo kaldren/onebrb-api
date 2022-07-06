@@ -1,7 +1,7 @@
 ﻿using Onebrb.Core.Domain.Profile;
 using Onebrb.Core.Interfaces;
 
-namespace Onebrb.Core.Services.Profiles
+namespace Onebrb.Services.Profiles
 {
     public class ProfileService : IProfileService
     {
@@ -18,15 +18,9 @@ namespace Onebrb.Core.Services.Profiles
 
         public async Task<Profile?> ActivateProfile()
         {
-            // Create new Profile
-            return new Profile
-            {
-                FirstName = "Testov",
-                LastName = "Test",
-                About = "blah",
-                Email = "testov@example.com",
-                Phone = "+359888123321"
-            };
+            return null;
+            // Add it to the db
+            //await profileRepository.Insert(new Profile());
         }
 
         public async Task<Profile?> GetProfileAsync(long id)
