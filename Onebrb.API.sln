@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2350A94E-B13
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CC2A6B24-E4F7-44CA-9E59-46B0D7957EC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.Core", "src\Onebrb.Core\Onebrb.Core.csproj", "{CFF11981-396C-4AC6-AAA4-C3E172A36DEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.Domain", "src\Onebrb.Core\Onebrb.Domain.csproj", "{CFF11981-396C-4AC6-AAA4-C3E172A36DEB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.Infrastructure", "src\Onebrb.Infrastructure\Onebrb.Infrastructure.csproj", "{5ADE22D1-3A33-4500-B80A-4EA0BF459DDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onebrb.Services", "Onebrb.Services\Onebrb.Services.csproj", "{9B2BBBF7-2F78-48FE-9748-05C7148B08A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onebrb.Application", "Onebrb.Services\Onebrb.Application.csproj", "{9B2BBBF7-2F78-48FE-9748-05C7148B08A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

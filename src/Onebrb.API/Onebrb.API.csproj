@@ -33,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Onebrb.Services\Onebrb.Services.csproj" />
-    <ProjectReference Include="..\Onebrb.Core\Onebrb.Core.csproj" />
+    <ProjectReference Include="..\..\Onebrb.Services\Onebrb.Application.csproj" />
+    <ProjectReference Include="..\Onebrb.Core\Onebrb.Domain.csproj" />
     <ProjectReference Include="..\Onebrb.Infrastructure\Onebrb.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Core.Domain.Profile
+﻿namespace Onebrb.Domain.Entities.Profile
 {
     public class Profile : BaseEntity
     {

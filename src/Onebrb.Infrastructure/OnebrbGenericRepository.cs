@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Onebrb.Core.Domain;
-using Onebrb.Core.Interfaces;
+using Onebrb.Domain.Entities;
+using Onebrb.Domain.Interfaces;
 using System.Linq.Expressions;
 
 namespace Onebrb.Infrastructure

@@ -1,7 +1,7 @@
-﻿using Onebrb.Core.Domain.Profile;
-using Onebrb.Core.Interfaces;
+﻿using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Interfaces;
 
-namespace Onebrb.Services.Profiles
+namespace Onebrb.Application.Profiles
 {
     public class ProfileService : IProfileService
     {

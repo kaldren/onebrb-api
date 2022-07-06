@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Onebrb.Core.Domain.Profile;
-using Onebrb.Core.Interfaces;
-using Onebrb.Services.Profiles;
+using Onebrb.Application.Profiles;
+using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.API.Tests
 {

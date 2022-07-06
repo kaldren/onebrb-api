@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Core.Domain.Country
+﻿namespace Onebrb.Domain.Entities.Country
 {
     public class Country : BaseEntity
     {

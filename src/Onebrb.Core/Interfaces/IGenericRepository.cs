@@ -1,7 +1,7 @@
-﻿using Onebrb.Core.Domain;
+﻿using Onebrb.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace Onebrb.Core.Interfaces
+namespace Onebrb.Domain.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {

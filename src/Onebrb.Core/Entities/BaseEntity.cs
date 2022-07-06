@@ -1,6 +1,6 @@
-﻿using Onebrb.Core.Interfaces;
+﻿using Onebrb.Domain.Interfaces;
 
-namespace Onebrb.Core.Domain
+namespace Onebrb.Domain.Entities
 {
     public abstract class BaseEntity : IEntity<long>
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Onebrb.Core.Domain.Profile;
+using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.API.Controllers
 {

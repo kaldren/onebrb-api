@@ -1,5 +1,5 @@
-﻿using Onebrb.Core.Domain.Country;
-using Onebrb.Core.Domain.Profile;
+﻿using Onebrb.Domain.Entities.Country;
+using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.Infrastructure
 {

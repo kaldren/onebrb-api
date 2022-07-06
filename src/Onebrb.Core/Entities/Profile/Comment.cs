@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Onebrb.Core.Domain.Profile
+namespace Onebrb.Domain.Entities.Profile
 {
     public class Comment : BaseEntity
     {

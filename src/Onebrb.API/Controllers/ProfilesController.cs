@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models;
-using Onebrb.Services.Profiles;
+using Onebrb.Application.Profiles;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
@@ -29,7 +29,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("{profileId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Core.Domain.Profile.Profile>> GetProfileAsync(int profileId)
+        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetProfileAsync(int profileId)
         {
             var profile = await _profileService.GetProfileAsync(profileId);
 
@@ -41,7 +41,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("current-profile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Core.Domain.Profile.Profile>> GetCurrentUserProfileAsync()
+        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetCurrentUserProfileAsync()
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 
@@ -70,7 +70,7 @@ namespace Onebrb.API.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult> EditProfileAsync([FromBody][Required] Core.Domain.Profile.Profile profileModel)
+        public async Task<ActionResult> EditProfileAsync([FromBody][Required] Domain.Entities.Profile.Profile profileModel)
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Onebrb.Core\Onebrb.Core.csproj" />
+    <ProjectReference Include="..\Onebrb.Core\Onebrb.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Onebrb.Core.Interfaces;
+﻿using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.Infrastructure
 {

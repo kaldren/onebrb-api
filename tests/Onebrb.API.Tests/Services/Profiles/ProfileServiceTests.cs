@@ -1,5 +1,5 @@
-﻿using Onebrb.Core.Domain.Profile;
-using Onebrb.Services.Profiles;
+﻿using Onebrb.Application.Profiles;
+using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.API.Tests.Services.Profiles
 {

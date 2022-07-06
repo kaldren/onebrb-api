@@ -1,5 +1,5 @@
 ﻿using Onebrb.API.Models;
-using Onebrb.Core.Domain.Profile;
+using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.API
 {
