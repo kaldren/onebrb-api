@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Core.Interfaces;
-using Onebrb.Core.Services.Comments;
-using Onebrb.Core.Services.Profiles;
 using Onebrb.Infrastructure;
+using Onebrb.Services.Comments;
+using Onebrb.Services.Profiles;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

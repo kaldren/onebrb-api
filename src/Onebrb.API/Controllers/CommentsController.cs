@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models;
-using Onebrb.Core.Services.Comments;
+using Onebrb.Services.Comments;
 
 namespace Onebrb.API.Controllers
 {

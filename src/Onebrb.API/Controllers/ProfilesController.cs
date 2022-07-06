@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models;
-using Onebrb.Core.Services.Profiles;
+using Onebrb.Services.Profiles;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
@@ -61,6 +61,9 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ActivatedProfileResponseModel>> ActivateProfileAsync()
         {
+            string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+            string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
+
             var profile = await _profileService.ActivateProfile();
 
             return Ok(_mapper.Map<ActivatedProfileResponseModel>(profile));
