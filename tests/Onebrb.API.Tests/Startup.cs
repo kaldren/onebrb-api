@@ -4,7 +4,7 @@ using Onebrb.Application.Profiles;
 using Onebrb.Domain.Entities.Profile;
 using Onebrb.Domain.Interfaces;
 
-namespace Onebrb.API.Tests
+namespace Onebrb.Application.UnitTests
 {
     internal class Startup
     {

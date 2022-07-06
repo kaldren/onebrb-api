@@ -1,7 +1,7 @@
 ﻿using Onebrb.Application.Profiles;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.API.Tests.Services.Profiles
+namespace Onebrb.Application.UnitTests.Services.Profiles
 {
     public class ProfileServiceTests : BaseServiceTests
     {

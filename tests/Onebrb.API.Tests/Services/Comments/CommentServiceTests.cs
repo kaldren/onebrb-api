@@ -4,7 +4,7 @@ using Onebrb.Domain.Entities.Profile;
 using Onebrb.Domain.Interfaces;
 using System.Linq.Expressions;
 
-namespace Onebrb.API.Tests.Services.Comments
+namespace Onebrb.Application.UnitTests.Services.Comments
 {
     public class CommentServiceTests : BaseServiceTests
     {

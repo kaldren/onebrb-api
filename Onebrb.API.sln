@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.API", "src\Onebrb.API\Onebrb.API.csproj", "{B1F9A9A7-9A6D-4111-8A7E-DA12077F8928}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.API.Tests", "tests\Onebrb.API.Tests\Onebrb.API.Tests.csproj", "{50E78BED-A92D-46B8-B965-E962389D4B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onebrb.Application.UnitTests", "tests\Onebrb.API.Tests\Onebrb.Application.UnitTests.csproj", "{50E78BED-A92D-46B8-B965-E962389D4B30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2350A94E-B13E-4917-9FC4-D914D8EF4BB4}"
 EndProject

@@ -1,4 +1,4 @@
-﻿namespace Onebrb.API.Tests.Services
+﻿namespace Onebrb.Application.UnitTests.Services
 {
     public abstract class BaseServiceTests
     {
