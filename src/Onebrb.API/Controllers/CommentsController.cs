@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Onebrb.API.Models;
 using Onebrb.Application.Comments;
+using Onebrb.Application.Comments.Models;
+using Onebrb.Application.Comments.Queries;
 
 namespace Onebrb.API.Controllers
 {
@@ -13,21 +15,24 @@ namespace Onebrb.API.Controllers
     {
         private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public CommentsController(ICommentService commentService, IMapper mapper)
+        public CommentsController(ICommentService commentService, IMapper mapper, IMediator mediator)
         {
             _commentService = commentService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromQuery] long recipientId)
+        public async Task<ActionResult<ICollection<GetSingleCommentByIdModel>>> GetCommentsAsync([FromQuery] long recipientId)
         {
-            var comments = await _commentService.GetCommentsAsync(recipientId);
+            var res = await _mediator.Send(new GetSingleCommentByIdQuery() { Id = recipientId });
 
-            var res = _mapper.Map<ICollection<CommentResponseModel>>(comments);
+            if (res is null)
+                return NotFound();
 
             return Ok(res);
         }
