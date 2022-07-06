@@ -1,7 +1,7 @@
 ﻿using Onebrb.Domain.Entities.Country;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.Infrastructure
+namespace Onebrb.Infrastructure.Data
 {
     public static class DbInitializer
     {

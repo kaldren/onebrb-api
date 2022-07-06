@@ -4,7 +4,7 @@ using Microsoft.Identity.Web;
 using Onebrb.Application.Comments;
 using Onebrb.Application.Profiles;
 using Onebrb.Domain.Interfaces;
-using Onebrb.Infrastructure;
+using Onebrb.Infrastructure.Data;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -3,7 +3,7 @@ using Onebrb.Domain.Entities;
 using Onebrb.Domain.Interfaces;
 using System.Linq.Expressions;
 
-namespace Onebrb.Infrastructure
+namespace Onebrb.Infrastructure.Data
 {
     public class OnebrbGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
@@ -13,25 +13,25 @@ namespace Onebrb.Infrastructure
         public OnebrbGenericRepository(OnebrbDbContext onebrbDbContext)
         {
             this.onebrbDbContext = onebrbDbContext;
-            this.dbSet = onebrbDbContext.Set<TEntity>();
+            dbSet = onebrbDbContext.Set<TEntity>();
         }
 
         public void Delete(TEntity entity)
-            => this.dbSet.Remove(entity);
+            => dbSet.Remove(entity);
 
         public async Task<TEntity?> GetSingleOrDefault(Expression<Func<TEntity, bool>> func)
-            => await this.dbSet.Where(func).FirstOrDefaultAsync();
+            => await dbSet.Where(func).FirstOrDefaultAsync();
 
         public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> func)
-            => await this.dbSet.Where(func).ToListAsync();
+            => await dbSet.Where(func).ToListAsync();
 
         public async Task<TEntity?> GetAsync(long id)
-            => await this.dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
+            => await dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
 
         public void Insert(TEntity entity)
-            => this.dbSet.Add(entity);
+            => dbSet.Add(entity);
 
         public void Update(TEntity entity)
-            => this.dbSet.Update(entity);
+            => dbSet.Update(entity);
     }
 }

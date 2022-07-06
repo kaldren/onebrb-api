@@ -1,6 +1,6 @@
 ﻿using Onebrb.Domain.Interfaces;
 
-namespace Onebrb.Infrastructure
+namespace Onebrb.Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
