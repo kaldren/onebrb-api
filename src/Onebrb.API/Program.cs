@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
+using Onebrb.Application;
 using Onebrb.Application.Comments;
 using Onebrb.Application.Profiles;
 using Onebrb.Domain.Interfaces;
@@ -64,6 +65,8 @@ builder.Services.Configure<RouteOptions>(options =>
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
