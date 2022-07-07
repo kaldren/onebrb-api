@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,9 +13,10 @@
   <ItemGroup>
     <Folder Include="Comments\Commands\" />
     <Folder Include="Comments\EventHandlers\" />
-    <Folder Include="Profiles\Commands\" />
-    <Folder Include="Profiles\EventHandlers\" />
-    <Folder Include="Profiles\Queries\" />
+    <Folder Include="Users\Commands\" />
+    <Folder Include="Users\EventHandlers\" />
+    <Folder Include="Users\Models\" />
+    <Folder Include="Users\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

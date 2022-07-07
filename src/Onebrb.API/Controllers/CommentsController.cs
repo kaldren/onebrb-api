@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Onebrb.Application.Comments;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries;
 
@@ -13,23 +11,32 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly ICommentService _commentService;
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CommentsController(ICommentService commentService, IMapper mapper, IMediator mediator)
+        public CommentsController(IMediator mediator)
         {
-            _commentService = commentService;
-            _mapper = mapper;
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("{commentId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<GetSingleCommentByIdModel>>> GetCommentsAsync([FromQuery] long recipientId)
+        public async Task<ActionResult<ICollection<GetSingleCommentByIdModel>>> GetCommentAsync([FromRoute] long commentId)
         {
-            var res = await _mediator.Send(new GetSingleCommentByIdQuery() { Id = recipientId });
+            var res = await _mediator.Send(new GetSingleCommentByIdQuery() { Id = commentId });
+
+            if (res is null)
+                return NotFound();
+
+            return Ok(res);
+        }
+
+        [HttpGet("users/{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<ICollection<GetAllCommentsByUserIdModel>>> GetCommentsAsync([FromQuery] long userId)
+        {
+            var res = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 
             if (res is null)
                 return NotFound();

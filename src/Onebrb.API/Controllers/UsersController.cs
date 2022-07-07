@@ -12,12 +12,12 @@ namespace Onebrb.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfilesController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IProfileService _profileService;
         private readonly IMapper _mapper;
 
-        public ProfilesController(
+        public UsersController(
             IProfileService profileService,
             IMapper mapper
         )
@@ -26,22 +26,22 @@ namespace Onebrb.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{profileId}")]
+        [HttpGet("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetProfileAsync(int profileId)
+        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetUserAsync(int userId)
         {
-            var profile = await _profileService.GetProfileAsync(profileId);
+            var profile = await _profileService.GetProfileAsync(userId);
 
             if (profile == null) return NotFound();
 
             return Ok(profile);
         }
 
-        [HttpGet("current-profile")]
+        [HttpGet("current")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetCurrentUserProfileAsync()
+        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetCurrentlyAuthenticatedUserAsync()
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 
@@ -56,10 +56,10 @@ namespace Onebrb.API.Controllers
             return Ok(profile);
         }
 
-        [HttpPost("activate-profile")]
+        [HttpPost("activate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ActivatedProfileResponseModel>> ActivateProfileAsync()
+        public async Task<ActionResult<ActivatedProfileResponseModel>> ActivateUserProfileAsync()
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
             string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
