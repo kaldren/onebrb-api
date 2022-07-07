@@ -6,12 +6,12 @@ using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.Application.Comments.Queries;
 
-public record GetSingleCommentByCommentIdQuery : IRequest<GetSingleCommentByCommentIdModel>
+public record GetSingleCommentByCommentIdQuery : IRequest<CommentModel>
 {
     public long Id { get; set; }
 }
 
-public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, GetSingleCommentByCommentIdModel>
+public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
 {
     private readonly IGenericRepository<Comment> _commentsRepository;
     private readonly IMapper _mapper;
@@ -22,10 +22,10 @@ public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingle
         _mapper = mapper;
     }
 
-    public async Task<GetSingleCommentByCommentIdModel> Handle(GetSingleCommentByCommentIdQuery request, CancellationToken cancellationToken)
+    public async Task<CommentModel> Handle(GetSingleCommentByCommentIdQuery request, CancellationToken cancellationToken)
     {
         Comment? commentEntity = await _commentsRepository.GetAsync(request.Id);
 
-        return _mapper.Map<GetSingleCommentByCommentIdModel>(commentEntity);
+        return _mapper.Map<CommentModel>(commentEntity);
     }
 }

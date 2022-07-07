@@ -1,6 +1,6 @@
 ﻿namespace Onebrb.Application.Comments.Models
 {
-    public class GetSingleCommentByCommentIdModel
+    public class CommentModel
     {
         /// <summary>
         /// Gets or sets the content

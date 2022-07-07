@@ -2,8 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models;
+using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Profiles;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries;
@@ -11,8 +11,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
 {
-    [RequiredScope("Onebrb.Read")]
-    [Authorize]
+    //[RequiredScope("Onebrb.Read")]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -35,20 +35,21 @@ namespace Onebrb.API.Controllers
         [HttpGet("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetUserAsync(int userId)
+        [AllowAnonymous]
+        public async Task<ActionResult<UserProfileModel>> GetUserAsync(int userId)
         {
-            var profile = await _profileService.GetProfileAsync(userId);
+            var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = userId });
 
-            if (profile == null) return NotFound();
+            if (res == null) return NotFound();
 
-            return Ok(profile);
+            return Ok(res);
         }
 
         [HttpGet]
         [Route("{userId}/comments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<GetAllCommentsByUserIdModel>>> GetCommentsAsync([FromRoute] long userId)
+        public async Task<ActionResult<ICollection<CommentModel>>> GetCommentsAsync([FromRoute] long userId)
         {
             var res = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 
@@ -76,14 +77,14 @@ namespace Onebrb.API.Controllers
         [HttpPost("activate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ActivatedProfileResponseModel>> ActivateUserProfileAsync()
+        public async Task<ActionResult<ActivatedUserProfileResponseModel>> ActivateUserProfileAsync()
         {
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
             string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
 
             var profile = await _profileService.ActivateProfile();
 
-            return Ok(_mapper.Map<ActivatedProfileResponseModel>(profile));
+            return Ok(_mapper.Map<ActivatedUserProfileResponseModel>(profile));
         }
 
         [HttpPatch]

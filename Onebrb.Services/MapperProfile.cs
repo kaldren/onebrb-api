@@ -8,26 +8,12 @@ namespace Onebrb.Application
     {
         public MapperProfile()
         {
-            #region Comments
-            CreateMap<Comment, GetSingleCommentByCommentIdModel>()
-                .ForMember(
-                    dest => dest.AuthorFirstName,
-                    opt => opt.MapFrom(src => src.Author.FirstName)
-                )
-                .ForMember(
-                    dest => dest.AuthorLastName,
-                    opt => opt.MapFrom(src => src.Author.LastName)
-                )
-                .ForMember(
-                    dest => dest.RecipientFirstName,
-                    opt => opt.MapFrom(src => src.Recipient.FirstName)
-                )
-                .ForMember(
-                    dest => dest.RecipientLastName,
-                    opt => opt.MapFrom(src => src.Recipient.LastName)
-                );
+            #region Profile
+            CreateMap<Profile, UserProfileModel>();
+            #endregion
 
-            CreateMap<Comment, GetAllCommentsByUserIdModel>()
+            #region Comment
+            CreateMap<Comment, CommentModel>()
                 .ForMember(
                     dest => dest.AuthorFirstName,
                     opt => opt.MapFrom(src => src.Author.FirstName)
@@ -44,7 +30,7 @@ namespace Onebrb.Application
                     dest => dest.RecipientLastName,
                     opt => opt.MapFrom(src => src.Recipient.LastName)
                 );
-            #endregion Comments
+            #endregion Comment
         }
     }
 }

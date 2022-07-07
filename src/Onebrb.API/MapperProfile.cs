@@ -17,7 +17,7 @@ namespace Onebrb.API
                     opt => opt.MapFrom(src => src.Author.LastName)
                 );
 
-            CreateMap<Profile, ActivatedProfileResponseModel>();
+            CreateMap<Profile, ActivatedUserProfileResponseModel>();
         }
     }
 }

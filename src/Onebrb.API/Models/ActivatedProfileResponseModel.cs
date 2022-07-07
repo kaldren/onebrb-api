@@ -1,6 +1,6 @@
 ﻿namespace Onebrb.API.Models
 {
-    public class ActivatedProfileResponseModel
+    public class ActivatedUserProfileResponseModel
     {
         public long Id { get; set; }
 
