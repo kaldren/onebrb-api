@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models;
 using Onebrb.Application.Profiles;
+using Onebrb.Application.Users.Models;
+using Onebrb.Application.Users.Queries;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
@@ -16,14 +17,17 @@ namespace Onebrb.API.Controllers
     {
         private readonly IProfileService _profileService;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public UsersController(
             IProfileService profileService,
-            IMapper mapper
+            IMapper mapper,
+            IMediator mediator
         )
         {
             this._profileService = profileService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet("{userId}")]
@@ -36,6 +40,20 @@ namespace Onebrb.API.Controllers
             if (profile == null) return NotFound();
 
             return Ok(profile);
+        }
+
+        [HttpGet]
+        [Route("{userId}/comments")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<ICollection<GetAllCommentsByUserIdModel>>> GetCommentsAsync([FromRoute] long userId)
+        {
+            var res = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
+
+            if (res is null)
+                return NotFound();
+
+            return Ok(res);
         }
 
         [HttpGet("current")]

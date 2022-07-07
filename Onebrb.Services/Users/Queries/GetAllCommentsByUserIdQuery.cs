@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
 using MediatR;
-using Onebrb.Application.Comments.Models;
+using Onebrb.Application.Users.Models;
 using Onebrb.Domain.Entities.Profile;
 using Onebrb.Domain.Interfaces;
 
-namespace Onebrb.Application.Comments.Queries;
+namespace Onebrb.Application.Users.Queries;
 
 public record GetAllCommentsByUserIdQuery : IRequest<ICollection<GetAllCommentsByUserIdModel>>
 {
     public long Id { get; set; }
 }
 
-public class GetAllCommentsByRecipientIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, ICollection<GetAllCommentsByUserIdModel>>
+public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, ICollection<GetAllCommentsByUserIdModel>>
 {
     private readonly IGenericRepository<Comment> _commentsRepository;
     private readonly IMapper _mapper;
 
-    public GetAllCommentsByRecipientIdQueryHandler(IGenericRepository<Comment> commentsRepository, IMapper mapper)
+    public GetAllCommentsByUserIdQueryHandler(IGenericRepository<Comment> commentsRepository, IMapper mapper)
     {
         _commentsRepository = commentsRepository;
         _mapper = mapper;

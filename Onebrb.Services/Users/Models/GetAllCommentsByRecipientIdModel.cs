@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Application.Comments.Models
+﻿namespace Onebrb.Application.Users.Models
 {
     public class GetAllCommentsByUserIdModel
     {
