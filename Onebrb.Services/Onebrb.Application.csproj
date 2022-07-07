@@ -15,8 +15,6 @@
     <Folder Include="Comments\EventHandlers\" />
     <Folder Include="Users\Commands\" />
     <Folder Include="Users\EventHandlers\" />
-    <Folder Include="Users\Models\" />
-    <Folder Include="Users\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

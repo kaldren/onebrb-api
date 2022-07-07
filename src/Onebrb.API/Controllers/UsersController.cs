@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models;
 using Onebrb.Application.Profiles;
 using Onebrb.Application.Users.Models;
@@ -49,9 +51,6 @@ namespace Onebrb.API.Controllers
         public async Task<ActionResult<ICollection<GetAllCommentsByUserIdModel>>> GetCommentsAsync([FromRoute] long userId)
         {
             var res = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
-
-            if (res is null)
-                return NotFound();
 
             return Ok(res);
         }
