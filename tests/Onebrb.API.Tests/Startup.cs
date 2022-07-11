@@ -1,8 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Onebrb.Application.Interfaces;
-using Onebrb.Application.Profiles;
-using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.Application.UnitTests
 {
@@ -10,12 +6,12 @@ namespace Onebrb.Application.UnitTests
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProfileService, ProfileService>(x =>
-            {
-                var mockRepo = new Mock<IGenericRepository<Profile>>();
-                var mockUoW = new Mock<IUnitOfWork>();
-                return new ProfileService(mockRepo.Object, mockUoW.Object);
-            });
+            //services.AddTransient<IProfileService, ProfileService>(x =>
+            //{
+            //    var mockRepo = new Mock<IGenericRepository<Profile>>();
+            //    var mockUoW = new Mock<IUnitOfWork>();
+            //    return new ProfileService(mockRepo.Object, mockUoW.Object);
+            //});
 
             //services.AddTransient<ICommentService, CommentService>(x =>
             //{

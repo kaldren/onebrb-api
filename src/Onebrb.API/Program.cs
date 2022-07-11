@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Application;
-using Onebrb.Application.Comments;
 using Onebrb.Application.Interfaces;
-using Onebrb.Application.Profiles;
 using Onebrb.Infrastructure.Data;
 using System.Text.Json.Serialization;
 
@@ -41,9 +39,6 @@ builder.Services.AddDbContext<OnebrbDbContext>(options =>
 // DI
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGenericRepository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddScoped<IProfileService, ProfileService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
 
 // CORS
 builder.Services.AddCors(options =>

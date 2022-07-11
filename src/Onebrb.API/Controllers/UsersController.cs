@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models;
 using Onebrb.Application.Comments.Models;
-using Onebrb.Application.Profiles;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries;
 using System.ComponentModel.DataAnnotations;
@@ -17,17 +16,14 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IProfileService _profileService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
         public UsersController(
-            IProfileService profileService,
             IMapper mapper,
             IMediator mediator
         )
         {
-            this._profileService = profileService;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -61,17 +57,18 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetCurrentlyAuthenticatedUserAsync()
         {
-            string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+            //string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 
-            if (currentUserEmail is null)
-                return Unauthorized();
+            //if (currentUserEmail is null)
+            //    return Unauthorized();
 
-            var profile = await _profileService.GetProfileAsync(currentUserEmail);
+            //var profile = await _profileService.GetProfileAsync(currentUserEmail);
 
-            if (profile == null)
-                return NotFound();
+            //if (profile == null)
+            //    return NotFound();
 
-            return Ok(profile);
+            //return Ok(profile);
+            return null;
         }
 
         [HttpPost("profiles/activate")]
@@ -101,17 +98,18 @@ namespace Onebrb.API.Controllers
         [HttpPatch]
         public async Task<ActionResult> EditProfileAsync([FromBody][Required] Domain.Entities.Profile.Profile profileModel)
         {
-            string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+            //string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
 
-            if (currentUserEmail is null || profileModel?.Email != currentUserEmail)
-                return Unauthorized();
+            //if (currentUserEmail is null || profileModel?.Email != currentUserEmail)
+            //    return Unauthorized();
 
-            var profile = await _profileService.UpdateProfileAsync(profileModel);
+            //var profile = await _profileService.UpdateProfileAsync(profileModel);
 
-            if (profile == null)
-                return NotFound();
+            //if (profile == null)
+            //    return NotFound();
 
-            return Ok(profile);
+            //return Ok(profile);
+            return null;
         }
     }
 }
