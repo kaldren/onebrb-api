@@ -3,6 +3,11 @@
     public class UserProfileModel
     {
         /// <summary>
+        /// Gets or sets the profile Id
+        /// </summary>
+        public string ProfileId { get; set; }
+
+        /// <summary>
         /// Gets or sets the profile first name
         /// </summary>
         public string FirstName { get; set; }

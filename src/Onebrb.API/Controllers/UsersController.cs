@@ -74,15 +74,26 @@ namespace Onebrb.API.Controllers
             return Ok(profile);
         }
 
-        [HttpPost("activate")]
+        [HttpPost("profiles/activate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ActivatedUserProfileResponseModel>> ActivateUserProfileAsync()
         {
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
             string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
 
-            var profile = await _profileService.ActivateProfile();
+            UserProfileModel profile = await _mediator.Send(new Application.Users.Commands.ActivateUserProfileCommand()
+            {
+                ProfileModel = new ActivateUserProfileModel
+                {
+                    Id = currentUserId,
+                    Email = currentUserEmail,
+                    Name = currentUserName
+                }
+            });
+
+            if (profile == null) return NotFound();
 
             return Ok(_mapper.Map<ActivatedUserProfileResponseModel>(profile));
         }

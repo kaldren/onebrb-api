@@ -1,4 +1,5 @@
 ﻿using Onebrb.API.Models;
+using Onebrb.Application.Users.Models;
 using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.API
@@ -18,6 +19,7 @@ namespace Onebrb.API
                 );
 
             CreateMap<Profile, ActivatedUserProfileResponseModel>();
+            CreateMap<UserProfileModel, ActivatedUserProfileResponseModel>();
         }
     }
 }
