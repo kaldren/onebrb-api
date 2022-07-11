@@ -1,5 +1,5 @@
-﻿using Onebrb.Domain.Entities.Profile;
-using Onebrb.Domain.Interfaces;
+﻿using Onebrb.Application.Interfaces;
+using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.Application.Profiles
 {

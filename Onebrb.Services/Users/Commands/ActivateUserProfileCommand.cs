@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
+using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.Application.Users.Commands;
 
@@ -14,13 +13,11 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserProfileC
 {
     private readonly IGenericRepository<Domain.Entities.Profile.Profile> _profileRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
 
-    public ActivateUserProfileHandler(IGenericRepository<Domain.Entities.Profile.Profile> profileRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public ActivateUserProfileHandler(IGenericRepository<Domain.Entities.Profile.Profile> profileRepository, IUnitOfWork unitOfWork)
     {
         _profileRepository = profileRepository;
         _unitOfWork = unitOfWork;
-        _mapper = mapper;
     }
 
     public async Task<UserProfileModel> Handle(ActivateUserProfileCommand request, CancellationToken cancellationToken)

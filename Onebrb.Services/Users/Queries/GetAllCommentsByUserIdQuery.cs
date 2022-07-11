@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Onebrb.Application.Comments.Models;
+using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
-using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.Application.Users.Queries;
 

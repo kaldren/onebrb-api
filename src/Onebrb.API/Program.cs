@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Application;
 using Onebrb.Application.Comments;
+using Onebrb.Application.Interfaces;
 using Onebrb.Application.Profiles;
-using Onebrb.Domain.Interfaces;
 using Onebrb.Infrastructure.Data;
 using System.Text.Json.Serialization;
 

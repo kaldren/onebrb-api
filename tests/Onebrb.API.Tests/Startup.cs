@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using Onebrb.Application.Interfaces;
 using Onebrb.Application.Profiles;
 using Onebrb.Domain.Entities.Profile;
-using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.Application.UnitTests
 {

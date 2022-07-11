@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
+using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Interfaces;
 
 namespace Onebrb.Application.Users.Queries;
 
