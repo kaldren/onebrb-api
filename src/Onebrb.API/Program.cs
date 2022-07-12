@@ -1,7 +1,9 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Application;
+using Onebrb.Application.Comments.Queries.GetSingleComment;
 using Onebrb.Application.Interfaces;
 using Onebrb.Infrastructure.Data;
 using System.Text.Json.Serialization;
@@ -19,7 +21,8 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    });
+    })
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<GetSingleCommentByCommentIdValidator>());
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

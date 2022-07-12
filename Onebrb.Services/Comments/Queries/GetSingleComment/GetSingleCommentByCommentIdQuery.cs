@@ -4,14 +4,14 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.Application.Comments.Queries;
+namespace Onebrb.Application.Comments.Queries.GetSingleComment;
 
 public record GetSingleCommentByCommentIdQuery : IRequest<CommentModel>
 {
     public long Id { get; set; }
 }
 
-public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
+internal class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
 {
     private readonly IGenericRepository<Comment> _commentsRepository;
     private readonly IMapper _mapper;

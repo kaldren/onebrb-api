@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.Application.Comments.Models;
-using Onebrb.Application.Comments.Queries;
+using Onebrb.Application.Comments.Queries.GetSingleComment;
 
 namespace Onebrb.API.Controllers
 {

@@ -11,7 +11,7 @@ public record GetAllCommentsByUserIdQuery : IRequest<ICollection<CommentModel>>
     public long Id { get; set; }
 }
 
-public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, ICollection<CommentModel>>
+internal class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, ICollection<CommentModel>>
 {
     private readonly IGenericRepository<Comment> _commentsRepository;
     private readonly IMapper _mapper;
