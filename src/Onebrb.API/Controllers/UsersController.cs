@@ -6,6 +6,7 @@ using Onebrb.API.Models;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries;
+using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers

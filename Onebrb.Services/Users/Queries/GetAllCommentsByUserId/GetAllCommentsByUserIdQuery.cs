@@ -4,7 +4,7 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.Application.Users.Queries;
+namespace Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 
 public record GetAllCommentsByUserIdQuery : IRequest<ICollection<CommentModel>>
 {

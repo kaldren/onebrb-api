@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Onebrb.Application;
-using Onebrb.Application.Comments.Queries.GetSingleComment;
+using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Interfaces;
 using Onebrb.Infrastructure.Data;
 using System.Text.Json.Serialization;

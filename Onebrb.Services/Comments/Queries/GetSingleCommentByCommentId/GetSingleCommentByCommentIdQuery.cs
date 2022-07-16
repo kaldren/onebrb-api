@@ -4,7 +4,7 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.Application.Comments.Queries.GetSingleComment;
+namespace Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 
 public record GetSingleCommentByCommentIdQuery : IRequest<CommentModel>
 {

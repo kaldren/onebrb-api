@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Moq;
 using Onebrb.Application.Comments.Models;
-using Onebrb.Application.Comments.Queries.GetSingleComment;
+using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.Application.UnitTests.Comments.Queries.GetSingleComment;
+namespace Onebrb.Application.UnitTests.Comments.Queries.GetSingleCommentByCommentId;
 
 public class GetSingleCommentByCommentIdQueryHandlerTests
 {

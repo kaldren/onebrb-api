@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Onebrb.Application.Comments.Queries.GetSingleComment;
+namespace Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 
 public class GetSingleCommentByCommentIdValidator : AbstractValidator<GetSingleCommentByCommentIdQuery>
 {
