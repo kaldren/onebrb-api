@@ -10,7 +10,7 @@ public record GetUserProfileByIdQuery : IRequest<UserProfileModel>
     public long Id { get; set; }
 }
 
-internal class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileByIdQuery, UserProfileModel>
+public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileByIdQuery, UserProfileModel>
 {
     private readonly IGenericRepository<Domain.Entities.Profile.Profile> _profileRepository;
     private readonly IMapper _mapper;
