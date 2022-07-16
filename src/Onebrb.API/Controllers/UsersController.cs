@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Models;
-using Onebrb.Application.Users.Queries;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
+using Onebrb.Application.Users.Queries.GetUserProfileById;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers

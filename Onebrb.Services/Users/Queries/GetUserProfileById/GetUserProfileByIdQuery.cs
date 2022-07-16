@@ -3,7 +3,7 @@ using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
 
-namespace Onebrb.Application.Users.Queries;
+namespace Onebrb.Application.Users.Queries.GetUserProfileById;
 
 public record GetUserProfileByIdQuery : IRequest<UserProfileModel>
 {
