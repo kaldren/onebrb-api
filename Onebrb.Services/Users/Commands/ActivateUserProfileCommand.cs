@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
+using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.Application.Users.Commands;
 
@@ -11,10 +12,10 @@ public record ActivateUserProfileCommand : IRequest<UserProfileModel>
 
 internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserProfileCommand, UserProfileModel>
 {
-    private readonly IGenericRepository<Domain.Entities.Profile.Profile> _profileRepository;
+    private readonly IGenericRepository<Profile> _profileRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ActivateUserProfileHandler(IGenericRepository<Domain.Entities.Profile.Profile> profileRepository, IUnitOfWork unitOfWork)
+    public ActivateUserProfileHandler(IGenericRepository<Profile> profileRepository, IUnitOfWork unitOfWork)
     {
         _profileRepository = profileRepository;
         _unitOfWork = unitOfWork;
@@ -22,7 +23,7 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserProfileC
 
     public async Task<UserProfileModel> Handle(ActivateUserProfileCommand request, CancellationToken cancellationToken)
     {
-        _profileRepository.Insert(new Domain.Entities.Profile.Profile
+        _profileRepository.Insert(new Profile
         {
             Email = request.ProfileModel.Email,
             ProfileId = request.ProfileModel.Id,
