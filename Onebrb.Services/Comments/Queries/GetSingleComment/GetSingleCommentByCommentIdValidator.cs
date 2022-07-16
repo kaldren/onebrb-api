@@ -6,6 +6,6 @@ public class GetSingleCommentByCommentIdValidator : AbstractValidator<GetSingleC
 {
     public GetSingleCommentByCommentIdValidator()
     {
-        RuleFor(p => p.Id).NotEqual(1);
+        RuleFor(p => p.Id).NotNull();
     }
 }

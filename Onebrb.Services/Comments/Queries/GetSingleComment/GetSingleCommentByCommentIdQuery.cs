@@ -11,7 +11,7 @@ public record GetSingleCommentByCommentIdQuery : IRequest<CommentModel>
     public long Id { get; set; }
 }
 
-internal class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
+public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
 {
     private readonly IGenericRepository<Comment> _commentsRepository;
     private readonly IMapper _mapper;
