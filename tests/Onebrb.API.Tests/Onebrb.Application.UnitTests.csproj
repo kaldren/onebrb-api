@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\src\Onebrb.Infrastructure\Onebrb.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Queries\GetUserProfileById\" />
+  </ItemGroup>
+
 </Project>
