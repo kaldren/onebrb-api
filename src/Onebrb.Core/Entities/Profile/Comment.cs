@@ -12,7 +12,7 @@ namespace Onebrb.Domain.Entities.Profile
         /// <summary>
         /// Gets or sets the author id
         /// </summary>
-        public long AuthorId { get; set; }
+        public string AuthorId { get; set; }
 
         /// <summary>
         /// Gets or sets the author
@@ -22,7 +22,7 @@ namespace Onebrb.Domain.Entities.Profile
         /// <summary>
         /// Gets or sets the recipient id
         /// </summary>
-        public long RecipientId { get; set; }
+        public string RecipientId { get; set; }
 
         /// <summary>
         /// Gets or sets the recipient
