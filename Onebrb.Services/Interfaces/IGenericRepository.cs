@@ -12,7 +12,7 @@ namespace Onebrb.Application.Interfaces
         /// <returns>
         /// Asynchronously returns the <typeparamref name="TEntity" /> entity, or null if no entity is found.
         /// </returns>
-        Task<TEntity?> GetAsync(long id);
+        Task<TEntity?> GetAsync(string id);
 
         /// <summary>
         /// Gets a single entity.

@@ -32,7 +32,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [AllowAnonymous]
-        public async Task<ActionResult<UserProfileModel>> GetUserAsync(int userId)
+        public async Task<ActionResult<UserProfileModel>> GetUserAsync(string userId)
         {
             var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = userId });
 
@@ -41,11 +41,34 @@ namespace Onebrb.API.Controllers
             return Ok(res);
         }
 
+        [HttpGet("current")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Domain.Entities.Profile.Profile>> GetCurrentlyAuthenticatedUserAsync()
+        {
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (currentUserId is null) return NotFound();
+
+            var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+
+            //if (currentUserEmail is null)
+            //    return Unauthorized();
+
+            //var profile = await _profileService.GetProfileAsync(currentUserEmail);
+
+            //if (profile == null)
+            //    return NotFound();
+
+            //return Ok(profile);
+            return null;
+        }
+
         [HttpGet]
         [Route("{userId}/comments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<CommentModel>>> GetCommentsAsync([FromRoute] long userId)
+        public async Task<ActionResult<ICollection<CommentModel>>> GetCommentsAsync([FromRoute] string userId)
         {
             var res = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 

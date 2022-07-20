@@ -22,7 +22,7 @@ namespace Onebrb.Application.UnitTests.Users.Queries.GetAllCommentsByUserId
         [Fact]
         public async Task GetAllCommentsByUserIdQueryHandler_ValidUserId_ShouldReturnAllComments()
         {
-            long fakeUserId = 1;
+            string fakeUserId = _fixture.Create<string>();
 
             Comment fakeComment1 = _fixture.Build<Comment>()
                 .Without(p => p.Recipient)

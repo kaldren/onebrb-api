@@ -22,7 +22,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommentModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<CommentModel>> GetCommentAsync([FromRoute] long commentId)
+        public async Task<ActionResult<CommentModel>> GetCommentAsync([FromRoute] string commentId)
         {
             var res = await _mediator.Send(new GetSingleCommentByCommentIdQuery() { Id = commentId });
 

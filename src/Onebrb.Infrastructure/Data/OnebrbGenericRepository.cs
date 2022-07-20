@@ -25,7 +25,7 @@ namespace Onebrb.Infrastructure.Data
         public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> func)
             => await dbSet.Where(func).ToListAsync();
 
-        public async Task<TEntity?> GetAsync(long id)
+        public async Task<TEntity?> GetAsync(string id)
             => await dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
 
         public void Insert(TEntity entity)

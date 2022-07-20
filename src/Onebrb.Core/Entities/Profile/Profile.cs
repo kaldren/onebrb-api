@@ -3,11 +3,6 @@
     public class Profile : BaseEntity
     {
         /// <summary>
-        /// Gets or sets the profile Id
-        /// </summary>
-        public string ProfileId { get; set; } = string.Empty;
-
-        /// <summary>
         /// Gets or sets the profile first name
         /// </summary>
         public string FirstName { get; set; } = string.Empty;

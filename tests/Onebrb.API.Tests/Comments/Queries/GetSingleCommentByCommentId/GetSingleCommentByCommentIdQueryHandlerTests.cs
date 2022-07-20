@@ -21,7 +21,7 @@ public class GetSingleCommentByCommentIdQueryHandlerTests
     [Fact]
     public async Task GetSingleCommentByCommentIdQueryHandler_ValidId_ShouldReturnSingleComment()
     {
-        long fakeId = 1;
+        string fakeId = _fixture.Create<string>();
 
         Comment fakeComment = _fixture.Build<Comment>()
             .Without(p => p.Recipient)
@@ -35,9 +35,9 @@ public class GetSingleCommentByCommentIdQueryHandlerTests
 
         var sut = new GetSingleCommentByCommentIdQueryHandler(_mockRepo.Object, _mapper.Object);
 
-        _mockRepo.Setup(p => p.GetAsync(It.Is<long>(p => p == fakeId))).ReturnsAsync(() => fakeComment);
+        _mockRepo.Setup(p => p.GetAsync(It.Is<string>(p => p == fakeId))).ReturnsAsync(() => fakeComment);
 
-        var result = await sut.Handle(new GetSingleCommentByCommentIdQuery { Id = 1 }, CancellationToken.None);
+        var result = await sut.Handle(new GetSingleCommentByCommentIdQuery { Id = fakeId }, CancellationToken.None);
 
         Assert.NotNull(result);
     }

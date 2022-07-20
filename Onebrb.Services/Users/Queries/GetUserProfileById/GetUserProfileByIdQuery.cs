@@ -7,7 +7,7 @@ namespace Onebrb.Application.Users.Queries.GetUserProfileById;
 
 public record GetUserProfileByIdQuery : IRequest<UserProfileModel>
 {
-    public long Id { get; set; }
+    public string Id { get; set; }
 }
 
 public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileByIdQuery, UserProfileModel>
@@ -23,7 +23,7 @@ public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileById
 
     public async Task<UserProfileModel> Handle(GetUserProfileByIdQuery request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Profile.Profile? profile = await _profileRepository.GetAsync(request.Id);
+        Domain.Entities.Profile.Profile? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.Id);
 
         return _mapper.Map<UserProfileModel>(profile);
     }

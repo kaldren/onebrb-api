@@ -2,9 +2,9 @@
 
 namespace Onebrb.Domain.Entities
 {
-    public abstract class BaseEntity : IEntity<long>
+    public abstract class BaseEntity : IEntity<string>
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         public bool IsDeleted { get; set; }
     }

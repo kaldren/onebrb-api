@@ -20,21 +20,21 @@ public class GetUserProfileByIdQueryHandlerTests
     [Fact]
     public async Task GetUserProfileByIdQueryHandler_ValidUserId_ShouldReturnProfile()
     {
-        long fakeUserId = 1;
+        string fakeUserId = _fixture.Create<string>();
         UserProfileModel fakeProfileModel = _fixture.Create<UserProfileModel>();
 
         Domain.Entities.Profile.Profile fakeProfile = _fixture.Build<Domain.Entities.Profile.Profile>()
             .Without(p => p.Comments)
             .Create();
 
-        _mockRepo.Setup(p => p.GetAsync(It.Is<long>(p => p == fakeUserId))).ReturnsAsync(() => fakeProfile);
+        _mockRepo.Setup(p => p.GetAsync(It.Is<string>(p => p == fakeUserId))).ReturnsAsync(() => fakeProfile);
 
         _mapper.Setup(p => p.Map<UserProfileModel>(It.IsAny<Domain.Entities.Profile.Profile>()))
             .Returns(fakeProfileModel);
 
         var sut = new GetUserProfileByIdQueryHandler(_mockRepo.Object, _mapper.Object);
 
-        var result = await sut.Handle(new GetUserProfileByIdQuery { Id = 1 }, CancellationToken.None);
+        var result = await sut.Handle(new GetUserProfileByIdQuery { Id = fakeUserId }, CancellationToken.None);
 
         Assert.NotNull(result);
     }

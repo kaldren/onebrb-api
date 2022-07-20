@@ -8,7 +8,7 @@ namespace Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 
 public record GetSingleCommentByCommentIdQuery : IRequest<CommentModel>
 {
-    public long Id { get; set; }
+    public string Id { get; set; }
 }
 
 public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
