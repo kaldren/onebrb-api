@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Onebrb.API.Models;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
@@ -33,19 +34,19 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [AllowAnonymous]
-        public async Task<ActionResult<UserProfileModel>> GetUserAsync(string userId)
+        public async Task<ActionResult<UserProfileResponseModel>> GetUserAsync(string userId)
         {
-            var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = userId });
+            UserProfileModel user = await _mediator.Send(new GetUserProfileByIdQuery() { Id = userId });
 
-            if (res == null) return NotFound();
+            if (user == null) return NotFound();
 
-            return Ok(res);
+            return Ok(_mapper.Map<UserProfileResponseModel>(user));
         }
 
         [HttpGet("activate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<UserProfileModel>> ActivateUserAsync()
+        public async Task<ActionResult<UserProfileResponseModel>> ActivateUserAsync()
         {
             // TODO: Check if user already created
 
@@ -56,7 +57,7 @@ namespace Onebrb.API.Controllers
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (existingUser is not null)
-                return existingUser;
+                return Ok(_mapper.Map<UserProfileResponseModel>(existingUser));
 
             var user = new ActivateUserProfileModel
             {
@@ -65,39 +66,39 @@ namespace Onebrb.API.Controllers
                 Name = currentUserName
             };
 
-            UserProfileModel? res = await _mediator.Send(new ActivateUserCommand() { ProfileModel = user });
+            UserProfileModel? activatedUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = user });
 
-            if (res == null) return NotFound();
+            if (activatedUser is null) return NotFound();
 
-            return Ok(res);
+            return Ok(_mapper.Map<UserProfileResponseModel>(activatedUser));
         }
 
         [HttpGet("current")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<UserProfileModel>> GetCurrentlyAuthenticatedUserAsync()
+        public async Task<ActionResult<UserProfileResponseModel>> GetCurrentlyAuthenticatedUserAsync()
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (currentUserId is null) return NotFound();
 
-            var user = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+            UserProfileModel user = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (user is null)
                 return NotFound();
 
-            return Ok(user);
+            return Ok(_mapper.Map<UserProfileResponseModel>(user));
         }
 
         [HttpGet]
         [Route("{userId}/comments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<CommentModel>>> GetCommentsAsync([FromRoute] string userId)
+        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromRoute] string userId)
         {
-            var res = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
+            ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 
-            return Ok(res);
+            return Ok(_mapper.Map<ICollection<CommentResponseModel>>(comments));
         }
 
         [HttpPatch]

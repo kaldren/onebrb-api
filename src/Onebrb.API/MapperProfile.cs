@@ -19,7 +19,9 @@ namespace Onebrb.API
                 );
 
             CreateMap<Profile, ActivatedUserProfileResponseModel>();
+            CreateMap<Profile, UserProfileModel>();
             CreateMap<UserProfileModel, ActivatedUserProfileResponseModel>();
+            CreateMap<UserProfileModel, UserProfileResponseModel>();
         }
     }
 }

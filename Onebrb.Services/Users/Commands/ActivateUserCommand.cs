@@ -37,7 +37,7 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand,
             return new UserProfileModel
             {
                 Email = request.ProfileModel.Email,
-                ProfileId = request.ProfileModel.Id,
+                Id = request.ProfileModel.Id,
                 FirstName = request.ProfileModel.Name.Split(' ')[0],
                 LastName = request.ProfileModel.Name.Split(' ')[1]
             };

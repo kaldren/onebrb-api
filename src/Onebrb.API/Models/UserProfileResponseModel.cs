@@ -1,6 +1,6 @@
-﻿namespace Onebrb.Application.Users.Models
+﻿namespace Onebrb.API.Models
 {
-    public class UserProfileModel
+    public class UserProfileResponseModel
     {
         /// <summary>
         /// Gets or sets the profile Id
