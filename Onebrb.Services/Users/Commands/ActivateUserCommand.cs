@@ -25,6 +25,7 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand,
     {
         _profileRepository.Insert(new Profile
         {
+            Id = request.ProfileModel.Id,
             Email = request.ProfileModel.Email,
             FirstName = request.ProfileModel.Name.Split(' ')[0],
             LastName = request.ProfileModel.Name.Split(' ')[1]
