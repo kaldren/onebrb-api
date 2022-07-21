@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.Application.Comments.Models;
+using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
@@ -35,6 +36,36 @@ namespace Onebrb.API.Controllers
         public async Task<ActionResult<UserProfileModel>> GetUserAsync(string userId)
         {
             var res = await _mediator.Send(new GetUserProfileByIdQuery() { Id = userId });
+
+            if (res == null) return NotFound();
+
+            return Ok(res);
+        }
+
+        [HttpGet("activate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<UserProfileModel>> ActivateUserAsync()
+        {
+            // TODO: Check if user already created
+
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+            string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
+
+            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+
+            if (existingUser is not null)
+                return existingUser;
+
+            var user = new ActivateUserProfileModel
+            {
+                Id = currentUserId,
+                Email = currentUserEmail,
+                Name = currentUserName
+            };
+
+            UserProfileModel? res = await _mediator.Send(new ActivateUserCommand() { ProfileModel = user });
 
             if (res == null) return NotFound();
 
