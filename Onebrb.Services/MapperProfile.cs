@@ -10,6 +10,7 @@ namespace Onebrb.Application
         {
             #region Profile
             CreateMap<Profile, UserProfileModel>();
+            CreateMap<UpdateUserProfileModel, Profile>();
             #endregion
 
             #region Comment

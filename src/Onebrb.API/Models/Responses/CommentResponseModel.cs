@@ -1,4 +1,4 @@
-﻿namespace Onebrb.API.Models
+﻿namespace Onebrb.API.Models.Responses
 {
     public class CommentResponseModel
     {

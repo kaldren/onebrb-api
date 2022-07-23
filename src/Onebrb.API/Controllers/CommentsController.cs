@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Onebrb.API.Models;
+using Onebrb.API.Models.Responses;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 

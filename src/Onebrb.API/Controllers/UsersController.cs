@@ -2,7 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Onebrb.API.Models;
+using Onebrb.API.Models.Requests;
+using Onebrb.API.Models.Responses;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
@@ -102,9 +103,18 @@ namespace Onebrb.API.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult> EditProfileAsync([FromBody][Required] Domain.Entities.Profile.Profile profileModel)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<UserProfileResponseModel>> UpdateProfileAsync([FromBody][Required] UpdateUserProfileRequestModel profile)
         {
-            return null;
+            UpdateUserProfileModel profileModel = _mapper.Map<UpdateUserProfileModel>(profile);
+
+            UserProfileModel? user = await _mediator.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });
+
+            if (user is null) return BadRequest();
+
+            return this.Ok(_mapper.Map<UserProfileResponseModel>(user));
         }
     }
 }
