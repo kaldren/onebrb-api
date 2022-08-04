@@ -12,11 +12,14 @@ namespace Onebrb.Infrastructure.Data
                 return;
             }
 
+            string profile1Id = "4f170031-f087-4ad5-8343-7da89e8cb8bd";
+            string profile2Id = "4f170031-f087-4ad5-8343-7da89e8cb8be";
+
             // Add profiles
             var profiles = new Profile[]
             {
-                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877"},
-                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222"},
+                new Profile {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877"},
+                new Profile {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222"},
                 new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333"},
                 new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444"},
                 new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555"}
