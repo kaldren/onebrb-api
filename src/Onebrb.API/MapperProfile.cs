@@ -1,5 +1,6 @@
 ﻿using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Responses;
+using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Models;
 using Onebrb.Domain.Entities.Profile;
 
@@ -9,6 +10,7 @@ namespace Onebrb.API
     {
         public MapperProfile()
         {
+            #region Comment
             CreateMap<Comment, CommentResponseModel>()
                 .ForMember(
                     dest => dest.AuthorFirstName,
@@ -18,6 +20,9 @@ namespace Onebrb.API
                     dest => dest.AuthorLastName,
                     opt => opt.MapFrom(src => src.Author.LastName)
                 );
+            #endregion
+
+            CreateMap<PostCommentRequestModel, PostCommentModel>();
 
             #region Profile
             CreateMap<Profile, ActivatedUserProfileResponseModel>();

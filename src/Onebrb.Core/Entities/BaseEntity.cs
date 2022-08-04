@@ -7,5 +7,7 @@ namespace Onebrb.Domain.Entities
         public string Id { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public string TrackId { get; set; } = Guid.NewGuid().ToString();
     }
 }
