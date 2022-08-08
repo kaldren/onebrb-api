@@ -4,27 +4,27 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
 
-namespace Onebrb.Application.Comments.Commands.PostSingleComment;
+namespace Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 
-public record PostCommentCommand : IRequest<CommentModel>
+public record PostSingleCommentCommand : IRequest<CommentModel>
 {
     public PostCommentModel RequestModel { get; set; }
 }
 
-internal class PostCommentHandler : IRequestHandler<PostCommentCommand, CommentModel>
+public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentCommand, CommentModel>
 {
     private readonly IGenericRepository<Comment> _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public PostCommentHandler(IGenericRepository<Comment> profileRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public PostCommentCommandHandler(IGenericRepository<Comment> profileRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _commentRepository = profileRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<CommentModel> Handle(PostCommentCommand request, CancellationToken cancellationToken)
+    public async Task<CommentModel> Handle(PostSingleCommentCommand request, CancellationToken cancellationToken)
     {
         string trackId = Guid.NewGuid().ToString();
 

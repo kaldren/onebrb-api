@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Responses;
-using Onebrb.Application.Comments.Commands.PostSingleComment;
+using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Users.Models;
@@ -56,7 +56,7 @@ namespace Onebrb.API.Controllers
             PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
             model.AuthorId = currentUserId;
 
-            CommentModel result = await _mediator.Send(new PostCommentCommand() { RequestModel = model });
+            CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { RequestModel = model });
 
             return Ok(result);
         }
