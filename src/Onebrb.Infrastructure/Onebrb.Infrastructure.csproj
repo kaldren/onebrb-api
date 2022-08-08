@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Onebrb.Services\Onebrb.Application.csproj" />
+    <ProjectReference Include="..\Onebrb.Application\Onebrb.Application.csproj" />
     <ProjectReference Include="..\Onebrb.Core\Onebrb.Domain.csproj" />
   </ItemGroup>
 
