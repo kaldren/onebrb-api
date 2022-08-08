@@ -87,6 +87,14 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Initialize(context);
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    loggerFactory.AddFile($@"{Directory.GetCurrentDirectory()}\Logs\log.txt");
+}
+
 app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
