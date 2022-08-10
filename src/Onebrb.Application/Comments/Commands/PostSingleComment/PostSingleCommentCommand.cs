@@ -3,6 +3,7 @@ using MediatR;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Exceptions;
 
 namespace Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 
@@ -40,7 +41,7 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
         int result = await _unitOfWork.SaveChangesAsync();
 
         if (result <= 0)
-            throw new Exception("Couldn't create new post.");
+            throw new CommentException("Couldn't create new post.");
 
         Comment? comment = await _commentRepository.GetSingleOrDefault(p => p.TrackId == trackId);
 
