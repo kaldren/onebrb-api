@@ -19,12 +19,12 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly IMediator _mediator;
+        private readonly Lazy<IMapper> _mapper;
+        private readonly Lazy<IMediator> _mediator;
 
         public UsersController(
-            IMapper mapper,
-            IMediator mediator
+            Lazy<IMapper> mapper,
+            Lazy<IMediator> mediator
         )
         {
             _mapper = mapper;
@@ -37,11 +37,11 @@ namespace Onebrb.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<UserProfileResponseModel>> GetUserAsync(string userId)
         {
-            UserProfileModel user = await _mediator.Send(new GetUserProfileByIdQuery() { Id = userId });
+            UserProfileModel user = await _mediator.Value.Send(new GetUserProfileByIdQuery() { Id = userId });
 
             if (user == null) return NotFound();
 
-            return Ok(_mapper.Map<UserProfileResponseModel>(user));
+            return Ok(_mapper.Value.Map<UserProfileResponseModel>(user));
         }
 
         [HttpGet("activate")]
@@ -55,10 +55,10 @@ namespace Onebrb.API.Controllers
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
             string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
 
-            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+            UserProfileModel? existingUser = await _mediator.Value.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (existingUser is not null)
-                return Ok(_mapper.Map<UserProfileResponseModel>(existingUser));
+                return Ok(_mapper.Value.Map<UserProfileResponseModel>(existingUser));
 
             var user = new ActivateUserProfileModel
             {
@@ -67,11 +67,11 @@ namespace Onebrb.API.Controllers
                 Name = currentUserName
             };
 
-            UserProfileModel? activatedUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = user });
+            UserProfileModel? activatedUser = await _mediator.Value.Send(new ActivateUserCommand() { ProfileModel = user });
 
             if (activatedUser is null) return NotFound();
 
-            return Ok(_mapper.Map<UserProfileResponseModel>(activatedUser));
+            return Ok(_mapper.Value.Map<UserProfileResponseModel>(activatedUser));
         }
 
         [HttpGet("current")]
@@ -83,12 +83,12 @@ namespace Onebrb.API.Controllers
 
             if (currentUserId is null) return NotFound();
 
-            UserProfileModel user = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+            UserProfileModel user = await _mediator.Value.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (user is null)
                 return NotFound();
 
-            return Ok(_mapper.Map<UserProfileResponseModel>(user));
+            return Ok(_mapper.Value.Map<UserProfileResponseModel>(user));
         }
 
         [HttpGet]
@@ -97,9 +97,9 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromRoute][Required] string userId)
         {
-            ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
+            ICollection<CommentModel> comments = await _mediator.Value.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 
-            return Ok(_mapper.Map<ICollection<CommentResponseModel>>(comments));
+            return Ok(_mapper.Value.Map<ICollection<CommentResponseModel>>(comments));
         }
 
         [HttpPatch]
@@ -108,13 +108,13 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<UserProfileResponseModel>> UpdateProfileAsync([FromBody][Required] UpdateUserProfileRequestModel profile)
         {
-            UpdateUserProfileModel profileModel = _mapper.Map<UpdateUserProfileModel>(profile);
+            UpdateUserProfileModel profileModel = _mapper.Value.Map<UpdateUserProfileModel>(profile);
 
-            UserProfileModel? user = await _mediator.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });
+            UserProfileModel? user = await _mediator.Value.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });
 
             if (user is null) return BadRequest();
 
-            return this.Ok(_mapper.Map<UserProfileResponseModel>(user));
+            return this.Ok(_mapper.Value.Map<UserProfileResponseModel>(user));
         }
     }
 }
