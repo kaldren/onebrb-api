@@ -3,6 +3,11 @@
     public class CommentResponseModel
     {
         /// <summary>
+        /// Gets or sets the Id
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the content
         /// </summary>
         public string Content { get; set; }

@@ -18,9 +18,9 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public PostCommentCommandHandler(IGenericRepository<Comment> profileRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public PostCommentCommandHandler(IGenericRepository<Comment> commentRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _commentRepository = profileRepository;
+        _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }

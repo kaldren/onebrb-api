@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Responses;
+using Onebrb.Application.Comments.Commands.DeleteSingleComment;
 using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
@@ -27,6 +28,7 @@ namespace Onebrb.API.Controllers
             _mapper = mapper;
         }
 
+        #region GET
         [HttpGet("{commentId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -41,7 +43,9 @@ namespace Onebrb.API.Controllers
 
             return Ok(_mapper.Map<CommentResponseModel>(comment));
         }
+        #endregion
 
+        #region POST
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -49,6 +53,9 @@ namespace Onebrb.API.Controllers
         public async Task<ActionResult<CommentResponseModel>> PostCommentAsync([FromBody][Required] PostCommentRequestModel comment)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (currentUserId is null)
+                return Unauthorized();
 
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
@@ -62,5 +69,33 @@ namespace Onebrb.API.Controllers
 
             return Ok(result);
         }
+        #endregion
+
+        #region DELETE
+        [HttpDelete("{commentId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> DeleteCommentAsync([FromRoute][Required] string commentId)
+        {
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (currentUserId is null)
+                return Unauthorized();
+
+            CommentModel comment = await _mediator.Send(new GetSingleCommentByCommentIdQuery() { Id = commentId });
+
+            if (comment is null)
+                return NotFound();
+
+            if (currentUserId != comment.AuthorId)
+                return Unauthorized();
+
+            await _mediator.Send(new DeleteSingleCommentCommand() { CommentId = commentId });
+
+            return Ok();
+        }
+        #endregion
     }
 }
