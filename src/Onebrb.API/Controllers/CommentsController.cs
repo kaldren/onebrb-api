@@ -18,10 +18,10 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly Lazy<IMediator> _mediator;
-        private readonly Lazy<IMapper> _mapper;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public CommentsController(Lazy<IMediator> mediator, Lazy<IMapper> mapper)
+        public CommentsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -34,12 +34,12 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CommentResponseModel>> GetCommentAsync([FromRoute][Required] string commentId)
         {
-            CommentModel comment = await _mediator.Value.Send(new GetSingleCommentByCommentIdQuery() { Id = commentId });
+            CommentModel comment = await _mediator.Send(new GetSingleCommentByCommentIdQuery() { Id = commentId });
 
             if (comment is null)
                 return NotFound();
 
-            return Ok(_mapper.Value.Map<CommentResponseModel>(comment));
+            return Ok(_mapper.Map<CommentResponseModel>(comment));
         }
 
         [HttpPost]
@@ -50,15 +50,15 @@ namespace Onebrb.API.Controllers
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
-            UserProfileModel? existingUser = await _mediator.Value.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (existingUser is null)
                 return BadRequest();
 
-            PostCommentModel model = _mapper.Value.Map<PostCommentModel>(comment);
+            PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
             model.AuthorId = currentUserId;
 
-            CommentModel result = await _mediator.Value.Send(new PostSingleCommentCommand() { RequestModel = model });
+            CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { RequestModel = model });
 
             return Ok(result);
         }
