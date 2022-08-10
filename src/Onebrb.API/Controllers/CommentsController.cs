@@ -8,6 +8,7 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
+using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
 {
@@ -30,7 +31,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<CommentResponseModel>> GetCommentAsync([FromRoute] string commentId)
+        public async Task<ActionResult<CommentResponseModel>> GetCommentAsync([FromRoute][Required] string commentId)
         {
             CommentModel comment = await _mediator.Send(new GetSingleCommentByCommentIdQuery() { Id = commentId });
 
@@ -44,7 +45,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<CommentResponseModel>> PostCommentAsync([FromBody] PostCommentRequestModel comment)
+        public async Task<ActionResult<CommentResponseModel>> PostCommentAsync([FromBody][Required] PostCommentRequestModel comment)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 

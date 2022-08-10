@@ -95,7 +95,7 @@ namespace Onebrb.API.Controllers
         [Route("{userId}/comments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromRoute] string userId)
+        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromRoute][Required] string userId)
         {
             ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 

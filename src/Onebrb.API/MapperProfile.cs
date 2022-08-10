@@ -11,7 +11,7 @@ namespace Onebrb.API
         public MapperProfile()
         {
             #region Comment
-            CreateMap<Comment, CommentResponseModel>()
+            CreateMap<Comment, CommentModel>()
                 .ForMember(
                     dest => dest.AuthorFirstName,
                     opt => opt.MapFrom(src => src.Author.FirstName)
@@ -20,6 +20,8 @@ namespace Onebrb.API
                     dest => dest.AuthorLastName,
                     opt => opt.MapFrom(src => src.Author.LastName)
                 );
+
+            CreateMap<CommentModel, CommentResponseModel>();
             #endregion
 
             CreateMap<PostCommentRequestModel, PostCommentModel>();
