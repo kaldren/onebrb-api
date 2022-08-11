@@ -33,6 +33,7 @@ public class PatchCommentCommandHandler : IRequestHandler<PatchSingleCommentComm
             throw new CommentNotFoundException($"Comment with id {request.RequestModel.Id} does not exist.");
 
         currentComment.Content = request.RequestModel.Content;
+        currentComment.LastUpdateDate = DateTimeOffset.UtcNow;
         _commentRepository.Update(currentComment);
 
         int result = await _unitOfWork.SaveChangesAsync();

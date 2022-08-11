@@ -10,8 +10,8 @@ namespace Onebrb.Domain.Entities
 
         public string TrackId { get; set; } = Guid.NewGuid().ToString();
 
-        public DateTimeOffset Date { get; set; }
+        public DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow;
 
-        public DateTimeOffset LastEditDate { get; set; }
+        public DateTimeOffset LastUpdateDate { get; set; } = DateTimeOffset.UtcNow;
     }
 }
