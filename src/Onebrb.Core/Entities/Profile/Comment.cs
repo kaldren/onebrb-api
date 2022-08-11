@@ -28,10 +28,5 @@ namespace Onebrb.Domain.Entities.Profile
         /// Gets or sets the recipient
         [ForeignKey(nameof(RecipientId))]
         public virtual Profile Recipient { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date of posting
-        /// </summary>
-        public DateTimeOffset Date { get; set; }
     }
 }

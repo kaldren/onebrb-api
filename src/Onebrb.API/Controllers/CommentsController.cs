@@ -2,8 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests;
+using Onebrb.API.Models.Requests.Comment;
 using Onebrb.API.Models.Responses;
 using Onebrb.Application.Comments.Commands.DeleteSingleComment;
+using Onebrb.Application.Comments.Commands.PatchSingleComment;
 using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
@@ -67,7 +69,33 @@ namespace Onebrb.API.Controllers
 
             CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { RequestModel = model });
 
-            return Ok(result);
+            return Ok(this._mapper.Map<CommentResponseModel>(result));
+        }
+        #endregion
+
+        #region PATCH
+        [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<CommentResponseModel>> PatchCommentAsync([FromBody][Required] PatchCommentRequestModel comment)
+        {
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (currentUserId is null)
+                return Unauthorized();
+
+            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+
+            if (existingUser is null)
+                return BadRequest();
+
+            PatchCommentModel model = _mapper.Map<PatchCommentModel>(comment);
+            model.AuthorId = currentUserId;
+
+            CommentModel result = await _mediator.Send(new PatchSingleCommentCommand() { RequestModel = model });
+
+            return Ok(this._mapper.Map<CommentResponseModel>(result));
         }
         #endregion
 

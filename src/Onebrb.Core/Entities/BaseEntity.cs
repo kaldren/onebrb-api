@@ -9,5 +9,9 @@ namespace Onebrb.Domain.Entities
         public bool IsDeleted { get; set; }
 
         public string TrackId { get; set; } = Guid.NewGuid().ToString();
+
+        public DateTimeOffset Date { get; set; }
+
+        public DateTimeOffset LastEditDate { get; set; }
     }
 }

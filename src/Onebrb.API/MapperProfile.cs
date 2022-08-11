@@ -1,4 +1,5 @@
 ﻿using Onebrb.API.Models.Requests;
+using Onebrb.API.Models.Requests.Comment;
 using Onebrb.API.Models.Responses;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Models;
@@ -22,9 +23,10 @@ namespace Onebrb.API
                 );
 
             CreateMap<CommentModel, CommentResponseModel>();
-            #endregion
 
             CreateMap<PostCommentRequestModel, PostCommentModel>();
+            CreateMap<PatchCommentRequestModel, PatchCommentModel>();
+            #endregion
 
             #region Profile
             CreateMap<Profile, ActivatedUserProfileResponseModel>();
