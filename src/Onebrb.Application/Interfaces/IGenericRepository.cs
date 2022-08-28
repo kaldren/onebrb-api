@@ -15,15 +15,6 @@ namespace Onebrb.Application.Interfaces
         Task<TEntity?> GetAsync(string id);
 
         /// <summary>
-        /// Gets a single entity query.
-        /// </summary>
-        /// <param name="id">Entity identifier</param>
-        /// <returns>
-        /// Returns the <typeparamref name="TEntity" /> entity as queryable.
-        /// </returns>
-        IQueryable<TEntity?> GetQuery(Expression<Func<TEntity, bool>> func);
-
-        /// <summary>
         /// Gets a single entity.
         /// </summary>
         /// <param name="id">Entity identifier</param>

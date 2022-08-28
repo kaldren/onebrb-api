@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Onebrb.Application.Extensions;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
 
@@ -25,14 +23,7 @@ public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileById
 
     public async Task<UserProfileModel> Handle(GetUserProfileByIdQuery request, CancellationToken cancellationToken)
     {
-        //Domain.Entities.Profile.Profile? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.Id);
-        Domain.Entities.Profile.Profile? profile = await _profileRepository
-            .GetQuery(p => p.Id == request.Id)
-            .IncludeMultiple(
-                c => c.City,
-                c => c.City.Country
-            )
-            .SingleOrDefaultAsync();
+        Domain.Entities.Profile.Profile? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.Id);
 
         return _mapper.Map<UserProfileModel>(profile);
     }

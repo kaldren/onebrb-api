@@ -1,6 +1,4 @@
-﻿using Onebrb.Domain.Entities.Country;
-
-namespace Onebrb.Domain.Entities.Profile
+﻿namespace Onebrb.Domain.Entities.Profile
 {
     public class Profile : BaseEntity
     {
@@ -28,11 +26,6 @@ namespace Onebrb.Domain.Entities.Profile
         /// Gets or sets short information about the services the person provides
         /// </summary>
         public string About { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets city
-        /// </summary>
-        public virtual City City { get; set; }
 
         /// <summary>
         /// Gets or sets the comments
