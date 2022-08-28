@@ -9,7 +9,9 @@ namespace Onebrb.Application
         public MapperProfile()
         {
             #region Profile
-            CreateMap<Profile, UserProfileModel>();
+            CreateMap<Profile, UserProfileModel>()
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name));
             CreateMap<UpdateUserProfileModel, Profile>();
             #endregion
 

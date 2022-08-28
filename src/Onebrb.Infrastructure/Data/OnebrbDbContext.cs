@@ -25,7 +25,8 @@ namespace Onebrb.Infrastructure.Data
                 .Entity<City>()
                 .ToTable("Cities")
                 .HasOne(p => p.Country)
-                .WithMany(p => p.Cities);
+                .WithMany(p => p.Cities)
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder
                 .Entity<Country>()

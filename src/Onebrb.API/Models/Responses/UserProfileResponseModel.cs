@@ -31,5 +31,15 @@
         /// Gets or sets short information about the services the person provides
         /// </summary>
         public string About { get; set; }
+
+        /// <summary>
+        /// Gets or sets the country
+        /// </summary>
+        public string Country { get; set; }
+
+        /// <summary>
+        /// Gets or sets the city
+        /// </summary>
+        public string City { get; set; }
     }
 }

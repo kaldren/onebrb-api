@@ -15,33 +15,29 @@ namespace Onebrb.Infrastructure.Data
             string profile1Id = "4f170031-f087-4ad5-8343-7da89e8cb8bd";
             string profile2Id = "4f170031-f087-4ad5-8343-7da89e8cb8be";
 
-            // Add profiles
-            var profiles = new Profile[]
-            {
-                new Profile {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877"},
-                new Profile {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222"},
-                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333"},
-                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444"},
-                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555"}
-            };
+            // Countries
+            string countryBGId = Guid.NewGuid().ToString();
+            string countryUSAId = Guid.NewGuid().ToString();
+            string countryDEId = Guid.NewGuid().ToString();
 
-            onebrbDbContext.Profiles.AddRange(profiles);
+            // Cities
+            string velikoTarnovoId = Guid.NewGuid().ToString();
 
             // Add countries & cities
             var countries = new Country[]
             {
                 new Country {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = countryBGId,
                     Name="Bulgaria",
                     Cities = new City[] {
-                        new City {Id = Guid.NewGuid().ToString(), Name = "Veliko Tarnovo"},
+                        new City {Id = velikoTarnovoId, Name = "Veliko Tarnovo"},
                         new City {Id = Guid.NewGuid().ToString(), Name = "Sofia"},
                         new City {Id = Guid.NewGuid().ToString(), Name = "Varna"},
                         new City {Id = Guid.NewGuid().ToString(), Name = "Bourgas"},
                     }
                 },
                 new Country {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = countryUSAId,
                     Name="USA",
                     Cities = new City[] {
                         new City {Id = Guid.NewGuid().ToString(), Name = "Los Angeles"},
@@ -51,7 +47,7 @@ namespace Onebrb.Infrastructure.Data
                     }
                 },
                 new Country {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = countryDEId,
                     Name="Germany",
                     Cities = new City[] {
                         new City {Id = Guid.NewGuid().ToString(), Name = "Munich"},
@@ -61,6 +57,19 @@ namespace Onebrb.Infrastructure.Data
                     }
                 },
             };
+
+            // Add profiles
+            var profiles = new Profile[]
+            {
+                new Profile {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId},
+                new Profile {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId},
+                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId},
+                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
+                new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
+            };
+
+            onebrbDbContext.Profiles.AddRange(profiles);
+
 
             onebrbDbContext.Countries.AddRange(countries);
 
