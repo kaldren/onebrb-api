@@ -16,11 +16,13 @@ namespace Onebrb.Infrastructure.Data
             dbSet = onebrbDbContext.Set<TEntity>();
         }
 
-        public void Delete(TEntity entity)
-            => dbSet.Remove(entity);
-
         public async Task<TEntity?> GetSingleOrDefault(Expression<Func<TEntity, bool>> func)
             => await dbSet.Where(func).FirstOrDefaultAsync();
+
+        public IQueryable<TEntity?> GetQuery(Expression<Func<TEntity, bool>> func)
+        {
+            return dbSet.Where(func);
+        }
 
         public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> func)
             => await dbSet.Where(func).ToListAsync();
@@ -33,5 +35,8 @@ namespace Onebrb.Infrastructure.Data
 
         public void Update(TEntity entity)
             => dbSet.Update(entity);
+
+        public void Delete(TEntity entity)
+            => dbSet.Remove(entity);
     }
 }
