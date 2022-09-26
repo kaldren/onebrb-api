@@ -20,11 +20,17 @@ public class GetUserProfileByIdQueryHandlerTests
     [Fact]
     public async Task GetUserProfileByIdQueryHandler_ValidUserId_ShouldReturnProfile()
     {
+        //This code is needed to support recursion
+        _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+        .ForEach(b => _fixture.Behaviors.Remove(b));
+        _fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
+
         string fakeUserId = _fixture.Create<string>();
         UserProfileModel fakeProfileModel = _fixture.Create<UserProfileModel>();
 
         Domain.Entities.Profile.Profile fakeProfile = _fixture.Build<Domain.Entities.Profile.Profile>()
             .Without(p => p.Comments)
+            .Without(p => p.City)
             .Create();
 
         _mockRepo.Setup(p => p.GetAsync(It.Is<string>(p => p == fakeUserId))).ReturnsAsync(() => fakeProfile);
