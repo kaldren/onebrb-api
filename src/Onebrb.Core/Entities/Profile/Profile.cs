@@ -30,20 +30,20 @@
         /// <summary>
         /// Gets or sets the country
         /// </summary>
-        public string CountryId { get; set; } = string.Empty;
+        public string? CountryId { get; set; }
 
-        public virtual Country.Country Country { get; set; }
+        public virtual Country.Country? Country { get; set; }
 
         /// <summary>
         /// Gets or sets the city
         /// </summary>
-        public string CityId { get; set; } = string.Empty;
+        public string? CityId { get; set; }
 
-        public virtual Country.City City { get; set; }
+        public virtual Country.City? City { get; set; }
 
         /// <summary>
         /// Gets or sets the comments
         /// </summary>
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment>? Comments { get; set; }
     }
 }
