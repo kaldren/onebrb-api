@@ -8,6 +8,7 @@ using Onebrb.Application.Comments.Commands.DeleteSingleComment;
 using Onebrb.Application.Comments.Commands.PatchSingleComment;
 using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 using Onebrb.Application.Comments.Models;
+using Onebrb.Application.Comments.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
@@ -45,6 +46,23 @@ namespace Onebrb.API.Controllers
 
             return Ok(_mapper.Map<CommentResponseModel>(comment));
         }
+
+        /// <summary>
+        /// Gets all comments between users
+        /// </summary>
+        /// <param name="recipientId">The recipient id</param>
+        /// <param name="authorId">The sender id</param>
+        /// <returns>All comments or empty collection.</returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsFromSenderAsync([FromQuery][Required] string recipientId, [FromQuery][Required] string authorId)
+        {
+            ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsFromSenderToRecipientQuery() { RecipientId = recipientId, AuthorId = authorId });
+
+            return Ok(_mapper.Map<ICollection<CommentResponseModel>>(comments));
+        }
+
         #endregion
 
         #region POST
@@ -66,6 +84,11 @@ namespace Onebrb.API.Controllers
 
             PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
             model.AuthorId = currentUserId;
+
+            ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsFromSenderToRecipientQuery() { RecipientId = comment.RecipientId, AuthorId = comment.AuthorId });
+
+            if (comments.Any())
+                return BadRequest();
 
             CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { RequestModel = model });
 
