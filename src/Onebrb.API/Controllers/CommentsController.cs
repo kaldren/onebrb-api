@@ -80,7 +80,7 @@ namespace Onebrb.API.Controllers
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (existingUser is null)
-                return BadRequest();
+                return BadRequest("The user doesn't exist.");
 
             PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
             model.AuthorId = currentUserId;
@@ -88,7 +88,7 @@ namespace Onebrb.API.Controllers
             ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsFromSenderToRecipientQuery() { RecipientId = comment.RecipientId, AuthorId = comment.AuthorId });
 
             if (comments.Any())
-                return BadRequest();
+                return BadRequest("User already posted a comment to this user.");
 
             CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { RequestModel = model });
 
