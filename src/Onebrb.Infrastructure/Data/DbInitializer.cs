@@ -1,4 +1,5 @@
 ﻿using Onebrb.Domain.Entities.Country;
+using Onebrb.Domain.Entities.Product;
 using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.Infrastructure.Data
@@ -23,7 +24,6 @@ namespace Onebrb.Infrastructure.Data
             // Cities
             string velikoTarnovoId = Guid.NewGuid().ToString();
 
-            // Add countries & cities
             var countries = new Country[]
             {
                 new Country {
@@ -67,12 +67,10 @@ namespace Onebrb.Infrastructure.Data
                 new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
                 new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
             };
-
             onebrbDbContext.Profiles.AddRange(profiles);
 
-
+            // Add countries & cities
             onebrbDbContext.Countries.AddRange(countries);
-
 
             // Add comments
             var comments = new Comment[]
@@ -81,8 +79,28 @@ namespace Onebrb.Infrastructure.Data
                 new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[2], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2)), Recipient = profiles[0]},
                 new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
             };
-
             onebrbDbContext.Comments.AddRange(comments);
+
+            // Add product
+            string productId = "16e9bd28-2ac3-4d92-9186-d91cfc95cb52";
+            var product = new Product()
+            {
+                Id = productId,
+                Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-1)),
+                Title = "Tesla Model S 2022",
+                Description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.",
+                Price = 141000M,
+                Images = new List<ProductImage>()
+                {
+                    new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
+                    new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
+                    new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
+                    new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
+                    new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
+                    new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
+                }
+            };
+            onebrbDbContext.Products.AddRange(product);
 
             onebrbDbContext.SaveChanges();
         }
