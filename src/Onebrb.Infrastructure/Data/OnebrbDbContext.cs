@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Onebrb.Domain.Entities.Country;
+using Onebrb.Domain.Entities.Product;
 using Onebrb.Domain.Entities.Profile;
 
 namespace Onebrb.Infrastructure.Data
@@ -14,6 +15,8 @@ namespace Onebrb.Infrastructure.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
