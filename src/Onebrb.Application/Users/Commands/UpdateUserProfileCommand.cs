@@ -12,12 +12,12 @@ public record UpdateUserProfileCommand : IRequest<UserProfileModel?>
 
 internal class UpdateUserProfileHandler : IRequestHandler<UpdateUserProfileCommand, UserProfileModel?>
 {
-    private readonly IGenericRepository<Domain.Entities.Profile.Profile> _profileRepository;
+    private readonly IGenericRepository<Domain.Entities.ProfileAggregate.Profile> _profileRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public UpdateUserProfileHandler(
-        IGenericRepository<Domain.Entities.Profile.Profile> profileRepository,
+        IGenericRepository<Domain.Entities.ProfileAggregate.Profile> profileRepository,
         IUnitOfWork unitOfWork,
         IMapper mapper)
     {

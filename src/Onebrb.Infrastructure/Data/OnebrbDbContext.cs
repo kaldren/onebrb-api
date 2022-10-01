@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Onebrb.Domain.Entities.Country;
-using Onebrb.Domain.Entities.Product;
-using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Entities.CountryAggregate;
+using Onebrb.Domain.Entities.ProductAggregate;
+using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.Infrastructure.Data
 {

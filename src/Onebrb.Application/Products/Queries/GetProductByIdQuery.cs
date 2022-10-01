@@ -2,7 +2,7 @@
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Products.Models;
-using Onebrb.Domain.Entities.Product;
+using Onebrb.Domain.Entities.ProductAggregate;
 
 namespace Onebrb.Application.Products.Queries;
 

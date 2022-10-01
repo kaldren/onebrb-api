@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Onebrb.Application.Interfaces;
-using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Entities.ProfileAggregate;
 using Onebrb.Domain.Exceptions.Comment;
 
 namespace Onebrb.Application.Comments.Commands.DeleteSingleComment;

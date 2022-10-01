@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.Application.Users.Commands;
 

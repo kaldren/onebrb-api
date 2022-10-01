@@ -1,6 +1,6 @@
 ﻿using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.Application
 {

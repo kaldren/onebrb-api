@@ -4,8 +4,8 @@ using Onebrb.API.Models.Responses;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Products.Models;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.Product;
-using Onebrb.Domain.Entities.Profile;
+using Onebrb.Domain.Entities.ProductAggregate;
+using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.API
 {
