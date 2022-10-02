@@ -8,6 +8,11 @@
         public string Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the product title
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
         /// Gets or sets the product description
         /// </summary>
         public string Description { get; set; }

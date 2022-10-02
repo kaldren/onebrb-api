@@ -58,29 +58,6 @@ public static class DbInitializer
             },
         };
 
-        // Add profiles
-        var profiles = new Profile[]
-        {
-            new Profile {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
-        };
-        onebrbDbContext.Profiles.AddRange(profiles);
-
-        // Add countries & cities
-        onebrbDbContext.Countries.AddRange(countries);
-
-        // Add comments
-        var comments = new Comment[]
-        {
-            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[1], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-1)), Recipient = profiles[0]},
-            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[2], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2)), Recipient = profiles[0]},
-            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
-        };
-        onebrbDbContext.Comments.AddRange(comments);
-
         // Add product
         string productId = "16e9bd28-2ac3-4d92-9186-d91cfc95cb52";
         var product = new Product()
@@ -100,7 +77,38 @@ public static class DbInitializer
                 new ProductImage() { Id = Guid.NewGuid().ToString(), Path = "https://automedia.investor.bg/media/files/resized/uploadedfiles/640x0/306/7ea7096ab1efa8cd5d823a7ea8a4b306-tesla-model-s-2022-update-2.jpg" },
             }
         };
+
+
+        // Add profiles
+        var profiles = new Profile[]
+        {
+            new Profile {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new Profile {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
+        };
+
+        // Add product to user Kaloyan Drenski
+        profiles[0].Products = new List<Product>()
+        {
+            product,
+        };
+
         onebrbDbContext.Products.AddRange(product);
+        onebrbDbContext.Profiles.AddRange(profiles);
+
+        // Add countries & cities
+        onebrbDbContext.Countries.AddRange(countries);
+
+        // Add comments
+        var comments = new Comment[]
+        {
+            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[1], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-1)), Recipient = profiles[0]},
+            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[2], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2)), Recipient = profiles[0]},
+            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
+        };
+        onebrbDbContext.Comments.AddRange(comments);
 
         onebrbDbContext.SaveChanges();
     }

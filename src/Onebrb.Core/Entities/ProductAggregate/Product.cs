@@ -1,4 +1,6 @@
-﻿namespace Onebrb.Domain.Entities.ProductAggregate;
+﻿using Onebrb.Domain.Entities.ProfileAggregate;
+
+namespace Onebrb.Domain.Entities.ProductAggregate;
 
 public class Product : BaseEntity
 {
@@ -31,4 +33,9 @@ public class Product : BaseEntity
     /// Gets or sets the date of posting
     /// </summary>
     public DateTimeOffset Date { get; set; }
+
+    /// <summary>
+    /// Gets or sets the date of posting
+    /// </summary>
+    public virtual Profile Profile { get; set; }
 }

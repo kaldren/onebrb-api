@@ -41,7 +41,14 @@ namespace Onebrb.Infrastructure.Data
                 .ToTable("Comments")
                 .HasOne(p => p.Author)
                 .WithMany(p => p.Comments)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder
+                .Entity<Product>()
+                .ToTable("Products")
+                .HasOne(p => p.Profile)
+                .WithMany(p => p.Products)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }
