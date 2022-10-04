@@ -13,7 +13,7 @@ public static class DbInitializer
             return;
         }
 
-        string profile1Id = "4f170031-f087-4ad5-8343-7da89e8cb8bd";
+        string profile1Id = "0a945d97-4e71-4956-b5dd-c6706173dd36";
         string profile2Id = "4f170031-f087-4ad5-8343-7da89e8cb8be";
 
         // Countries
