@@ -1,6 +1,9 @@
 ﻿using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Requests.Comment;
-using Onebrb.API.Models.Responses;
+using Onebrb.API.Models.Requests.Product;
+using Onebrb.API.Models.Responses.Comment;
+using Onebrb.API.Models.Responses.Product;
+using Onebrb.API.Models.Responses.Profile;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Products.Models;
 using Onebrb.Application.Users.Models;
@@ -43,6 +46,8 @@ namespace Onebrb.API
             CreateMap<ProductImage, ProductImageModel>();
             CreateMap<ProductModel, ProductResponseModel>();
             CreateMap<ProductImageModel, ProductImageResponseModel>();
+            CreateMap<ProductRequestModel, ProductInputModel>();
+            CreateMap<ProductInputModel, Product>();
             #endregion Product
         }
     }

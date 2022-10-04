@@ -3,7 +3,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests;
-using Onebrb.API.Models.Responses;
+using Onebrb.API.Models.Responses.Comment;
+using Onebrb.API.Models.Responses.Product;
+using Onebrb.API.Models.Responses.Profile;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Products.Models;
 using Onebrb.Application.Products.Queries;
@@ -56,10 +58,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ICollection<ProductResponseModel>>> GetAllProducts(string userId)
         {
-            ICollection<ProductModel>? products = await _mediator.Send(new GetAllProductsByUserIdQuery() { Id = userId });
-
-            if (products is null || !products.Any())
-                return NotFound();
+            ICollection<ProductModel> products = await _mediator.Send(new GetAllProductsByUserIdQuery() { Id = userId });
 
             return _mapper.Map<List<ProductResponseModel>>(products);
         }

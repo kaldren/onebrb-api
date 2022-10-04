@@ -1,4 +1,4 @@
-﻿namespace Onebrb.API.Models.Responses
+﻿namespace Onebrb.API.Models.Responses.Profile
 {
     public class ActivatedUserProfileResponseModel
     {

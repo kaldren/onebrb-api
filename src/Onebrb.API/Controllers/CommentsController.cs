@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Requests.Comment;
-using Onebrb.API.Models.Responses;
+using Onebrb.API.Models.Responses.Comment;
 using Onebrb.Application.Comments.Commands.DeleteSingleComment;
 using Onebrb.Application.Comments.Commands.PatchSingleComment;
 using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
@@ -90,7 +90,7 @@ namespace Onebrb.API.Controllers
             if (comments.Any())
                 return BadRequest("User already posted a comment to this user.");
 
-            CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { RequestModel = model });
+            CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { Comment = model });
 
             return Ok(this._mapper.Map<CommentResponseModel>(result));
         }

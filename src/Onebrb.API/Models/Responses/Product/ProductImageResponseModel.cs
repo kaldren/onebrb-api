@@ -1,4 +1,4 @@
-﻿namespace Onebrb.API.Models.Responses
+﻿namespace Onebrb.API.Models.Responses.Product
 {
     public class ProductImageResponseModel
     {

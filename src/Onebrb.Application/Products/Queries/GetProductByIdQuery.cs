@@ -24,8 +24,8 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, P
 
     public async Task<ProductModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
-        var product = await _productsRepository.GetAsync(request.Id);
+        var product = await _productsRepository.GetAsync(p => p.Id == request.Id && p.IsDeleted == false);
 
-        return _mapper.Map<ProductModel>(product);
+        return _mapper.Map<ProductModel>(product.SingleOrDefault());
     }
 }

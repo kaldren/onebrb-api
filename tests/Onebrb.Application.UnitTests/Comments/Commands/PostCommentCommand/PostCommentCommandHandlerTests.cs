@@ -48,7 +48,7 @@ public class PostCommentCommandHandlerTests
         // Act
         var sut = new PostCommentCommandHandler(_mockRepo.Object, _mockUoW.Object, _mapper);
 
-        CommentModel result = await sut.Handle(new PostSingleCommentCommand { RequestModel = fakeCommentModel }, CancellationToken.None);
+        CommentModel result = await sut.Handle(new PostSingleCommentCommand { Comment = fakeCommentModel }, CancellationToken.None);
 
         // Assert
         Assert.NotNull(result);

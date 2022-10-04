@@ -9,7 +9,7 @@ namespace Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 
 public record PostSingleCommentCommand : IRequest<CommentModel>
 {
-    public PostCommentModel RequestModel { get; set; }
+    public PostCommentModel Comment { get; set; }
 }
 
 public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentCommand, CommentModel>
@@ -31,9 +31,9 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
 
         _commentRepository.Insert(new Comment
         {
-            AuthorId = request.RequestModel.AuthorId,
-            RecipientId = request.RequestModel.RecipientId,
-            Content = request.RequestModel.Content,
+            AuthorId = request.Comment.AuthorId,
+            RecipientId = request.Comment.RecipientId,
+            Content = request.Comment.Content,
             TrackId = trackId
         });
 

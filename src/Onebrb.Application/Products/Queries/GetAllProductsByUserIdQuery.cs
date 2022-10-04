@@ -24,7 +24,7 @@ public class GetAllProductsByUserIdQueryHandler : IRequestHandler<GetAllProducts
 
     public async Task<ICollection<ProductModel>> Handle(GetAllProductsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var products = await _productsRepository.GetAsync(p => p.Profile.Id == request.Id);
+        var products = await _productsRepository.GetAsync(p => p.Profile.Id == request.Id && p.IsDeleted == false);
 
         return _mapper.Map<ICollection<ProductModel>>(products);
     }
