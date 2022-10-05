@@ -46,7 +46,8 @@ namespace Onebrb.API
             CreateMap<ProductImage, ProductImageModel>();
             CreateMap<ProductModel, ProductResponseModel>();
             CreateMap<ProductImageModel, ProductImageResponseModel>();
-            CreateMap<ProductRequestModel, ProductInputModel>();
+            CreateMap<ProductPostRequestModel, ProductInputModel>();
+            CreateMap<ProductPatchRequestModel, ProductInputModel>();
             CreateMap<ProductInputModel, Product>();
             #endregion Product
         }

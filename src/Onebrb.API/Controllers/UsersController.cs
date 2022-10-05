@@ -38,6 +38,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [AllowAnonymous]
         public async Task<ActionResult<UserProfileResponseModel>> GetUserAsync(string userId)
         {
@@ -66,6 +67,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("activate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserProfileResponseModel>> ActivateUserAsync()
         {
             // TODO: Check if user already created
@@ -96,6 +98,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("current")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserProfileResponseModel>> GetCurrentlyAuthenticatedUserAsync()
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
@@ -125,13 +128,14 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserProfileResponseModel>> UpdateProfileAsync([FromBody][Required] UpdateUserProfileRequestModel profile)
         {
             UpdateUserProfileModel profileModel = _mapper.Map<UpdateUserProfileModel>(profile);
 
             UserProfileModel? user = await _mediator.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });
 
-            if (user is null) return BadRequest();
+            if (user is null) return NotFound();
 
             return this.Ok(_mapper.Map<UserProfileResponseModel>(user));
         }

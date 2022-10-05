@@ -1,6 +1,6 @@
 ﻿namespace Onebrb.API.Models.Requests.Product
 {
-    public class ProductRequestModel
+    public class ProductPatchRequestModel
     {
         /// <summary>
         /// Gets or sets the product title

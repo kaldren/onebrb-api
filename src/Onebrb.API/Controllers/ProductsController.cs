@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests.Product;
 using Onebrb.API.Models.Responses.Product;
-using Onebrb.Application.Enums;
 using Onebrb.Application.Products.Commands;
 using Onebrb.Application.Products.Models;
 using Onebrb.Application.Products.Queries;
@@ -26,6 +25,7 @@ namespace Onebrb.API.Controllers
         [HttpGet("{productId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductResponseModel>> GetProductAsync(string productId)
         {
             ProductModel? product = await _mediator.Send(new GetProductByIdQuery() { Id = productId });
@@ -39,7 +39,8 @@ namespace Onebrb.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ProductResponseModel>> PostProductAsync(ProductRequestModel request)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ProductResponseModel>> PostProductAsync(ProductPostRequestModel request)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
@@ -57,10 +58,32 @@ namespace Onebrb.API.Controllers
             return _mapper.Map<ProductResponseModel>(product);
         }
 
-        [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ProductResponseModel>> PatchProductAsync(ProductPatchRequestModel request)
+        {
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (currentUserId is null)
+                return Unauthorized();
+
+            ProductInputModel productInput = _mapper.Map<ProductInputModel>(request);
+            productInput.AuthorId = currentUserId;
+
+            ProductModel? product = await _mediator.Send(new PatchProductCommand() { Product = productInput });
+
+            if (product is null)
+                return NotFound();
+
+            return _mapper.Map<ProductResponseModel>(product);
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteProductAsync(string productId)
         {
             // Get current user
@@ -69,12 +92,14 @@ namespace Onebrb.API.Controllers
             if (currentUserId is null)
                 return Unauthorized();
 
+            var product = await _mediator.Send(new GetProductByIdQuery() { Id = productId });
+
+            if (product is null)
+                return NotFound();
+
             var result = await _mediator.Send(new DeleteProductByIdCommand() { ProductId = productId, CurrentUserId = currentUserId });
 
-            if (result.Status == HandlerStatus.Failure)
-                return BadRequest(result.Message);
-
-            return NoContent();
+            return Ok();
         }
     }
 }

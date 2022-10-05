@@ -70,6 +70,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CommentResponseModel>> PostCommentAsync([FromBody][Required] PostCommentRequestModel comment)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
@@ -80,7 +81,7 @@ namespace Onebrb.API.Controllers
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (existingUser is null)
-                return BadRequest("The user doesn't exist.");
+                return NotFound("The user doesn't exist.");
 
             PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
             model.AuthorId = currentUserId;
@@ -101,6 +102,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CommentResponseModel>> PatchCommentAsync([FromBody][Required] PatchCommentRequestModel comment)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
@@ -111,7 +113,7 @@ namespace Onebrb.API.Controllers
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
 
             if (existingUser is null)
-                return BadRequest();
+                return NotFound();
 
             PatchCommentModel model = _mapper.Map<PatchCommentModel>(comment);
             model.AuthorId = currentUserId;
