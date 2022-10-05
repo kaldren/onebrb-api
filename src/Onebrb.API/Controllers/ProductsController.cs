@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests.Product;
 using Onebrb.API.Models.Responses.Product;
+using Onebrb.Application.Enums;
 using Onebrb.Application.Products.Commands;
 using Onebrb.Application.Products.Models;
 using Onebrb.Application.Products.Queries;
@@ -72,12 +73,12 @@ namespace Onebrb.API.Controllers
             ProductInputModel productInput = _mapper.Map<ProductInputModel>(request);
             productInput.AuthorId = currentUserId;
 
-            ProductModel? product = await _mediator.Send(new PatchProductCommand() { Product = productInput });
+            var productUpdateResult = await _mediator.Send(new PatchProductCommand() { Product = productInput });
 
-            if (product is null)
-                return NotFound();
+            if (productUpdateResult.Status == HandlerStatus.Failure)
+                return BadRequest(productUpdateResult.Message);
 
-            return _mapper.Map<ProductResponseModel>(product);
+            return _mapper.Map<ProductResponseModel>(productUpdateResult.Result);
         }
 
         [HttpDelete]

@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using MediatR;
+using Onebrb.Application.Enums;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Products.Models;
 using Onebrb.Domain.Entities.ProductAggregate;
 
 namespace Onebrb.Application.Products.Commands;
 
-public class PatchProductCommand : IRequest<ProductModel>
+public class PatchProductCommand : IRequest<HandlerResponse<ProductModel>>
 {
     public ProductInputModel Product { get; set; }
 }
 
-public class PatchProductCommandHandler : IRequestHandler<PatchProductCommand, ProductModel>
+public class PatchProductCommandHandler : IRequestHandler<PatchProductCommand, HandlerResponse<ProductModel>>
 {
     private readonly IGenericRepository<Product> _productRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -24,18 +25,35 @@ public class PatchProductCommandHandler : IRequestHandler<PatchProductCommand, P
         _mapper = mapper;
     }
 
-    public async Task<ProductModel> Handle(PatchProductCommand request, CancellationToken cancellationToken)
+    public async Task<HandlerResponse<ProductModel>> Handle(PatchProductCommand request, CancellationToken cancellationToken)
     {
-        Product product = _mapper.Map<Product>(request);
-        product.Profile.Id = request.Product.AuthorId;
-        product.TrackId = Guid.NewGuid().ToString();
+        HandlerResponse<ProductModel> response = new();
 
-        _productRepository.Update(product);
+        // Get the product
+        var productToUpdate = await _productRepository.GetAsync(request.Product.Id);
 
-        await _unitOfWork.SaveChangesAsync();
+        if (productToUpdate?.Profile.Id != request.Product.AuthorId)
+        {
+            response.Message = "The product doesn't belong to this user.";
 
-        Product? updatedProduct = await _productRepository.GetSingleOrDefault(p => p.TrackId == product.TrackId);
+            return response;
+        }
 
-        return _mapper.Map<ProductModel>(updatedProduct);
+        productToUpdate = _mapper.Map(request.Product, productToUpdate);
+        //productToUpdate.TrackId = Guid.NewGuid().ToString();
+
+        _productRepository.Update(productToUpdate);
+
+        int rowsUpdated = await _unitOfWork.SaveChangesAsync();
+
+        if (rowsUpdated > 0)
+        {
+            //Product? updatedProduct = await _productRepository.GetSingleOrDefault(p => p.TrackId == productToUpdate.TrackId);
+
+            response.Status = HandlerStatus.Success;
+            response.Result = _mapper.Map<ProductModel>(productToUpdate);
+        }
+
+        return response;
     }
 }

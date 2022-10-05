@@ -5,11 +5,6 @@ namespace Onebrb.Domain.Entities.ProductAggregate;
 public class Product : BaseEntity
 {
     /// <summary>
-    /// Gets or sets the product Id
-    /// </summary>
-    public string Id { get; set; }
-
-    /// <summary>
     /// Gets or sets the product title
     /// </summary>
     public string Title { get; set; }
@@ -28,11 +23,6 @@ public class Product : BaseEntity
     /// Gets or sets the product images
     /// </summary>
     public virtual ICollection<ProductImage>? Images { get; set; }
-
-    /// <summary>
-    /// Gets or sets the date of posting
-    /// </summary>
-    public DateTimeOffset Date { get; set; }
 
     /// <summary>
     /// Gets or sets the date of posting

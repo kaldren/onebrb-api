@@ -3,6 +3,11 @@
     public class ProductPatchRequestModel
     {
         /// <summary>
+        /// Gets or sets the product id
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the product title
         /// </summary>
         public string Title { get; set; }
