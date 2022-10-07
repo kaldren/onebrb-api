@@ -25,7 +25,12 @@ public class Product : BaseEntity
     public virtual ICollection<ProductImage>? Images { get; set; }
 
     /// <summary>
-    /// Gets or sets the date of posting
+    /// Gets or sets the profile id
+    /// </summary>
+    public string ProfileId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the profile
     /// </summary>
     public virtual Profile Profile { get; set; }
 }

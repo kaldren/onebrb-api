@@ -26,8 +26,9 @@ public class PostProductCommandHandler : IRequestHandler<PostProductCommand, Pro
 
     public async Task<ProductModel> Handle(PostProductCommand request, CancellationToken cancellationToken)
     {
-        Product product = _mapper.Map<Product>(request);
-        product.Profile.Id = request.Product.AuthorId;
+        Product product = _mapper.Map<Product>(request.Product);
+        product.Id = Guid.NewGuid().ToString();
+        product.ProfileId = request.Product.AuthorId;
         product.TrackId = Guid.NewGuid().ToString();
 
         _productRepository.Insert(product);
