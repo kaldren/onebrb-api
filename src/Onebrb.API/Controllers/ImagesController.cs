@@ -1,8 +1,7 @@
-﻿using FileTypeChecker;
-using FileTypeChecker.Types;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.ProductAggregate;
+using Onebrb.Infrastructure.Interfaces;
 
 namespace Onebrb.API.Controllers
 {
@@ -11,10 +10,12 @@ namespace Onebrb.API.Controllers
     public class ImagesController : ControllerBase
     {
         private readonly IGenericRepository<Product> _productRepository;
+        private readonly IAzureImageStoreService _azureImageStore;
 
-        public ImagesController(IGenericRepository<Product> productRepository)
+        public ImagesController(IGenericRepository<Product> productRepository, IAzureImageStoreService azureImageStore)
         {
             _productRepository = productRepository;
+            _azureImageStore = azureImageStore;
         }
 
         [HttpPost("{productId}")]
@@ -41,40 +42,12 @@ namespace Onebrb.API.Controllers
                 return Unauthorized();
             }
 
-
-
             // Scan the file for viruses
 
+            // Store to Azure
             for (int i = 0; i < files.Length; i++)
             {
-                // Create directory if not exist
-                Directory.CreateDirectory($"C:\\temp\\{currentUserId}\\{productId}\\");
-
-                //Strip out any path specifiers (ex: /../)
-                var originalFileName = Path.GetFileName(files[0].FileName);
-
-                //Create a unique file path
-                var uniqueFileName = Path.GetRandomFileName();
-                var uniqueFilePath = Path.Combine(@$"C:\temp\{currentUserId}\{productId}\", uniqueFileName);
-
-                //Save the file to disk
-                //using (var stream = System.IO.File.Create(uniqueFilePath))
-                //{
-                //    await files[0].CopyToAsync(stream);
-                //}
-                using (var fileStream = new FileStream(uniqueFilePath, FileMode.Create))
-                {
-                    var inputStream = files[0].OpenReadStream();
-
-                    // Check if it is image
-                    bool isJpeg = FileTypeValidator.Is<JointPhotographicExpertsGroup>(files[0].OpenReadStream());
-
-                    if (!isJpeg)
-                        return BadRequest("Invalid file format. Allowed JPEG only.");
-
-                    else
-                        await inputStream.CopyToAsync(fileStream);
-                }
+                await _azureImageStore.StoreImageAsync(product.Id, product.Id, files[i]);
             }
 
             return Ok();

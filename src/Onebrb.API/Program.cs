@@ -1,14 +1,34 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Identity.Web;
 using Onebrb.Application;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Interfaces;
 using Onebrb.Infrastructure.Data;
+using Onebrb.Infrastructure.Interfaces;
+using Onebrb.Infrastructure.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+string environment = builder.Environment.EnvironmentName;
+
+//Retrieve the Connection String from the secrets manager 
+var connectionString = builder.Configuration.GetConnectionString("AppConfig");
+
+builder.Host.ConfigureAppConfiguration(builder =>
+{
+    //Connect to your App Config Store using the connection string
+    builder.AddAzureAppConfiguration(options =>
+                options
+                    .Connect(connectionString)
+                    // Load configuration values with no label
+                    .Select(KeyFilter.Any, LabelFilter.Null)
+                    // Override with any configuration values specific to current hosting env
+                    .Select(KeyFilter.Any, environment)
+            );
+});
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -42,6 +62,7 @@ builder.Services.AddDbContext<OnebrbDbContext>(options =>
 // DI
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGenericRepository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IAzureImageStoreService, AzureImageStoreService>();
 
 // CORS
 builder.Services.AddCors(options =>
