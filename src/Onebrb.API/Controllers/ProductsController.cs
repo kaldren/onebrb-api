@@ -37,6 +37,20 @@ namespace Onebrb.API.Controllers
             return _mapper.Map<ProductResponseModel>(product);
         }
 
+        [HttpGet("{productId}/images/count")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<int>> GetProductImagesCountAsync(string productId)
+        {
+            ProductModel? product = await _mediator.Send(new GetProductByIdQuery() { Id = productId });
+
+            if (product is null)
+                return NotFound();
+
+            return Ok(await _mediator.Send(new GetProductImagesCountQuery() { Id = productId }));
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

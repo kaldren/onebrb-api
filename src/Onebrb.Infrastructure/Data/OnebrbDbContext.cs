@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Onebrb.Domain.Entities.CountryAggregate;
+using Onebrb.Domain.Entities.MessageAggregate;
 using Onebrb.Domain.Entities.ProductAggregate;
 using Onebrb.Domain.Entities.ProfileAggregate;
 
@@ -17,6 +18,8 @@ namespace Onebrb.Infrastructure.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

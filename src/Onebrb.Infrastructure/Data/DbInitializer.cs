@@ -1,4 +1,5 @@
 ﻿using Onebrb.Domain.Entities.CountryAggregate;
+using Onebrb.Domain.Entities.MessageAggregate;
 using Onebrb.Domain.Entities.ProductAggregate;
 using Onebrb.Domain.Entities.ProfileAggregate;
 
@@ -129,6 +130,30 @@ public static class DbInitializer
             new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
         };
         onebrbDbContext.Comments.AddRange(comments);
+
+        var messages = new Message[]
+        {
+            new Message
+            {
+                AuthorFirstName = profiles[1].FirstName,
+                AuthorLastName = profiles[1].LastName,
+                Content = "Fake message content",
+                AuthorId = profiles[1].Id,
+                Id = Guid.NewGuid().ToString(),
+                RecipientFirstName = profiles[0].FirstName,
+                RecipientLastName = profiles[0].LastName,
+                RecipientId = profiles[0].Id,
+                Title = "Hey fake title!",
+                Date = DateTime.UtcNow.AddHours(-2),
+            }
+        };
+
+        var conversations = new Conversation()
+        {
+            Messages = messages,
+        };
+
+        onebrbDbContext.Conversations.AddRange(conversations);
 
         onebrbDbContext.SaveChanges();
     }

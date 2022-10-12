@@ -33,4 +33,9 @@ public class Product : BaseEntity
     /// Gets or sets the profile
     /// </summary>
     public virtual Profile Profile { get; set; }
+
+    /// <summary>
+    /// Gets or sets the active status
+    /// </summary>
+    public bool IsActive { get; set; }
 }

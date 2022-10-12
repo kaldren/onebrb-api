@@ -36,15 +36,6 @@ namespace Onebrb.Infrastructure.Services
 
         public async Task StoreImageAsync(string imageName, string containerName, IFormFile file)
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                await file.CopyToAsync(ms);
-                byte[] bytes = ms.ToArray();
-
-                if (!IsImage(bytes))
-                    throw new InvalidDataException("The file is not a JPEG.");
-            }
-
             var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
             if (!await containerClient.ExistsAsync())

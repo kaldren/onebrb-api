@@ -28,6 +28,21 @@ namespace Onebrb.API.Controllers
             if (files.Length <= 0)
                 return BadRequest("Empty file");
 
+            foreach (var file in files)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    byte[] bytes = ms.ToArray();
+
+                    bool isImage = _azureImageStore.IsImage(bytes);
+
+                    if (!isImage)
+                        return StatusCode(400, "Invalid file format (expected JPEG).");
+                }
+            }
+
+
             // Get user id
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 

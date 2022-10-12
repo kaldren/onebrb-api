@@ -31,5 +31,15 @@
         /// Gets or sets the date of posting
         /// </summary>
         public DateTimeOffset Date { get; set; }
+
+        /// <summary>
+        /// Gets or sets the active status
+        /// </summary>
+        public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile id
+        /// </summary>
+        public string ProfileId { get; set; }
     }
 }
