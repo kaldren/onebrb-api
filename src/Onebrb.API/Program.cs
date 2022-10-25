@@ -63,6 +63,7 @@ builder.Services.AddDbContext<OnebrbDbContext>(options =>
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGenericRepository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IAzureImageStoreService, AzureImageStoreService>();
+builder.Services.AddTransient<IAzureQueueService, AzureQueueService>();
 
 // CORS
 builder.Services.AddCors(options =>
