@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Onebrb.Core\Onebrb.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Messages\" />
-  </ItemGroup>
-
 </Project>
