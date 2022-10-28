@@ -10,10 +10,23 @@ namespace Onebrb.API.Controllers
     public class NotificationsController : ControllerBase
     {
         private readonly IAzureQueueService _azureQueueService;
+        private readonly INotificationsService _notificationsService;
 
-        public NotificationsController(IAzureQueueService azureQueueService)
+        public NotificationsController(IAzureQueueService azureQueueService, INotificationsService notificationsService)
         {
             _azureQueueService = azureQueueService;
+            _notificationsService = notificationsService;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> Notify()
+        {
+            await _notificationsService.Notify();
+
+            return Ok();
         }
 
         #region PUT

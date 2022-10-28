@@ -65,6 +65,7 @@ builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(OnebrbGeneric
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IAzureImageStoreService, AzureImageStoreService>();
 builder.Services.AddTransient<IAzureQueueService, AzureQueueService>();
+builder.Services.AddTransient<INotificationsService, NotificationsService>();
 
 
 // CORS
@@ -137,6 +138,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<NotificationsHub>("/chathub");
+app.MapHub<NotificationsHub>("/notifications-hub");
 
 app.Run();
