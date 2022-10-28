@@ -19,10 +19,14 @@ public class AzureQueueService : IAzureQueueService
         try
         {
             string storageCS = _configuration["Onebrb:Azure:StorageAccount:ConnectionString"];
-            _queueClient = new QueueClient(storageCS, queue);
+            _queueClient = new QueueClient(storageCS, queue, new QueueClientOptions
+            {
+                MessageEncoding = QueueMessageEncoding.Base64
+            });
 
             //await _queueClient.CreateIfNotExistsAsync();
-            await _queueClient.SendMessageAsync(message);
+
+            _queueClient.SendMessage(message);
 
             return true;
         }
