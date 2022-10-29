@@ -14,6 +14,6 @@ public class NotificationsService : INotificationsService
 
     public async Task Notify()
     {
-        await _hubContext.Clients.All.SendAsync("ReceiveMessage", "Hi mofo!");
+        await _hubContext.Clients.All.SendAsync("ToastNotification", "Hi mofo!");
     }
 }

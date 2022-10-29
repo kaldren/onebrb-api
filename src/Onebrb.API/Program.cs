@@ -138,6 +138,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<NotificationsHub>("/notifications-hub");
+app.MapHub<NotificationsHub>("api/notifications-hub");
 
 app.Run();
