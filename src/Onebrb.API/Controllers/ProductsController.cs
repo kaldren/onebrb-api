@@ -7,6 +7,7 @@ using Onebrb.Application.Enums;
 using Onebrb.Application.Products.Commands;
 using Onebrb.Application.Products.Models;
 using Onebrb.Application.Products.Queries;
+using Onebrb.Infrastructure.Interfaces;
 
 namespace Onebrb.API.Controllers
 {
@@ -16,11 +17,13 @@ namespace Onebrb.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IAzureQueueService _azureQueueService;
 
-        public ProductsController(IMapper mapper, IMediator mediator)
+        public ProductsController(IMapper mapper, IMediator mediator, IAzureQueueService azureQueueService)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _azureQueueService = azureQueueService;
         }
 
         [HttpGet("{productId}")]
@@ -71,6 +74,17 @@ namespace Onebrb.API.Controllers
                 return NotFound();
 
             return _mapper.Map<ProductResponseModel>(product);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> PutProductInterestAsync()
+        {
+            await _azureQueueService.InsertAsync("notifications", "test message");
+
+            return Ok();
         }
 
         [HttpPatch]

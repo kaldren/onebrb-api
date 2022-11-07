@@ -110,7 +110,7 @@ public static class DbInitializer
         };
 
         // Add product to user Kaloyan Drenski
-        profiles[0].Products = new List<Product>()
+        profiles[1].Products = new List<Product>()
         {
             product,
             product2
