@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
@@ -35,7 +36,7 @@ builder.Host.ConfigureAppConfiguration(builder =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
-//builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
+builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
 
 builder.Services.AddControllers()
     //.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());

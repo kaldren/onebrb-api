@@ -23,9 +23,19 @@
         public string Email { get; set; }
 
         /// <summary>
+        /// Gets or sets email visibility
+        /// </summary>
+        public bool IsEmailVisible { get; set; }
+
+        /// <summary>
         /// Gets or sets the phone number
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// Gets or sets phone visibility
+        /// </summary>
+        public bool IsPhoneVisible { get; set; }
 
         /// <summary>
         /// Gets or sets short information about the services the person provides

@@ -21,9 +21,19 @@ public class Profile : BaseEntity
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the email visibility
+    /// </summary>
+    public bool IsEmailVisible { get; set; }
+
+    /// <summary>
     /// Gets or sets the phone number
     /// </summary>
     public string Phone { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the phone visibility
+    /// </summary>
+    public bool IsPhoneVisible { get; set; }
 
     /// <summary>
     /// Gets or sets short information about the services the person provides
