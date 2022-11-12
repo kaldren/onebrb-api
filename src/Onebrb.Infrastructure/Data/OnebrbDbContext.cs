@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Onebrb.Domain.Entities.CountryAggregate;
-using Onebrb.Domain.Entities.MessageAggregate;
-using Onebrb.Domain.Entities.ProductAggregate;
 using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.Infrastructure.Data
@@ -16,10 +14,6 @@ namespace Onebrb.Infrastructure.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<Conversation> Conversations { get; set; }
-        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,13 +38,6 @@ namespace Onebrb.Infrastructure.Data
                 .ToTable("Comments")
                 .HasOne(p => p.Author)
                 .WithMany(p => p.Comments)
-                .OnDelete(DeleteBehavior.ClientCascade);
-
-            modelBuilder
-                .Entity<Product>()
-                .ToTable("Products")
-                .HasOne(p => p.Profile)
-                .WithMany(p => p.Products)
                 .OnDelete(DeleteBehavior.ClientCascade);
         }
     }

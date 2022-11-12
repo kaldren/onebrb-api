@@ -1,13 +1,9 @@
 ﻿using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Requests.Comment;
-using Onebrb.API.Models.Requests.Product;
 using Onebrb.API.Models.Responses.Comment;
-using Onebrb.API.Models.Responses.Product;
 using Onebrb.API.Models.Responses.Profile;
 using Onebrb.Application.Comments.Models;
-using Onebrb.Application.Products.Models;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProductAggregate;
 using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.API
@@ -40,16 +36,6 @@ namespace Onebrb.API
             CreateMap<UserProfileModel, UserProfileResponseModel>();
             CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>();
             #endregion Profile
-
-            #region Product
-            CreateMap<Product, ProductModel>();
-            CreateMap<ProductImage, ProductImageModel>();
-            CreateMap<ProductModel, ProductResponseModel>();
-            CreateMap<ProductImageModel, ProductImageResponseModel>();
-            CreateMap<ProductPostRequestModel, ProductInputModel>();
-            CreateMap<ProductPatchRequestModel, ProductInputModel>();
-            CreateMap<ProductInputModel, Product>();
-            #endregion Product
         }
     }
 }

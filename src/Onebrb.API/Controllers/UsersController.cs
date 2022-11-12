@@ -4,11 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Responses.Comment;
-using Onebrb.API.Models.Responses.Product;
 using Onebrb.API.Models.Responses.Profile;
 using Onebrb.Application.Comments.Models;
-using Onebrb.Application.Products.Models;
-using Onebrb.Application.Products.Queries;
 using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
@@ -47,21 +44,6 @@ namespace Onebrb.API.Controllers
             if (user == null) return NotFound();
 
             return Ok(_mapper.Map<UserProfileResponseModel>(user));
-        }
-
-        /// <summary>
-        /// Get all products posted by user
-        /// </summary>
-        /// <param name="userId">The user id</param>
-        /// <returns>All products or Not Found</returns>
-        [HttpGet("{userId}/products")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<ProductResponseModel>>> GetAllProducts(string userId)
-        {
-            ICollection<ProductModel> products = await _mediator.Send(new GetAllProductsByUserIdQuery() { Id = userId });
-
-            return _mapper.Map<List<ProductResponseModel>>(products);
         }
 
         [HttpGet("activate")]

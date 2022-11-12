@@ -1,5 +1,4 @@
 ﻿using Onebrb.Domain.Entities.CountryAggregate;
-using Onebrb.Domain.Entities.ProductAggregate;
 
 namespace Onebrb.Domain.Entities.ProfileAggregate;
 
@@ -58,9 +57,4 @@ public class Profile : BaseEntity
     /// Gets or sets the comments
     /// </summary>
     public virtual ICollection<Comment>? Comments { get; set; }
-
-    /// <summary>
-    /// Gets or sets the products posted by user
-    /// </summary>
-    public virtual ICollection<Product>? Products { get; set; }
 }
