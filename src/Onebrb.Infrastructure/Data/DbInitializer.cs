@@ -58,13 +58,13 @@ public static class DbInitializer
         };
 
         // Add profiles
-        var profiles = new Profile[]
+        var profiles = new ProfileEntity[]
         {
-            new Profile {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new Profile {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
+            new ProfileEntity {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new ProfileEntity {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId, IsEmailVisible = true},
+            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
+            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
         };
 
         onebrbDbContext.Profiles.AddRange(profiles);
@@ -72,13 +72,26 @@ public static class DbInitializer
         // Add countries & cities
         onebrbDbContext.Countries.AddRange(countries);
 
-        // Add comments
-        var comments = new Comment[]
+        // Add ratings
+        var ratings = new RatingEntity[]
         {
-            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[1], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-1)), Recipient = profiles[0]},
-            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[2], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2)), Recipient = profiles[0]},
-            new Comment {Id = Guid.NewGuid().ToString(), Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
+            new RatingEntity { Rating = 5, AuthorId = profiles[1].Id, RecipientId = profiles[0].Id},
+            new RatingEntity { Rating = 3, AuthorId = profiles[2].Id, RecipientId = profiles[0].Id},
+            new RatingEntity { Rating = 2, AuthorId = profiles[3].Id, RecipientId = profiles[0].Id},
         };
+
+        // Add comments
+        var comments = new CommentEntity[]
+        {
+            new CommentEntity {Id = Guid.NewGuid().ToString(), Author =  profiles[1], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-1)), Recipient = profiles[0]},
+            new CommentEntity {Id = Guid.NewGuid().ToString(), Author =  profiles[2], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2)), Recipient = profiles[0]},
+            new CommentEntity {Id = Guid.NewGuid().ToString(), Author =  profiles[3], Content = "This guy is amazing C# developer.", Date = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now.AddDays(-2).AddHours(-4)), Recipient = profiles[0]},
+        };
+
+        comments[0].Rating = ratings[0];
+        comments[1].Rating = ratings[1];
+        comments[2].Rating = ratings[2];
+
         onebrbDbContext.Comments.AddRange(comments);
 
         onebrbDbContext.SaveChanges();

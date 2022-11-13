@@ -36,7 +36,6 @@
         /// Gets or sets the recipient first name
         public string RecipientFirstName { get; set; }
 
-
         /// <summary>
         /// Gets or sets the recipient last name
         public string RecipientLastName { get; set; }
@@ -45,5 +44,10 @@
         /// Gets or sets the date of posting
         /// </summary>
         public DateTimeOffset Date { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date of posting
+        /// </summary>
+        public int Rating { get; set; }
     }
 }

@@ -13,10 +13,10 @@ public record GetSingleCommentByCommentIdQuery : IRequest<CommentModel>
 
 public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingleCommentByCommentIdQuery, CommentModel>
 {
-    private readonly IGenericRepository<Comment> _commentsRepository;
+    private readonly IGenericRepository<CommentEntity> _commentsRepository;
     private readonly IMapper _mapper;
 
-    public GetSingleCommentByCommentIdQueryHandler(IGenericRepository<Comment> commentsRepository, IMapper mapper)
+    public GetSingleCommentByCommentIdQueryHandler(IGenericRepository<CommentEntity> commentsRepository, IMapper mapper)
     {
         _commentsRepository = commentsRepository;
         _mapper = mapper;
@@ -24,7 +24,7 @@ public class GetSingleCommentByCommentIdQueryHandler : IRequestHandler<GetSingle
 
     public async Task<CommentModel> Handle(GetSingleCommentByCommentIdQuery request, CancellationToken cancellationToken)
     {
-        Comment? commentEntity = await _commentsRepository.GetAsync(request.Id);
+        CommentEntity? commentEntity = await _commentsRepository.GetAsync(request.Id);
 
         return _mapper.Map<CommentModel>(commentEntity);
     }

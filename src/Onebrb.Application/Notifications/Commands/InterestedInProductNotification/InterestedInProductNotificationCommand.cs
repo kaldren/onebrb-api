@@ -12,10 +12,10 @@ public class InterestedInProductNotificationCommand : IRequest<bool>
 
 public class InterestedInProductNotificationCommandHandler : IRequestHandler<InterestedInProductNotificationCommand, bool>
 {
-    private readonly IGenericRepository<Comment> _commentRepository;
+    private readonly IGenericRepository<CommentEntity> _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public InterestedInProductNotificationCommandHandler(IGenericRepository<Comment> commentRepository, IUnitOfWork unitOfWork)
+    public InterestedInProductNotificationCommandHandler(IGenericRepository<CommentEntity> commentRepository, IUnitOfWork unitOfWork)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;

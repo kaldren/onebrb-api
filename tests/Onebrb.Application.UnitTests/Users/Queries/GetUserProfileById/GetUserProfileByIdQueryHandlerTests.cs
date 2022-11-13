@@ -8,7 +8,7 @@ namespace Onebrb.Application.UnitTests.Users.Queries.GetUserProfileById;
 
 public class GetUserProfileByIdQueryHandlerTests
 {
-    private readonly Mock<IGenericRepository<Domain.Entities.ProfileAggregate.Profile>> _mockRepo = new();
+    private readonly Mock<IGenericRepository<Domain.Entities.ProfileAggregate.ProfileEntity>> _mockRepo = new();
     private Fixture _fixture = new();
     private readonly Mock<IMapper> _mapper;
 
@@ -28,14 +28,14 @@ public class GetUserProfileByIdQueryHandlerTests
         string fakeUserId = _fixture.Create<string>();
         UserProfileModel fakeProfileModel = _fixture.Create<UserProfileModel>();
 
-        Domain.Entities.ProfileAggregate.Profile fakeProfile = _fixture.Build<Domain.Entities.ProfileAggregate.Profile>()
+        Domain.Entities.ProfileAggregate.ProfileEntity fakeProfile = _fixture.Build<Domain.Entities.ProfileAggregate.ProfileEntity>()
             .Without(p => p.Comments)
             .Without(p => p.City)
             .Create();
 
         _mockRepo.Setup(p => p.GetAsync(It.Is<string>(p => p == fakeUserId))).ReturnsAsync(() => fakeProfile);
 
-        _mapper.Setup(p => p.Map<UserProfileModel>(It.IsAny<Domain.Entities.ProfileAggregate.Profile>()))
+        _mapper.Setup(p => p.Map<UserProfileModel>(It.IsAny<Domain.Entities.ProfileAggregate.ProfileEntity>()))
             .Returns(fakeProfileModel);
 
         var sut = new GetUserProfileByIdQueryHandler(_mockRepo.Object, _mapper.Object);

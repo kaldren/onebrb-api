@@ -12,10 +12,10 @@ public record DeleteSingleCommentCommand : IRequest
 
 public class DeleteSingleCommentCommandHandler : IRequestHandler<DeleteSingleCommentCommand>
 {
-    private readonly IGenericRepository<Comment> _commentRepository;
+    private readonly IGenericRepository<CommentEntity> _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteSingleCommentCommandHandler(IGenericRepository<Comment> commentRepository, IUnitOfWork unitOfWork)
+    public DeleteSingleCommentCommandHandler(IGenericRepository<CommentEntity> commentRepository, IUnitOfWork unitOfWork)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;
@@ -24,7 +24,7 @@ public class DeleteSingleCommentCommandHandler : IRequestHandler<DeleteSingleCom
     public async Task<Unit> Handle(DeleteSingleCommentCommand request, CancellationToken cancellationToken)
     {
         // Validation here
-        Comment? comment = await _commentRepository.GetSingleOrDefault(p => p.Id == request.CommentId);
+        CommentEntity? comment = await _commentRepository.GetSingleOrDefault(p => p.Id == request.CommentId);
         if (comment == null)
             throw new CommentDeleteException($"Couldn't find comment with id {request.CommentId}");
 

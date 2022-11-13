@@ -13,10 +13,10 @@ public record GetAllCommentsByUserIdQuery : IRequest<ICollection<CommentModel>>
 
 public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, ICollection<CommentModel>>
 {
-    private readonly IGenericRepository<Comment> _commentsRepository;
+    private readonly IGenericRepository<CommentEntity> _commentsRepository;
     private readonly IMapper _mapper;
 
-    public GetAllCommentsByUserIdQueryHandler(IGenericRepository<Comment> commentsRepository, IMapper mapper)
+    public GetAllCommentsByUserIdQueryHandler(IGenericRepository<CommentEntity> commentsRepository, IMapper mapper)
     {
         _commentsRepository = commentsRepository;
         _mapper = mapper;
@@ -24,7 +24,7 @@ public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllComments
 
     public async Task<ICollection<CommentModel>> Handle(GetAllCommentsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        ICollection<Comment> comments = await _commentsRepository.GetAsync(p => p.Recipient.Id == request.Id);
+        ICollection<CommentEntity> comments = await _commentsRepository.GetAsync(p => p.Recipient.Id == request.Id);
 
         return _mapper.Map<ICollection<CommentModel>>(comments);
     }

@@ -2,7 +2,7 @@
 
 namespace Onebrb.Domain.Entities.ProfileAggregate;
 
-public class Comment : BaseEntity
+public class CommentEntity : BaseEntity
 {
     /// <summary>
     /// Gets or sets the content
@@ -17,7 +17,7 @@ public class Comment : BaseEntity
     /// <summary>
     /// Gets or sets the author
     /// </summary>
-    public virtual Profile Author { get; set; }
+    public virtual ProfileEntity Author { get; set; }
 
     /// <summary>
     /// Gets or sets the recipient id
@@ -27,5 +27,9 @@ public class Comment : BaseEntity
     /// <summary>
     /// Gets or sets the recipient
     [ForeignKey(nameof(RecipientId))]
-    public virtual Profile Recipient { get; set; }
+    public virtual ProfileEntity Recipient { get; set; }
+
+    /// <summary>
+    /// Gets or sets the rating
+    public virtual RatingEntity Rating { get; set; }
 }

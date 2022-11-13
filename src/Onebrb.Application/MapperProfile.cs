@@ -9,14 +9,14 @@ namespace Onebrb.Application
         public MapperProfile()
         {
             #region Profile
-            CreateMap<Profile, UserProfileModel>()
+            CreateMap<ProfileEntity, UserProfileModel>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name));
-            CreateMap<UpdateUserProfileModel, Profile>();
+            CreateMap<UpdateUserProfileModel, ProfileEntity>();
             #endregion
 
             #region Comment
-            CreateMap<Comment, CommentModel>()
+            CreateMap<CommentEntity, CommentModel>()
                 .ForMember(
                     dest => dest.AuthorFirstName,
                     opt => opt.MapFrom(src => src.Author.FirstName)

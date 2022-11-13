@@ -12,10 +12,10 @@ public record ActivateUserCommand : IRequest<UserProfileModel>
 
 internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand, UserProfileModel>
 {
-    private readonly IGenericRepository<Profile> _profileRepository;
+    private readonly IGenericRepository<ProfileEntity> _profileRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ActivateUserProfileHandler(IGenericRepository<Profile> profileRepository, IUnitOfWork unitOfWork)
+    public ActivateUserProfileHandler(IGenericRepository<ProfileEntity> profileRepository, IUnitOfWork unitOfWork)
     {
         _profileRepository = profileRepository;
         _unitOfWork = unitOfWork;
@@ -23,7 +23,7 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand,
 
     public async Task<UserProfileModel> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
     {
-        _profileRepository.Insert(new Profile
+        _profileRepository.Insert(new ProfileEntity
         {
             Id = request.ProfileModel.Id,
             Email = request.ProfileModel.Email,

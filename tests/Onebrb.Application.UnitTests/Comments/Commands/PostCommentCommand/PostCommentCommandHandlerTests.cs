@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 namespace Onebrb.Application.UnitTests.Comments.Commands.PostCommentCommand;
 public class PostCommentCommandHandlerTests
 {
-    private readonly Mock<IGenericRepository<Comment>> _mockRepo = new();
+    private readonly Mock<IGenericRepository<CommentEntity>> _mockRepo = new();
     private readonly Mock<IUnitOfWork> _mockUoW = new();
     private Fixture _fixture = new();
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public class PostCommentCommandHandlerTests
     {
         var config = new MapperConfiguration(cfg =>
         {
-            cfg.CreateMap<Comment, CommentModel>();
+            cfg.CreateMap<CommentEntity, CommentModel>();
         });
 
         _mapper = config.CreateMapper();
@@ -30,7 +30,7 @@ public class PostCommentCommandHandlerTests
         // Arrange
         string fakeTrackId = Guid.NewGuid().ToString();
 
-        Comment fakeComment = _fixture.Build<Comment>()
+        CommentEntity fakeComment = _fixture.Build<CommentEntity>()
             .Without(p => p.Recipient)
             .Without(p => p.Author)
             .Create();
@@ -43,7 +43,7 @@ public class PostCommentCommandHandlerTests
             .ReturnsAsync(() => 1);
 
 
-        _mockRepo.Setup(p => p.GetSingleOrDefault(It.IsAny<Expression<Func<Comment, bool>>>())).ReturnsAsync(() => fakeComment);
+        _mockRepo.Setup(p => p.GetSingleOrDefault(It.IsAny<Expression<Func<CommentEntity, bool>>>())).ReturnsAsync(() => fakeComment);
 
         // Act
         var sut = new PostCommentCommandHandler(_mockRepo.Object, _mockUoW.Object, _mapper);

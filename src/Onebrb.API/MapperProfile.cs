@@ -13,7 +13,7 @@ namespace Onebrb.API
         public MapperProfile()
         {
             #region Comment
-            CreateMap<Comment, CommentModel>()
+            CreateMap<CommentEntity, CommentModel>()
                 .ForMember(
                     dest => dest.AuthorFirstName,
                     opt => opt.MapFrom(src => src.Author.FirstName)
@@ -30,11 +30,12 @@ namespace Onebrb.API
             #endregion Comment
 
             #region Profile
-            CreateMap<Profile, ActivatedUserProfileResponseModel>();
-            CreateMap<Profile, UserProfileModel>();
+            CreateMap<ProfileEntity, ActivatedUserProfileResponseModel>();
+            CreateMap<ProfileEntity, UserProfileModel>();
             CreateMap<UserProfileModel, ActivatedUserProfileResponseModel>();
             CreateMap<UserProfileModel, UserProfileResponseModel>();
             CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>();
+            CreateMap<UserRatingModel, UserRatingResponseModel>();
             #endregion Profile
         }
     }

@@ -10,6 +10,7 @@ using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
+using Onebrb.Application.Users.Queries.GetUserRatingByUserId;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
@@ -104,6 +105,17 @@ namespace Onebrb.API.Controllers
             ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 
             return Ok(_mapper.Map<ICollection<CommentResponseModel>>(comments));
+        }
+
+        [HttpGet("{userId}/rating")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
+        public async Task<ActionResult<UserRatingResponseModel>> GetUserRatingAsync(string userId)
+        {
+            UserRatingModel rating = await _mediator.Send(new GetUserRatingByUserIdQuery() { Id = userId });
+            return this.Ok(_mapper.Map<UserRatingResponseModel>(rating));
         }
 
         [HttpPatch]

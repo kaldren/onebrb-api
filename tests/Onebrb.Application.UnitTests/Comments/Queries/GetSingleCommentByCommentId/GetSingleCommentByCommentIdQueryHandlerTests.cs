@@ -9,7 +9,7 @@ namespace Onebrb.Application.UnitTests.Comments.Queries.GetSingleCommentByCommen
 
 public class GetSingleCommentByCommentIdQueryHandlerTests
 {
-    private readonly Mock<IGenericRepository<Comment>> _mockRepo = new();
+    private readonly Mock<IGenericRepository<CommentEntity>> _mockRepo = new();
     private Fixture _fixture = new();
     private readonly Mock<IMapper> _mapper;
 
@@ -23,14 +23,14 @@ public class GetSingleCommentByCommentIdQueryHandlerTests
     {
         string fakeId = _fixture.Create<string>();
 
-        Comment fakeComment = _fixture.Build<Comment>()
+        CommentEntity fakeComment = _fixture.Build<CommentEntity>()
             .Without(p => p.Recipient)
             .Without(p => p.Author)
             .Create();
 
         CommentModel fakeReturnComment = _fixture.Create<CommentModel>();
 
-        _mapper.Setup(p => p.Map<CommentModel>(It.IsAny<Comment>()))
+        _mapper.Setup(p => p.Map<CommentModel>(It.IsAny<CommentEntity>()))
             .Returns(fakeReturnComment);
 
         var sut = new GetSingleCommentByCommentIdQueryHandler(_mockRepo.Object, _mapper.Object);

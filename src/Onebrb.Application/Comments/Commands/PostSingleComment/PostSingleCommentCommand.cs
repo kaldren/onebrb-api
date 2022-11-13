@@ -14,11 +14,11 @@ public record PostSingleCommentCommand : IRequest<CommentModel>
 
 public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentCommand, CommentModel>
 {
-    private readonly IGenericRepository<Comment> _commentRepository;
+    private readonly IGenericRepository<CommentEntity> _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public PostCommentCommandHandler(IGenericRepository<Comment> commentRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public PostCommentCommandHandler(IGenericRepository<CommentEntity> commentRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;
@@ -29,12 +29,18 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
     {
         string trackId = Guid.NewGuid().ToString();
 
-        _commentRepository.Insert(new Comment
+        _commentRepository.Insert(new CommentEntity
         {
             AuthorId = request.Comment.AuthorId,
             RecipientId = request.Comment.RecipientId,
             Content = request.Comment.Content,
-            TrackId = trackId
+            TrackId = trackId,
+            Rating = new RatingEntity
+            {
+                Rating = request.Comment.Rating,
+                AuthorId = request.Comment.AuthorId,
+                RecipientId = request.Comment.RecipientId,
+            },
         });
 
         int result = await _unitOfWork.SaveChangesAsync();
@@ -42,7 +48,7 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
         if (result <= 0)
             throw new CommentCreateException("Couldn't create new post.");
 
-        Comment? comment = await _commentRepository.GetSingleOrDefault(p => p.TrackId == trackId);
+        CommentEntity? comment = await _commentRepository.GetSingleOrDefault(p => p.TrackId == trackId);
 
         return _mapper.Map<CommentModel>(comment);
     }

@@ -2,7 +2,7 @@
 
 namespace Onebrb.Domain.Entities.ProfileAggregate;
 
-public class Profile : BaseEntity
+public class ProfileEntity : BaseEntity
 {
     /// <summary>
     /// Gets or sets the profile first name
@@ -56,5 +56,5 @@ public class Profile : BaseEntity
     /// <summary>
     /// Gets or sets the comments
     /// </summary>
-    public virtual ICollection<Comment>? Comments { get; set; }
+    public virtual ICollection<CommentEntity>? Comments { get; set; }
 }

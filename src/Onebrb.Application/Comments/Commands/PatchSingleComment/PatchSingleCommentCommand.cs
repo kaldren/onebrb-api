@@ -14,11 +14,11 @@ public record PatchSingleCommentCommand : IRequest<CommentModel>
 
 public class PatchCommentCommandHandler : IRequestHandler<PatchSingleCommentCommand, CommentModel>
 {
-    private readonly IGenericRepository<Comment> _commentRepository;
+    private readonly IGenericRepository<CommentEntity> _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public PatchCommentCommandHandler(IGenericRepository<Comment> commentRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public PatchCommentCommandHandler(IGenericRepository<CommentEntity> commentRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;
@@ -27,7 +27,7 @@ public class PatchCommentCommandHandler : IRequestHandler<PatchSingleCommentComm
 
     public async Task<CommentModel> Handle(PatchSingleCommentCommand request, CancellationToken cancellationToken)
     {
-        Comment? currentComment = await _commentRepository.GetSingleOrDefault(p => p.Id == request.RequestModel.Id);
+        CommentEntity? currentComment = await _commentRepository.GetSingleOrDefault(p => p.Id == request.RequestModel.Id);
 
         if (currentComment is null)
             throw new CommentNotFoundException($"Comment with id {request.RequestModel.Id} does not exist.");
@@ -41,7 +41,7 @@ public class PatchCommentCommandHandler : IRequestHandler<PatchSingleCommentComm
         if (result <= 0)
             throw new CommentUpdateException($"Couldn't update comment with id {request.RequestModel.Id}");
 
-        Comment? updatedComment = await _commentRepository.GetSingleOrDefault(p => p.Id == request.RequestModel.Id);
+        CommentEntity? updatedComment = await _commentRepository.GetSingleOrDefault(p => p.Id == request.RequestModel.Id);
 
         return _mapper.Map<CommentModel>(updatedComment);
     }
