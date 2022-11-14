@@ -57,4 +57,9 @@ public class ProfileEntity : BaseEntity
     /// Gets or sets the comments
     /// </summary>
     public virtual ICollection<CommentEntity>? Comments { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ratings
+    /// </summary>
+    public virtual ICollection<RatingEntity>? Ratings { get; set; }
 }

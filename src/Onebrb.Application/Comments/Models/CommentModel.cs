@@ -48,6 +48,6 @@
         /// <summary>
         /// Gets or sets the date of posting
         /// </summary>
-        public int Rating { get; set; }
+        public int RatingValue { get; set; }
     }
 }

@@ -21,6 +21,10 @@ namespace Onebrb.API
                 .ForMember(
                     dest => dest.AuthorLastName,
                     opt => opt.MapFrom(src => src.Author.LastName)
+                )
+                .ForMember(
+                    dest => dest.RatingValue,
+                    opt => opt.MapFrom(src => src.Rating.Value)
                 );
 
             CreateMap<CommentModel, CommentResponseModel>();

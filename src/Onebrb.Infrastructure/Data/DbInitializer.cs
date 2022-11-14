@@ -75,9 +75,9 @@ public static class DbInitializer
         // Add ratings
         var ratings = new RatingEntity[]
         {
-            new RatingEntity { Rating = 5, AuthorId = profiles[1].Id, RecipientId = profiles[0].Id},
-            new RatingEntity { Rating = 3, AuthorId = profiles[2].Id, RecipientId = profiles[0].Id},
-            new RatingEntity { Rating = 2, AuthorId = profiles[3].Id, RecipientId = profiles[0].Id},
+            new RatingEntity { Value = 5, AuthorId = profiles[1].Id, RecipientId = profiles[0].Id},
+            new RatingEntity { Value = 3, AuthorId = profiles[2].Id, RecipientId = profiles[0].Id},
+            new RatingEntity { Value = 2, AuthorId = profiles[3].Id, RecipientId = profiles[0].Id},
         };
 
         // Add comments

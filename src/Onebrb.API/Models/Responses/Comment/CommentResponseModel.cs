@@ -48,6 +48,6 @@
         /// <summary>
         /// Gets or sets the rating
         /// </summary>
-        public int Rating { get; set; }
+        public int RatingValue { get; set; }
     }
 }

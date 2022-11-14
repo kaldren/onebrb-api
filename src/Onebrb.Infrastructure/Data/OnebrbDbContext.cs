@@ -42,7 +42,10 @@ namespace Onebrb.Infrastructure.Data
 
             modelBuilder
                 .Entity<RatingEntity>()
-                .ToTable("Ratings");
+                .ToTable("Ratings")
+                .HasOne(p => p.Author)
+                .WithMany(p => p.Ratings)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

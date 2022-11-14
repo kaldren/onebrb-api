@@ -37,7 +37,7 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
             TrackId = trackId,
             Rating = new RatingEntity
             {
-                Rating = request.Comment.Rating,
+                Value = request.Comment.Rating,
                 AuthorId = request.Comment.AuthorId,
                 RecipientId = request.Comment.RecipientId,
             },

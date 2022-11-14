@@ -41,7 +41,7 @@ public class GetUserRatingByUserIdQueryHandler : IRequestHandler<GetUserRatingBy
 
         if (ratings.Any())
         {
-            var ratingSum = ratings.Sum(p => p.Rating);
+            var ratingSum = ratings.Sum(p => p.Value);
             var ratingCount = ratings.Count;
             model.Rating = Math.Round(decimal.ToDouble(decimal.Divide(ratingSum, ratingCount)), 2);
         }
