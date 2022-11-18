@@ -30,7 +30,7 @@
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// Gets or sets phone visibility
@@ -40,12 +40,12 @@
         /// <summary>
         /// Gets or sets short information about the services the person provides
         /// </summary>
-        public string About { get; set; }
+        public string? About { get; set; }
 
         /// <summary>
         /// Gets or sets user's occupation
         /// </summary>
-        public string OccupationName { get; set; }
+        public string? OccupationName { get; set; }
 
         /// <summary>
         /// Gets or sets the linkedin profile

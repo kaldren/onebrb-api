@@ -40,7 +40,9 @@ namespace Onebrb.API
             CreateMap<ProfileEntity, UserProfileModel>();
             CreateMap<UserProfileModel, ActivatedUserProfileResponseModel>();
             CreateMap<UserProfileModel, UserProfileResponseModel>();
-            CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>();
+            CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>()
+                .AddTransform<string>(s => string.IsNullOrEmpty(s) ? null : s);
+
             CreateMap<UserRatingModel, UserRatingResponseModel>();
             #endregion Profile
 
