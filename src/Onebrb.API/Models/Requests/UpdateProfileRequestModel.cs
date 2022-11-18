@@ -18,11 +18,6 @@
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the email
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
         /// Gets or sets email visibility
         /// </summary>
         public bool IsEmailVisible { get; set; }

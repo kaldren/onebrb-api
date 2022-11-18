@@ -147,6 +147,12 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserProfileResponseModel>> UpdateProfileAsync([FromBody][Required] UpdateUserProfileRequestModel profile)
         {
+            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (currentUserId is null) return Unauthorized();
+
+            if (currentUserId != profile.Id) return Unauthorized();
+
             UpdateUserProfileModel profileModel = _mapper.Map<UpdateUserProfileModel>(profile);
 
             UserProfileModel? user = await _mediator.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });

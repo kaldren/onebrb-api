@@ -29,7 +29,7 @@ internal class UpdateUserProfileHandler : IRequestHandler<UpdateUserProfileComma
     public async Task<UserProfileModel?> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
     {
         // Find user
-        var currentUser = await _profileRepository.GetSingleOrDefault(p => p.Id == request.ProfileModel.Id && p.Email == request.ProfileModel.Email);
+        var currentUser = await _profileRepository.GetSingleOrDefault(p => p.Id == request.ProfileModel.Id);
 
         if (currentUser is null)
             return null;
