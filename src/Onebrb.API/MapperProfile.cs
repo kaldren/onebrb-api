@@ -27,9 +27,17 @@ namespace Onebrb.API
                 .ForMember(
                     dest => dest.RatingValue,
                     opt => opt.MapFrom(src => src.Rating.Value)
+                )
+                .ForMember(
+                    dest => dest.DateCreated,
+                    opt => opt.MapFrom(src => src.DateCreated)
                 );
 
-            CreateMap<CommentModel, CommentResponseModel>();
+            CreateMap<CommentModel, CommentResponseModel>()
+                .ForMember(
+                    dest => dest.DateCreated,
+                    opt => opt.MapFrom(src => src.DateCreated)
+                );
 
             CreateMap<PostCommentRequestModel, PostCommentModel>();
             CreateMap<PatchCommentRequestModel, PatchCommentModel>();

@@ -43,7 +43,7 @@
         /// <summary>
         /// Gets or sets the date of posting
         /// </summary>
-        public DateTimeOffset Date { get; set; }
+        public DateTimeOffset DateCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the rating
