@@ -23,6 +23,20 @@ public static class DbInitializer
         // Cities
         string velikoTarnovoId = Guid.NewGuid().ToString();
 
+        // Occupations
+        int counter = 0;
+        var occupationsCount = File.ReadLines($"{Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "occupations.txt")}").Count();
+        var occupations = new OccupationEntity[occupationsCount];
+
+        // Read the file and display it line by line.  
+        foreach (string line in System.IO.File.ReadLines($"{Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "occupations.txt")}"))
+        {
+            occupations[counter] = new OccupationEntity { Name = line };
+            counter++;
+        }
+
+        onebrbDbContext.Occupations.AddRange(occupations);
+
         var countries = new Country[]
         {
             new Country {
@@ -57,14 +71,19 @@ public static class DbInitializer
             },
         };
 
+        // Add social media profiles
+        string facebookProfile = "kaloyan.drenski";
+        string instagramProfile = "kaloyan.drenski";
+        string linkedinProfile = "kdrenski";
+
         // Add profiles
         var profiles = new ProfileEntity[]
         {
-            new ProfileEntity {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new ProfileEntity {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId, IsEmailVisible = true},
-            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId},
-            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId}
+            new ProfileEntity {Id = profile1Id, FirstName = "Kaloyan", LastName="Drenski", Email = "drenski666@gmail.com", About = "Number one software developer in Veliko Varnovo", Phone = "0888 778877", CountryId = countryBGId, CityId = velikoTarnovoId, Occupation = occupations[15], LinkedInProfile = linkedinProfile, FacebookProfile = facebookProfile, InstagramProfile = instagramProfile},
+            new ProfileEntity {Id = profile2Id, FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222", CountryId = countryBGId, CityId = velikoTarnovoId, IsEmailVisible = true, Occupation = occupations[41], IsPhoneVisible = false},
+            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333", CountryId = countryBGId, CityId = velikoTarnovoId, Occupation = occupations[44]},
+            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444", CountryId = countryBGId, CityId = velikoTarnovoId, Occupation = occupations[55]},
+            new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555", CountryId = countryBGId, CityId = velikoTarnovoId, Occupation = occupations[31]}
         };
 
         onebrbDbContext.Profiles.AddRange(profiles);

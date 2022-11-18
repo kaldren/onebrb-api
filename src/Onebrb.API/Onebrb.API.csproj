@@ -41,4 +41,10 @@
     <ProjectReference Include="..\Onebrb.Infrastructure\Onebrb.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="occupations.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

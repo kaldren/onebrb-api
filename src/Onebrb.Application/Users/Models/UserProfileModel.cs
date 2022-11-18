@@ -10,17 +10,17 @@
         /// <summary>
         /// Gets or sets the profile first name
         /// </summary>
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the profile last name
         /// </summary>
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the email
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the email visibility
@@ -30,7 +30,7 @@
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// Gets or sets the phone number visibility
@@ -40,16 +40,41 @@
         /// <summary>
         /// Gets or sets short information about the services the person provides
         /// </summary>
-        public string About { get; set; }
+        public string? About { get; set; }
 
         /// <summary>
         /// Gets or sets the country
         /// </summary>
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         /// <summary>
         /// Gets or sets the city
         /// </summary>
-        public string City { get; set; }
+        public string? City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user rating
+        /// </summary>
+        public double? Rating { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user occupation
+        /// </summary>
+        public string? OccupationName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the linkedin profile
+        /// </summary>
+        public string? LinkedInProfile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the facebook profile
+        /// </summary>
+        public string? FacebookProfile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the instagram profile
+        /// </summary>
+        public string? InstagramProfile { get; set; }
     }
 }

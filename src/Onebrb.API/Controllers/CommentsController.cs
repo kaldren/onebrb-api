@@ -11,6 +11,7 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Users.Models;
+using Onebrb.Application.Users.Queries.GetUserExistByUserId;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
 using System.ComponentModel.DataAnnotations;
 
@@ -78,9 +79,9 @@ namespace Onebrb.API.Controllers
             if (currentUserId is null)
                 return Unauthorized();
 
-            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+            bool existingUser = await _mediator.Send(new GetUserExistByUserIdQueryQuery() { CurrentUserId = currentUserId });
 
-            if (existingUser is null)
+            if (existingUser == false)
                 return NotFound("The user doesn't exist.");
 
             PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
@@ -110,7 +111,7 @@ namespace Onebrb.API.Controllers
             if (currentUserId is null)
                 return Unauthorized();
 
-            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { Id = currentUserId });
+            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = currentUserId });
 
             if (existingUser is null)
                 return NotFound();

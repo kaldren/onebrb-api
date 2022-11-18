@@ -1,8 +1,10 @@
 ﻿using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Requests.Comment;
 using Onebrb.API.Models.Responses.Comment;
+using Onebrb.API.Models.Responses.Occupation;
 using Onebrb.API.Models.Responses.Profile;
 using Onebrb.Application.Comments.Models;
+using Onebrb.Application.Occupations.Models;
 using Onebrb.Application.Users.Models;
 using Onebrb.Domain.Entities.ProfileAggregate;
 
@@ -41,6 +43,11 @@ namespace Onebrb.API
             CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>();
             CreateMap<UserRatingModel, UserRatingResponseModel>();
             #endregion Profile
+
+            #region Occupation
+            CreateMap<OccupationEntity, OccupationModel>();
+            CreateMap<OccupationModel, OccupationResponseModel>();
+            #endregion Occupation
         }
     }
 }

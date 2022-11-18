@@ -14,12 +14,14 @@ namespace Onebrb.Infrastructure.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<CommentEntity> Comments { get; set; }
+        public DbSet<OccupationEntity> Occupations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .Entity<ProfileEntity>()
-                .ToTable("Profiles");
+                .ToTable("Profiles")
+                .HasOne(p => p.Occupation);
 
             modelBuilder
                 .Entity<City>()
@@ -46,6 +48,10 @@ namespace Onebrb.Infrastructure.Data
                 .HasOne(p => p.Author)
                 .WithMany(p => p.Ratings)
                 .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder
+                .Entity<OccupationEntity>()
+                .ToTable("Occupations");
         }
     }
 }

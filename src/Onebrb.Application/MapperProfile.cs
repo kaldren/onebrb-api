@@ -12,7 +12,8 @@ namespace Onebrb.Application
             CreateMap<ProfileEntity, UserProfileModel>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name));
-            CreateMap<UpdateUserProfileModel, ProfileEntity>();
+            CreateMap<UpdateUserProfileModel, ProfileEntity>()
+                .ForPath(dest => dest.Occupation.Name, opt => opt.MapFrom(src => src.OccupationName));
             #endregion
 
             #region Comment

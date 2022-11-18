@@ -51,5 +51,15 @@
         /// Gets or sets the city
         /// </summary>
         public string City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user rating
+        /// </summary>
+        public double? Rating { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user occupation
+        /// </summary>
+        public string? OccupationName { get; set; }
     }
 }

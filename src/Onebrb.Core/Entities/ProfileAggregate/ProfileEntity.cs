@@ -62,4 +62,24 @@ public class ProfileEntity : BaseEntity
     /// Gets or sets the ratings
     /// </summary>
     public virtual ICollection<RatingEntity>? Ratings { get; set; }
+
+    /// <summary>
+    /// Gets or sets the occupation
+    /// </summary>
+    public virtual OccupationEntity? Occupation { get; set; }
+
+    /// <summary>
+    /// Gets or sets the linkedin profile
+    /// </summary>
+    public string? LinkedInProfile { get; set; }
+
+    /// <summary>
+    /// Gets or sets the facebook profile
+    /// </summary>
+    public string? FacebookProfile { get; set; }
+
+    /// <summary>
+    /// Gets or sets the instagram profile
+    /// </summary>
+    public string? InstagramProfile { get; set; }
 }
