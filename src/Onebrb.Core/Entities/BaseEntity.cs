@@ -24,11 +24,16 @@ namespace Onebrb.Domain.Entities
         /// Gets or sets the entity creation date property
         /// </summary>
 
-        public DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset DateCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the entity last update property
         /// </summary>
-        public DateTimeOffset LastUpdateDate { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset? DateUpdated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the entity deletion date
+        /// </summary>
+        public DateTimeOffset? DateDeleted { get; set; }
     }
 }

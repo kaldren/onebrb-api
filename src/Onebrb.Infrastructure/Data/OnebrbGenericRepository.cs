@@ -7,31 +7,44 @@ namespace Onebrb.Infrastructure.Data
 {
     public class OnebrbGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly OnebrbDbContext onebrbDbContext;
-        private DbSet<TEntity> dbSet;
+        private readonly OnebrbDbContext _onebrbDbContext;
+        private DbSet<TEntity> _dbSet;
 
         public OnebrbGenericRepository(OnebrbDbContext onebrbDbContext)
         {
-            this.onebrbDbContext = onebrbDbContext;
-            dbSet = onebrbDbContext.Set<TEntity>();
+            this._onebrbDbContext = onebrbDbContext;
+            _dbSet = onebrbDbContext.Set<TEntity>();
         }
 
         public void Delete(TEntity entity)
-            => dbSet.Remove(entity);
+        {
+            //If the type we are trying to delete is auditable, then we don't actually delete it but instead set it to be updated with a delete date. 
+            if (typeof(BaseEntity).IsAssignableFrom(typeof(TEntity)))
+            {
+                (entity as BaseEntity).DateDeleted = DateTimeOffset.UtcNow;
+                (entity as BaseEntity).IsDeleted = true;
+                _dbSet.Attach(entity);
+                _onebrbDbContext.Entry(entity).State = EntityState.Modified;
+            }
+            else
+            {
+                _dbSet.Remove(entity);
+            }
+        }
 
         public async Task<TEntity?> GetSingleOrDefault(Expression<Func<TEntity, bool>> func)
-            => await dbSet.Where(func).FirstOrDefaultAsync();
+            => await _dbSet.Where(func).FirstOrDefaultAsync();
 
         public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> func)
-            => await dbSet.Where(func).ToListAsync();
+            => await _dbSet.Where(func).ToListAsync();
 
         public async Task<TEntity?> GetAsync(string id)
-            => await dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
+            => await _dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
 
         public void Insert(TEntity entity)
-            => dbSet.Add(entity);
+            => _dbSet.Add(entity);
 
         public void Update(TEntity entity)
-            => dbSet.Update(entity);
+            => _dbSet.Update(entity);
     }
 }

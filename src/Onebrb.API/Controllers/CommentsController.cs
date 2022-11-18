@@ -10,9 +10,7 @@ using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
-using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetUserExistByUserId;
-using Onebrb.Application.Users.Queries.GetUserProfileById;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
@@ -111,9 +109,9 @@ namespace Onebrb.API.Controllers
             if (currentUserId is null)
                 return Unauthorized();
 
-            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = currentUserId });
+            bool existingUser = await _mediator.Send(new GetUserExistByUserIdQueryQuery() { CurrentUserId = currentUserId });
 
-            if (existingUser is null)
+            if (existingUser is false)
                 return NotFound();
 
             PatchCommentModel model = _mapper.Map<PatchCommentModel>(comment);
