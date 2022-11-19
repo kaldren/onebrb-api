@@ -46,5 +46,8 @@ namespace Onebrb.Infrastructure.Data
 
         public void Update(TEntity entity)
             => _dbSet.Update(entity);
+
+        public IQueryable<TEntity> GetQueryableAsync(Expression<Func<TEntity, bool>> func)
+            => _dbSet.Where(func).AsQueryable();
     }
 }

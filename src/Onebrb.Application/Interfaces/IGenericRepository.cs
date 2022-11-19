@@ -33,6 +33,15 @@ namespace Onebrb.Application.Interfaces
         Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> func);
 
         /// <summary>
+        /// Gets a collection of an entity.
+        /// </summary>
+        /// <param name="id">Entity identifier</param>
+        /// <returns>
+        /// Returns IQueryable of <typeparamref name="TEntity" /> entity, or null if not found.
+        /// </returns>
+        IQueryable<TEntity> GetQueryableAsync(Expression<Func<TEntity, bool>> func);
+
+        /// <summary>
         /// Inserts a single <typeparamref name="TEntity" /> entity.
         /// </summary>
         /// <param name="entity">The <typeparamref name="TEntity" /> entity to insert.</param>

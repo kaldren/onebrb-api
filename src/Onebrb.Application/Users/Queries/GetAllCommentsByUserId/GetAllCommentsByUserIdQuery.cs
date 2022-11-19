@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
@@ -6,12 +7,12 @@ using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 
-public record GetAllCommentsByUserIdQuery : IRequest<ICollection<CommentModel>>
+public record GetAllCommentsByUserIdQuery : IRequest<IQueryable<CommentModel>>
 {
     public string Id { get; set; }
 }
 
-public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, ICollection<CommentModel>>
+public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllCommentsByUserIdQuery, IQueryable<CommentModel>>
 {
     private readonly IGenericRepository<CommentEntity> _commentsRepository;
     private readonly IMapper _mapper;
@@ -22,10 +23,10 @@ public class GetAllCommentsByUserIdQueryHandler : IRequestHandler<GetAllComments
         _mapper = mapper;
     }
 
-    public async Task<ICollection<CommentModel>> Handle(GetAllCommentsByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<IQueryable<CommentModel>> Handle(GetAllCommentsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        ICollection<CommentEntity> comments = await _commentsRepository.GetAsync(p => p.Recipient.Id == request.Id);
+        var comments = _commentsRepository.GetQueryableAsync(p => p.Recipient.Id == request.Id).ProjectTo<CommentModel>(_mapper.ConfigurationProvider);
 
-        return _mapper.Map<ICollection<CommentModel>>(comments);
+        return comments;
     }
 }

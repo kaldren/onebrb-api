@@ -15,6 +15,8 @@ namespace Onebrb.API
         public MapperProfile()
         {
             #region Comment
+            CreateMap<IQueryable<CommentEntity>, IQueryable<CommentModel>>();
+
             CreateMap<CommentEntity, CommentModel>()
                 .ForMember(
                     dest => dest.AuthorFirstName,

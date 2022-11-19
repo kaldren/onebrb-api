@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Responses.Comment;
 using Onebrb.API.Models.Responses.Occupation;
@@ -12,6 +15,7 @@ using Onebrb.Application.Occupations.Queries;
 using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
+using Onebrb.Application.Users.Queries.GetCountAllCommentsByUserId;
 using Onebrb.Application.Users.Queries.GetCurrentUser;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
 using Onebrb.Application.Users.Queries.GetUserRatingByUserId;
@@ -23,7 +27,7 @@ namespace Onebrb.API.Controllers
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : ODataController
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
@@ -35,6 +39,16 @@ namespace Onebrb.API.Controllers
         {
             _mapper = mapper;
             _mediator = mediator;
+        }
+
+        public class MyEnableQueryAttribute : EnableQueryAttribute
+        {
+            public override IQueryable ApplyQuery(IQueryable queryable, ODataQueryOptions queryOptions)
+            {
+                int pagesize = 5;
+                var result = queryOptions.ApplyTo(queryable, new ODataQuerySettings { PageSize = pagesize });
+                return result;
+            }
         }
 
         [HttpGet("{userId}")]
@@ -106,13 +120,25 @@ namespace Onebrb.API.Controllers
 
         [HttpGet]
         [Route("{userId}/comments")]
+        [EnableQuery(PageSize = 5)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ICollection<CommentResponseModel>>> GetCommentsAsync([FromRoute][Required] string userId)
+        public async Task<ActionResult<IQueryable<CommentResponseModel>>> GetCommentsAsync([FromRoute][Required] string userId, [FromQuery][Required] int top, [FromQuery][Required] int skip)
         {
-            ICollection<CommentModel> comments = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
+            IQueryable<CommentModel> comments = await _mediator.Send(new GetAllCommentsByUserIdQuery() { Id = userId });
 
-            return Ok(_mapper.Map<ICollection<CommentResponseModel>>(comments));
+            return Ok(comments.ProjectTo<CommentResponseModel>(_mapper.ConfigurationProvider));
+        }
+
+        [HttpGet]
+        [Route("{userId}/comments/count")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<CommentsCountResponseModel>> GetCommentsCountAsync([FromRoute][Required] string userId)
+        {
+            int commentsCount = await _mediator.Send(new GetCountAllCommentsByUserIdQuery() { Id = userId });
+
+            return Ok(new CommentsCountResponseModel { Count = commentsCount });
         }
 
         [HttpGet("{userId}/rating")]

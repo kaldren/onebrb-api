@@ -36,7 +36,7 @@ builder.Host.ConfigureAppConfiguration(builder =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
-builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy());
+builder.Services.AddControllers().AddOData(options => options.Select().Filter().OrderBy().SetMaxTop(5));
 
 builder.Services.AddControllers()
     //.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
