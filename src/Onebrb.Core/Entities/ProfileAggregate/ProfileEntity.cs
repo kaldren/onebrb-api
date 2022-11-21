@@ -27,17 +27,17 @@ public class ProfileEntity : BaseEntity
     /// <summary>
     /// Gets or sets the phone number
     /// </summary>
-    public string Phone { get; set; } = string.Empty;
+    public string? Phone { get; set; }
 
     /// <summary>
     /// Gets or sets the phone visibility
     /// </summary>
-    public bool IsPhoneVisible { get; set; }
+    public bool? IsPhoneVisible { get; set; }
 
     /// <summary>
     /// Gets or sets short information about the services the person provides
     /// </summary>
-    public string About { get; set; } = string.Empty;
+    public string? About { get; set; }
 
     /// <summary>
     /// Gets or sets the country

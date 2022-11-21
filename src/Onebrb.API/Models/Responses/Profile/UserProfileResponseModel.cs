@@ -30,27 +30,27 @@
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// Gets or sets the phone visibility
         /// </summary>
-        public bool IsPhoneVisible { get; set; }
+        public bool? IsPhoneVisible { get; set; }
 
         /// <summary>
         /// Gets or sets short information about the services the person provides
         /// </summary>
-        public string About { get; set; }
+        public string? About { get; set; }
 
         /// <summary>
         /// Gets or sets the country
         /// </summary>
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         /// <summary>
         /// Gets or sets the city
         /// </summary>
-        public string City { get; set; }
+        public string? City { get; set; }
 
         /// <summary>
         /// Gets or sets the user rating

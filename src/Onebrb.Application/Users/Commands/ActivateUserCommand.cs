@@ -27,8 +27,8 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand,
         {
             Id = request.ProfileModel.Id,
             Email = request.ProfileModel.Email,
-            FirstName = request.ProfileModel.Name.Split(' ')[0],
-            LastName = request.ProfileModel.Name.Split(' ')[1]
+            FirstName = request.ProfileModel.FirstName,
+            LastName = request.ProfileModel.LastName
         });
 
         int result = await _unitOfWork.SaveChangesAsync();
@@ -38,8 +38,8 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand,
             {
                 Email = request.ProfileModel.Email,
                 Id = request.ProfileModel.Id,
-                FirstName = request.ProfileModel.Name.Split(' ')[0],
-                LastName = request.ProfileModel.Name.Split(' ')[1]
+                FirstName = request.ProfileModel.FirstName,
+                LastName = request.ProfileModel.LastName
             };
 
         return null;

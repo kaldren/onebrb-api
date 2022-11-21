@@ -16,7 +16,7 @@ using Onebrb.Application.Users.Commands;
 using Onebrb.Application.Users.Models;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Users.Queries.GetCountAllCommentsByUserId;
-using Onebrb.Application.Users.Queries.GetCurrentUser;
+using Onebrb.Application.Users.Queries.GetUserById;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
 using Onebrb.Application.Users.Queries.GetUserRatingByUserId;
 using System.ComponentModel.DataAnnotations;
@@ -80,6 +80,8 @@ namespace Onebrb.API.Controllers
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
             string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
             string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
+            string? currentFirstName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
+            string? currentLastName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
 
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = currentUserId });
 
@@ -90,7 +92,9 @@ namespace Onebrb.API.Controllers
             {
                 Id = currentUserId,
                 Email = currentUserEmail,
-                Name = currentUserName
+                Name = currentUserName,
+                FirstName = currentFirstName,
+                LastName = currentLastName
             };
 
             UserProfileModel? activatedUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = user });
@@ -108,14 +112,31 @@ namespace Onebrb.API.Controllers
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
-            if (currentUserId is null) return NotFound();
+            if (currentUserId is null) return Unauthorized();
 
-            UserProfileModel? user = await _mediator.Send(new GetCurrentUserQuery() { CurrentUserId = currentUserId });
+            var existingUser = await _mediator.Send(new GetUserByIdQuery() { CurrentUserId = currentUserId, UserId = currentUserId });
 
-            if (user is null)
-                return NotFound();
+            if (existingUser is null)
+            {
+                // Create user
+                string currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+                string currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
+                string currentFirstName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
+                string currentLastName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
 
-            return Ok(_mapper.Map<UserProfileResponseModel>(user));
+                var userModel = new ActivateUserProfileModel
+                {
+                    Id = currentUserId,
+                    Email = currentUserEmail,
+                    Name = currentUserName,
+                    FirstName = currentFirstName,
+                    LastName = currentLastName
+                };
+
+                existingUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = userModel });
+            }
+
+            return Ok(_mapper.Map<UserProfileResponseModel>(existingUser));
         }
 
         [HttpGet]
