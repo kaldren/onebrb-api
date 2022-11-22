@@ -15,6 +15,11 @@ public class ProfileEntity : BaseEntity
     public string LastName { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the profile full name
+    /// </summary>
+    public string FullName { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the email
     /// </summary>
     public string Email { get; set; } = string.Empty;
@@ -62,6 +67,11 @@ public class ProfileEntity : BaseEntity
     /// Gets or sets the ratings
     /// </summary>
     public virtual ICollection<RatingEntity>? Ratings { get; set; }
+
+    /// <summary>
+    /// Gets or sets the occupation id
+    /// </summary>
+    public string? OccupationId { get; set; }
 
     /// <summary>
     /// Gets or sets the occupation

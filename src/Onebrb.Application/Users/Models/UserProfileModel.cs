@@ -10,22 +10,27 @@
         /// <summary>
         /// Gets or sets the profile first name
         /// </summary>
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the profile last name
         /// </summary>
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile full name
+        /// </summary>
+        public string FullName { get; set; }
 
         /// <summary>
         /// Gets or sets the email
         /// </summary>
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the email visibility
         /// </summary>
-        public bool IsEmailVisible { get; set; }
+        public bool? IsEmailVisible { get; set; }
 
         /// <summary>
         /// Gets or sets the phone number
@@ -35,7 +40,7 @@
         /// <summary>
         /// Gets or sets the phone number visibility
         /// </summary>
-        public bool IsPhoneVisible { get; set; }
+        public bool? IsPhoneVisible { get; set; }
 
         /// <summary>
         /// Gets or sets short information about the services the person provides

@@ -1,6 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.API.Models.Responses.Profile;
+using Onebrb.Application.Users.Models;
+using Onebrb.Application.Users.Queries.GetAllUsersSearch;
+using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
 {
@@ -8,27 +14,26 @@ namespace Onebrb.API.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
-        public SearchController()
-        {
+        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
+        public SearchController(
+            IMapper mapper,
+            IMediator mediator)
+        {
+            _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        [EnableQuery]
+        [EnableQuery(PageSize = 5)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<ProfileEntity>>> SearchProfilesAsync()
+        public async Task<ActionResult<IQueryable<UserProfileResponseModel>>> SearchProfilesAsync([FromQuery][Required] string fullName)
         {
-            return new List<ProfileEntity>()
-            {
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "John", LastName="Doe", Email = "john@example.com", About = "Number one plumber in Veliko Varnovo", Phone = "0888 123456"},
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "John", LastName="Boe", Email = "johnb@example.com", About = "Number two plumber in Veliko Varnovo", Phone = "0888 222456"},
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "John", LastName="Soe", Email = "johns@example.com", About = "Number three plumber in Veliko Varnovo", Phone = "0888 333456"},
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Bob", LastName="Doe", Email = "bob@example.com", About = "Number one real estate broker in Veliko Varnovo", Phone = "0888 222222"},
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Steve", LastName="Doe", Email = "steve@example.com", About = "Number one taxi driver in Veliko Varnovo", Phone = "0888 333333"},
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Garry", LastName="Doe", Email = "garry@example.com", About = "Number one zumba trainer in Veliko Varnovo", Phone = "0888 444444"},
-                new ProfileEntity {Id = Guid.NewGuid().ToString(), FirstName = "Michael", LastName="Doe", Email = "michael@example.com", About = "Number one hair stylist in Veliko Varnovo", Phone = "0888 555555"}
-            };
+            IQueryable<UserProfileModel> comments = await _mediator.Send(new GetAllUsersSearchQuery() { FullName = fullName });
+
+            return Ok(comments.ProjectTo<UserProfileResponseModel>(_mapper.ConfigurationProvider));
         }
     }
 }

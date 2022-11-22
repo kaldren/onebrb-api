@@ -18,6 +18,11 @@
         public string LastName { get; set; }
 
         /// <summary>
+        /// Gets or sets the profile full name
+        /// </summary>
+        public string FullName { get; set; }
+
+        /// <summary>
         /// Gets or sets the email
         /// </summary>
         public string Email { get; set; }

@@ -20,27 +20,32 @@
         /// <summary>
         /// Gets or sets email visibility
         /// </summary>
-        public bool IsEmailVisible { get; set; }
+        public bool? IsEmailVisible { get; set; }
 
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// Gets or sets phone visibility
         /// </summary>
-        public bool IsPhoneVisible { get; set; }
+        public bool? IsPhoneVisible { get; set; }
 
         /// <summary>
         /// Gets or sets short information about the services the person provides
         /// </summary>
-        public string About { get; set; }
+        public string? About { get; set; }
 
         /// <summary>
-        /// Gets or sets user's occupation
+        /// Gets or sets user's occupation id
         /// </summary>
-        public string OccupationName { get; set; }
+        public string? OccupationId { get; set; }
+
+        /// <summary>
+        /// Gets or sets user's occupation name
+        /// </summary>
+        public string? OccupationName { get; set; }
 
         /// <summary>
         /// Gets or sets the linkedin profile

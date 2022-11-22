@@ -41,16 +41,6 @@ namespace Onebrb.API.Controllers
             _mediator = mediator;
         }
 
-        public class MyEnableQueryAttribute : EnableQueryAttribute
-        {
-            public override IQueryable ApplyQuery(IQueryable queryable, ODataQueryOptions queryOptions)
-            {
-                int pagesize = 5;
-                var result = queryOptions.ApplyTo(queryable, new ODataQuerySettings { PageSize = pagesize });
-                return result;
-            }
-        }
-
         [HttpGet("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

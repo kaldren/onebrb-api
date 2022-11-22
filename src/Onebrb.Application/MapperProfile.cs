@@ -13,7 +13,16 @@ namespace Onebrb.Application
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name));
             CreateMap<UpdateUserProfileModel, ProfileEntity>()
-                .ForPath(dest => dest.Occupation.Name, opt => opt.MapFrom(src => src.OccupationName));
+
+                // Visibility
+                .ForMember(dest => dest.IsPhoneVisible, opt => opt.MapFrom(src => src.IsPhoneVisible ?? default))
+                .ForMember(dest => dest.IsEmailVisible, opt => opt.MapFrom(src => src.IsEmailVisible ?? default))
+
+                .ForPath(dest => dest.Occupation, opt =>
+                {
+                    opt.Condition(src => string.IsNullOrWhiteSpace(src.Source.OccupationId));
+                    opt.Ignore();
+                });
             #endregion
 
             #region Comment
