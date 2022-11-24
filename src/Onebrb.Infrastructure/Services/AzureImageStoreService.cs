@@ -1,5 +1,4 @@
 ﻿using Azure.Storage.Blobs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Onebrb.Infrastructure.Interfaces;
 
@@ -34,7 +33,7 @@ namespace Onebrb.Infrastructure.Services
             return headers.Any(x => x.SequenceEqual(file.Take(x.Length)));
         }
 
-        public async Task StoreImageAsync(string imageName, string containerName, IFormFile file)
+        public async Task StoreImageAsync(string imageName, string containerName, byte[] file)
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
@@ -43,9 +42,14 @@ namespace Onebrb.Infrastructure.Services
 
             var uniqueFileName = $"{imageName}_{Path.GetRandomFileName()}.{_jpegFormat}";
 
-            using (var stream = file.OpenReadStream())
+            BlobClient bc = containerClient.GetBlobClient(imageName);
+
+            using (MemoryStream stream = new MemoryStream())
             {
-                var result = await containerClient.UploadBlobAsync(uniqueFileName, stream);
+                stream.Write(file, 0, file.Length);
+                stream.Position = 0;
+
+                var res = await bc.UploadAsync(stream, overwrite: true);
             }
         }
     }

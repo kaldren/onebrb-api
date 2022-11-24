@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Onebrb.Infrastructure.Interfaces
+﻿namespace Onebrb.Infrastructure.Interfaces
 {
     public interface IAzureImageStoreService
     {
-        Task StoreImageAsync(string imageName, string containerName, IFormFile file);
+        Task StoreImageAsync(string imageName, string containerName, byte[] file);
 
         bool IsImage(byte[] file);
     }

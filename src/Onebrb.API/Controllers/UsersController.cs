@@ -20,7 +20,9 @@ using Onebrb.Application.Users.Queries.GetCountAllCommentsByUserId;
 using Onebrb.Application.Users.Queries.GetUserById;
 using Onebrb.Application.Users.Queries.GetUserProfileById;
 using Onebrb.Application.Users.Queries.GetUserRatingByUserId;
+using Onebrb.Infrastructure.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace Onebrb.API.Controllers
 {
@@ -32,14 +34,17 @@ namespace Onebrb.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IAzureImageStoreService _azureImageStoreService;
 
         public UsersController(
             IMapper mapper,
-            IMediator mediator
+            IMediator mediator,
+            IAzureImageStoreService azureImageStoreService
         )
         {
             _mapper = mapper;
             _mediator = mediator;
+            _azureImageStoreService = azureImageStoreService;
         }
 
         [HttpGet("{userId}")]
@@ -194,6 +199,16 @@ namespace Onebrb.API.Controllers
             if (currentUserId != profile.Id) return Unauthorized();
 
             UpdateUserProfileModel profileModel = _mapper.Map<UpdateUserProfileModel>(profile);
+
+            // Add image to Blob storage
+            if (profile.Photo is not null)
+            {
+                var matchGroups = Regex.Match(profile.Photo, @"^data:((?<type>[\w\/]+))?;base64,(?<data>.+)$").Groups;
+                var base64Data = matchGroups["data"].Value;
+
+                byte[] data = System.Convert.FromBase64String(base64Data);
+                await _azureImageStoreService.StoreImageAsync(profile.Id, profile.Id, data);
+            }
 
             UserProfileModel? user = await _mediator.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });
 
