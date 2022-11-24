@@ -207,6 +207,12 @@ namespace Onebrb.API.Controllers
                 var base64Data = matchGroups["data"].Value;
 
                 byte[] data = System.Convert.FromBase64String(base64Data);
+                bool validImage = _azureImageStoreService.IsImage(data);
+                if (!validImage)
+                {
+                    return BadRequest("Invalid image file.");
+                }
+
                 await _azureImageStoreService.StoreImageAsync(profile.Id, profile.Id, data);
             }
 
