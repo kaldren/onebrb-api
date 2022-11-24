@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
+using Onebrb.Domain.Entities.CountryAggregate;
 using Onebrb.Domain.Entities.ProfileAggregate;
 
 namespace Onebrb.Application.Users.Commands;
@@ -30,6 +31,10 @@ internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand,
             FirstName = request.ProfileModel.FirstName,
             LastName = request.ProfileModel.LastName,
             FullName = $"{request.ProfileModel.FirstName} {request.ProfileModel.LastName}",
+            Country = new Country
+            {
+                Name = request.ProfileModel.Country,
+            }
         });
 
         int result = await _unitOfWork.SaveChangesAsync();

@@ -67,24 +67,25 @@ namespace Onebrb.API.Controllers
         {
             // TODO: Check if user already created
 
-            string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-            string? currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
-            string? currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
-            string? currentFirstName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
-            string? currentLastName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
+            string? userIdClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            string? userEmailClaim = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+            string? userNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
+            string? firstNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
+            string? lastNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
+            string? jobClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/job")?.Value;
 
-            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = currentUserId });
+            UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = userIdClaim });
 
             if (existingUser is not null)
                 return Ok(_mapper.Map<UserProfileResponseModel>(existingUser));
 
             var user = new ActivateUserProfileModel
             {
-                Id = currentUserId,
-                Email = currentUserEmail,
-                Name = currentUserName,
-                FirstName = currentFirstName,
-                LastName = currentLastName
+                Id = userIdClaim,
+                Email = userEmailClaim,
+                Name = userNameClaim,
+                FirstName = firstNameClaim,
+                LastName = lastNameClaim
             };
 
             UserProfileModel? activatedUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = user });
@@ -108,19 +109,23 @@ namespace Onebrb.API.Controllers
 
             if (existingUser is null)
             {
+                var allClaims = User?.Claims.ToList();
+
                 // Create user
-                string currentUserEmail = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
-                string currentUserName = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
-                string currentFirstName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
-                string currentLastName = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
+                string? emailClaim = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
+                string? usernameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
+                string? firstNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
+                string? lastNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
+                string? countryClaim = User?.Claims?.FirstOrDefault(x => x.Type == "country")?.Value;
 
                 var userModel = new ActivateUserProfileModel
                 {
                     Id = currentUserId,
-                    Email = currentUserEmail,
-                    Name = currentUserName,
-                    FirstName = currentFirstName,
-                    LastName = currentLastName
+                    Email = emailClaim,
+                    Name = usernameClaim,
+                    FirstName = firstNameClaim,
+                    LastName = lastNameClaim,
+                    Country = countryClaim
                 };
 
                 existingUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = userModel });
