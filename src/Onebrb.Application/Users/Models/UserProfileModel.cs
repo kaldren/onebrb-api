@@ -49,6 +49,11 @@
         public string? About { get; set; }
 
         /// <summary>
+        /// Gets or sets user profile photo
+        /// </summary>
+        public string? Photo { get; set; }
+
+        /// <summary>
         /// Gets or sets the country
         /// </summary>
         public string? Country { get; set; }
