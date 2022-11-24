@@ -191,8 +191,6 @@ namespace Onebrb.API.Controllers
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
-            if (currentUserId is null) return Unauthorized();
-
             if (currentUserId != profile.Id) return Unauthorized();
 
             UpdateUserProfileModel profileModel = _mapper.Map<UpdateUserProfileModel>(profile);

@@ -29,20 +29,31 @@ public class ProfileEntity : BaseEntity
     /// </summary>
     public bool IsEmailVisible { get; set; }
 
-    /// <summary>
-    /// Gets or sets the phone number
-    /// </summary>
-    public string? Phone { get; set; }
+    // TODO: Phone validation - until then not showing phones
+    ///// <summary>
+    ///// Gets or sets the phone number
+    ///// </summary>
+    //public string? Phone { get; set; }
 
-    /// <summary>
-    /// Gets or sets the phone visibility
-    /// </summary>
-    public bool? IsPhoneVisible { get; set; }
+    ///// <summary>
+    ///// Gets or sets the phone visibility
+    ///// </summary>
+    //public bool? IsPhoneVisible { get; set; }
 
     /// <summary>
     /// Gets or sets short information about the services the person provides
     /// </summary>
     public string? About { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user profile photo
+    /// </summary>
+    public string? Photo { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user profile photo name
+    /// </summary>
+    public string? PhotoName { get; set; }
 
     /// <summary>
     /// Gets or sets the country

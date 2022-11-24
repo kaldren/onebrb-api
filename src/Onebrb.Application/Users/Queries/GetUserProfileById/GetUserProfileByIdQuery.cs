@@ -44,7 +44,7 @@ public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileById
         // Check for hidden settings
         if (currentUser.Id != profile.Id)
         {
-            profile.Phone = profile.IsPhoneVisible.HasValue && profile.IsPhoneVisible.Value is true && !string.IsNullOrEmpty(profile.Phone) ? profile.Phone : default;
+            //profile.Phone = profile.IsPhoneVisible.HasValue && profile.IsPhoneVisible.Value is true && !string.IsNullOrEmpty(profile.Phone) ? profile.Phone : default;
             profile.Email = profile.IsEmailVisible && !string.IsNullOrEmpty(profile.Email) ? profile.Email : default;
         }
 
