@@ -49,5 +49,8 @@ namespace Onebrb.Infrastructure.Data
 
         public IQueryable<TEntity> GetQueryableAsync(Expression<Func<TEntity, bool>> func)
             => _dbSet.Where(func).AsQueryable();
+
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> func)
+            => _dbSet.Count(func);
     }
 }

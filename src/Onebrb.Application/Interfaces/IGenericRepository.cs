@@ -17,7 +17,6 @@ namespace Onebrb.Application.Interfaces
         /// <summary>
         /// Gets a single entity.
         /// </summary>
-        /// <param name="id">Entity identifier</param>
         /// <returns>
         /// Asynchronously returns the <typeparamref name="TEntity" /> entity, or null if no entity is found.
         /// </returns>
@@ -26,7 +25,6 @@ namespace Onebrb.Application.Interfaces
         /// <summary>
         /// Gets a collection of an entity.
         /// </summary>
-        /// <param name="id">Entity identifier</param>
         /// <returns>
         /// Asynchronously returns a collection of <typeparamref name="TEntity" /> entity, or null if not found.
         /// </returns>
@@ -35,11 +33,18 @@ namespace Onebrb.Application.Interfaces
         /// <summary>
         /// Gets a collection of an entity.
         /// </summary>
-        /// <param name="id">Entity identifier</param>
         /// <returns>
         /// Returns IQueryable of <typeparamref name="TEntity" /> entity, or null if not found.
         /// </returns>
         IQueryable<TEntity> GetQueryableAsync(Expression<Func<TEntity, bool>> func);
+
+        /// <summary>
+        /// Counts predicate
+        /// </summary>
+        /// <returns>
+        /// Asynchronously counts based on predicate.
+        /// </returns>
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> func);
 
         /// <summary>
         /// Inserts a single <typeparamref name="TEntity" /> entity.
