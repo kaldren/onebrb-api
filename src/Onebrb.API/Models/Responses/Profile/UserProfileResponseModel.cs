@@ -32,15 +32,17 @@
         /// </summary>
         public bool IsEmailVisible { get; set; }
 
-        /// <summary>
-        /// Gets or sets the phone number
-        /// </summary>
-        public string? Phone { get; set; }
 
-        /// <summary>
-        /// Gets or sets the phone visibility
-        /// </summary>
-        public bool? IsPhoneVisible { get; set; }
+        // TODO: Phone validation - until then not showing phones
+        ///// <summary>
+        ///// Gets or sets the phone number
+        ///// </summary>
+        //public string? Phone { get; set; }
+
+        ///// <summary>
+        ///// Gets or sets the phone visibility
+        ///// </summary>
+        //public bool? IsPhoneVisible { get; set; }
 
         /// <summary>
         /// Gets or sets short information about the services the person provides
