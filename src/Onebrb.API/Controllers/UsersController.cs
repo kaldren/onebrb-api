@@ -214,6 +214,7 @@ namespace Onebrb.API.Controllers
                 }
 
                 await _azureImageStoreService.StoreImageAsync(profile.Id, profile.Id, data);
+                profileModel.HasPhoto = true;
             }
 
             UserProfileModel? user = await _mediator.Send(new UpdateUserProfileCommand() { ProfileModel = profileModel });

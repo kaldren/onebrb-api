@@ -38,10 +38,15 @@
         /// </summary>
         public string? About { get; set; }
 
+        ///// <summary>
+        ///// Gets or sets user profile photo
+        ///// </summary>
+        //public string? Photo { get; set; }
+
         /// <summary>
-        /// Gets or sets user profile photo
+        /// Gets or sets user has photo
         /// </summary>
-        public string? Photo { get; set; }
+        public bool HasPhoto { get; set; }
 
         /// <summary>
         /// Gets or sets user's occupation id

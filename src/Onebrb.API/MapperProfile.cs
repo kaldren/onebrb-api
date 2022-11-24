@@ -49,7 +49,8 @@ namespace Onebrb.API
             CreateMap<UserEntity, ActivatedUserProfileResponseModel>();
             CreateMap<UserEntity, UserProfileModel>();
             CreateMap<UserProfileModel, ActivatedUserProfileResponseModel>();
-            CreateMap<UserProfileModel, UserProfileResponseModel>();
+            CreateMap<UserProfileModel, UserProfileResponseModel>()
+                .ForMember(dest => dest.Photo, opt => opt.MapFrom(src => src.HasPhoto ? $"https://onebrbstorage.blob.core.windows.net/{src.Id}/{src.Id}" : default));
             CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>()
                 .AddTransform<string>(s => string.IsNullOrEmpty(s) ? null : s);
 

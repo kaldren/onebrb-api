@@ -18,7 +18,7 @@ namespace Onebrb.Application
                 //.ForMember(dest => dest.IsPhoneVisible, opt => opt.MapFrom(src => src.IsPhoneVisible ?? default))
                 .ForMember(dest => dest.IsEmailVisible, opt => opt.MapFrom(src => src.IsEmailVisible ?? default))
 
-                .ForMember(dest => dest.PhotoName, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.Photo) ? null : src.Id))
+                //.ForMember(dest => dest.PhotoName, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.Photo) ? null : src.Id))
 
                 .ForPath(dest => dest.Occupation, opt =>
                 {

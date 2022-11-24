@@ -45,15 +45,20 @@ public class UserEntity : BaseEntity
     /// </summary>
     public string? About { get; set; }
 
-    /// <summary>
-    /// Gets or sets the user profile photo
-    /// </summary>
-    public string? Photo { get; set; }
+    ///// <summary>
+    ///// Gets or sets the user profile photo
+    ///// </summary>
+    //public string? Photo { get; set; }
 
     /// <summary>
-    /// Gets or sets the user profile photo name
+    /// Gets or sets the user has photo
     /// </summary>
-    public string? PhotoName { get; set; }
+    public bool HasPhoto { get; set; }
+
+    ///// <summary>
+    ///// Gets or sets the user profile photo name
+    ///// </summary>
+    //public string? PhotoName { get; set; }
 
     /// <summary>
     /// Gets or sets the country

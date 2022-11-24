@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Onebrb.Core\Onebrb.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Search\Commands\" />
+    <Folder Include="Search\Models\" />
+  </ItemGroup>
+
 </Project>

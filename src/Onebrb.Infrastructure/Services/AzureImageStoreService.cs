@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
 using Onebrb.Infrastructure.Interfaces;
 
@@ -43,6 +44,8 @@ namespace Onebrb.Infrastructure.Services
             var uniqueFileName = $"{imageName}_{Path.GetRandomFileName()}.{_jpegFormat}";
 
             BlobClient bc = containerClient.GetBlobClient(imageName);
+
+            await containerClient.SetAccessPolicyAsync(PublicAccessType.Blob);
 
             using (MemoryStream stream = new MemoryStream())
             {

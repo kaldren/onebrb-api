@@ -23,6 +23,6 @@ public class GetCountAllCommentsByUserIdQueryHandler : IRequestHandler<GetCountA
 
     public async Task<int> Handle(GetCountAllCommentsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        return _commentsRepository.GetQueryableAsync(p => p.Recipient.Id == request.Id && p.IsDeleted == false).Select(p => p.Id).Count();
+        return await _commentsRepository.CountAsync(p => p.Recipient.Id == request.Id && p.IsDeleted == false);
     }
 }
