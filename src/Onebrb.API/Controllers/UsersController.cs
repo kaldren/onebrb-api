@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Responses.Comment;
 using Onebrb.API.Models.Responses.Occupation;
@@ -23,8 +24,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
 {
-    //[RequiredScope("Onebrb.Read")]
-    //[Authorize]
+    [RequiredScope("Onebrb.Read")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ODataController
@@ -45,12 +46,10 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult<UserProfileResponseModel>> GetUserAsync(string userId)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-
-            if (currentUserId is null) return Unauthorized();
 
             UserProfileModel? user = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = userId, CurrentUserId = currentUserId });
 
@@ -65,8 +64,6 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserProfileResponseModel>> ActivateUserAsync()
         {
-            // TODO: Check if user already created
-
             string? userIdClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
             string? userEmailClaim = User?.Claims?.FirstOrDefault(x => x.Type == "emails")?.Value;
             string? userNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
@@ -103,9 +100,7 @@ namespace Onebrb.API.Controllers
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
-            if (currentUserId is null) return Unauthorized();
-
-            var existingUser = await _mediator.Send(new GetUserByIdQuery() { CurrentUserId = currentUserId, UserId = currentUserId });
+            UserProfileModel? existingUser = await _mediator.Send(new GetUserByIdQuery() { CurrentUserId = currentUserId, UserId = currentUserId });
 
             if (existingUser is null)
             {
@@ -129,6 +124,11 @@ namespace Onebrb.API.Controllers
                 };
 
                 existingUser = await _mediator.Send(new ActivateUserCommand() { ProfileModel = userModel });
+
+                if (existingUser is null)
+                {
+                    throw new Exception("Couldn't create profile");
+                }
             }
 
             return Ok(_mapper.Map<UserProfileResponseModel>(existingUser));
@@ -161,7 +161,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult<UserRatingResponseModel>> GetUserRatingAsync(string userId)
         {
             UserRatingModel rating = await _mediator.Send(new GetUserRatingByUserIdQuery() { Id = userId });

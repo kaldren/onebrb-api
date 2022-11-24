@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Domain.Entities.ProfileAggregate;
+﻿namespace Onebrb.Domain.Entities.UserAggregate;
 
 public class RatingEntity : BaseEntity
 {
@@ -12,12 +12,12 @@ public class RatingEntity : BaseEntity
     /// </summary>
     public string AuthorId { get; set; }
 
-    public virtual ProfileEntity Author { get; set; }
+    public virtual UserEntity Author { get; set; }
 
     /// <summary>
     /// Gets or sets the recipient id
     /// </summary>
     public string RecipientId { get; set; }
 
-    public virtual ProfileEntity Recipient { get; set; }
+    public virtual UserEntity Recipient { get; set; }
 }

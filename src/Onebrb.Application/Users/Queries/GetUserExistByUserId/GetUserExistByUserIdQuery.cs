@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Onebrb.Application.Interfaces;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetUserExistByUserId;
 
@@ -11,17 +11,17 @@ public record GetUserExistByUserIdQueryQuery : IRequest<bool>
 
 public class GetUserExistByUserIdQueryQueryHandler : IRequestHandler<GetUserExistByUserIdQueryQuery, bool>
 {
-    private readonly IGenericRepository<ProfileEntity> _profileRepository;
+    private readonly IGenericRepository<UserEntity> _profileRepository;
 
     public GetUserExistByUserIdQueryQueryHandler(
-        IGenericRepository<ProfileEntity> profileRepository)
+        IGenericRepository<UserEntity> profileRepository)
     {
         _profileRepository = profileRepository;
     }
 
     public async Task<bool> Handle(GetUserExistByUserIdQueryQuery request, CancellationToken cancellationToken)
     {
-        ProfileEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
+        UserEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
 
         return profile is not null;
     }

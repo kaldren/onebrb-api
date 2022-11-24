@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Onebrb.Domain.Entities;
 using Onebrb.Domain.Entities.CountryAggregate;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Infrastructure.Data
 {
@@ -11,7 +11,7 @@ namespace Onebrb.Infrastructure.Data
         {
         }
 
-        public DbSet<ProfileEntity> Profiles { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<CommentEntity> Comments { get; set; }
@@ -20,8 +20,8 @@ namespace Onebrb.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<ProfileEntity>()
-                .ToTable("Profiles")
+                .Entity<UserEntity>()
+                .ToTable("Users")
                 .HasOne(p => p.Occupation);
 
             modelBuilder

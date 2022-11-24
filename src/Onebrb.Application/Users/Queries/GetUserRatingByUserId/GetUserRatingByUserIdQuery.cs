@@ -2,7 +2,7 @@
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetUserRatingByUserId;
 
@@ -13,12 +13,12 @@ public record GetUserRatingByUserIdQuery : IRequest<UserRatingModel>
 
 public class GetUserRatingByUserIdQueryHandler : IRequestHandler<GetUserRatingByUserIdQuery, UserRatingModel>
 {
-    private readonly IGenericRepository<ProfileEntity> _profileRepository;
+    private readonly IGenericRepository<UserEntity> _profileRepository;
     private readonly IGenericRepository<RatingEntity> _ratingRepository;
     private readonly IMapper _mapper;
 
     public GetUserRatingByUserIdQueryHandler(
-        IGenericRepository<ProfileEntity> profileRepository,
+        IGenericRepository<UserEntity> profileRepository,
         IGenericRepository<RatingEntity> ratingRepository,
         IMapper mapper)
     {
@@ -30,7 +30,7 @@ public class GetUserRatingByUserIdQueryHandler : IRequestHandler<GetUserRatingBy
     public async Task<UserRatingModel> Handle(GetUserRatingByUserIdQuery request, CancellationToken cancellationToken)
     {
         UserRatingModel model = new();
-        ProfileEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.Id);
+        UserEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.Id);
 
         if (profile is null)
             return model;

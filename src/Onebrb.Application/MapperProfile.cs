@@ -1,6 +1,6 @@
 ﻿using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application
 {
@@ -9,10 +9,10 @@ namespace Onebrb.Application
         public MapperProfile()
         {
             #region Profile
-            CreateMap<ProfileEntity, UserProfileModel>()
+            CreateMap<UserEntity, UserProfileModel>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name));
-            CreateMap<UpdateUserProfileModel, ProfileEntity>()
+            CreateMap<UpdateUserProfileModel, UserEntity>()
 
                 // Visibility
                 //.ForMember(dest => dest.IsPhoneVisible, opt => opt.MapFrom(src => src.IsPhoneVisible ?? default))

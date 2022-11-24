@@ -74,9 +74,6 @@ namespace Onebrb.API.Controllers
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
-            if (currentUserId is null)
-                return Unauthorized();
-
             bool existingUser = await _mediator.Send(new GetUserExistByUserIdQueryQuery() { CurrentUserId = currentUserId });
 
             if (existingUser == false)
@@ -106,9 +103,6 @@ namespace Onebrb.API.Controllers
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
-            if (currentUserId is null)
-                return Unauthorized();
-
             bool existingUser = await _mediator.Send(new GetUserExistByUserIdQueryQuery() { CurrentUserId = currentUserId });
 
             if (existingUser is false)
@@ -132,9 +126,6 @@ namespace Onebrb.API.Controllers
         public async Task<ActionResult> DeleteCommentAsync([FromRoute][Required] string commentId)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-
-            if (currentUserId is null)
-                return Unauthorized();
 
             CommentModel comment = await _mediator.Send(new GetSingleCommentByCommentIdQuery() { Id = commentId });
 

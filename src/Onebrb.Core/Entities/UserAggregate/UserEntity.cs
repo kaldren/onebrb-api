@@ -1,8 +1,8 @@
 ﻿using Onebrb.Domain.Entities.CountryAggregate;
 
-namespace Onebrb.Domain.Entities.ProfileAggregate;
+namespace Onebrb.Domain.Entities.UserAggregate;
 
-public class ProfileEntity : BaseEntity
+public class UserEntity : BaseEntity
 {
     /// <summary>
     /// Gets or sets the profile first name

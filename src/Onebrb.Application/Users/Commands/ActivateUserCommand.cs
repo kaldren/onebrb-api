@@ -2,7 +2,7 @@
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
 using Onebrb.Domain.Entities.CountryAggregate;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Commands;
 
@@ -13,18 +13,18 @@ public record ActivateUserCommand : IRequest<UserProfileModel>
 
 internal class ActivateUserProfileHandler : IRequestHandler<ActivateUserCommand, UserProfileModel>
 {
-    private readonly IGenericRepository<ProfileEntity> _profileRepository;
+    private readonly IGenericRepository<UserEntity> _profileRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ActivateUserProfileHandler(IGenericRepository<ProfileEntity> profileRepository, IUnitOfWork unitOfWork)
+    public ActivateUserProfileHandler(IGenericRepository<UserEntity> profileRepository, IUnitOfWork unitOfWork)
     {
         _profileRepository = profileRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<UserProfileModel> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserProfileModel?> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
     {
-        _profileRepository.Insert(new ProfileEntity
+        _profileRepository.Insert(new UserEntity
         {
             Id = request.ProfileModel.Id,
             Email = request.ProfileModel.Email,

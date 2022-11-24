@@ -3,7 +3,7 @@ using Moq;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 using System.Linq.Expressions;
 
 namespace Onebrb.Application.UnitTests.Users.Queries.GetAllCommentsByUserId

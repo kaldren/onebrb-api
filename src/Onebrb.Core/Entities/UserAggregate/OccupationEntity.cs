@@ -1,4 +1,4 @@
-﻿namespace Onebrb.Domain.Entities.ProfileAggregate
+﻿namespace Onebrb.Domain.Entities.UserAggregate
 {
     public class OccupationEntity : BaseEntity
     {

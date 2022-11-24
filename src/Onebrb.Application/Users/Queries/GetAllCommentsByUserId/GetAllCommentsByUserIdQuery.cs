@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetAllCommentsByUserId;
 

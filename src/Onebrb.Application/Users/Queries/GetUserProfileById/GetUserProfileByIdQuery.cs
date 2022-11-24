@@ -2,7 +2,7 @@
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetUserProfileById;
 
@@ -15,12 +15,12 @@ public record GetUserProfileByIdQuery : IRequest<UserProfileModel?>
 
 public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileByIdQuery, UserProfileModel?>
 {
-    private readonly IGenericRepository<ProfileEntity> _profileRepository;
+    private readonly IGenericRepository<UserEntity> _profileRepository;
     private readonly IGenericRepository<RatingEntity> _ratingRepository;
     private readonly IMapper _mapper;
 
     public GetUserProfileByIdQueryHandler(
-        IGenericRepository<ProfileEntity> profileRepository,
+        IGenericRepository<UserEntity> profileRepository,
         IGenericRepository<RatingEntity> ratingRepository,
         IMapper mapper)
     {
@@ -31,12 +31,12 @@ public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileById
 
     public async Task<UserProfileModel?> Handle(GetUserProfileByIdQuery request, CancellationToken cancellationToken)
     {
-        ProfileEntity? currentUser = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
+        UserEntity? currentUser = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
 
         if (currentUser is null)
             return null;
 
-        ProfileEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.UserId);
+        UserEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.UserId);
 
         if (profile is null)
             return null;

@@ -6,7 +6,7 @@ using Onebrb.API.Models.Responses.Profile;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Occupations.Models;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.API
 {
@@ -46,8 +46,8 @@ namespace Onebrb.API
             #endregion Comment
 
             #region Profile
-            CreateMap<ProfileEntity, ActivatedUserProfileResponseModel>();
-            CreateMap<ProfileEntity, UserProfileModel>();
+            CreateMap<UserEntity, ActivatedUserProfileResponseModel>();
+            CreateMap<UserEntity, UserProfileModel>();
             CreateMap<UserProfileModel, ActivatedUserProfileResponseModel>();
             CreateMap<UserProfileModel, UserProfileResponseModel>();
             CreateMap<UpdateUserProfileRequestModel, UpdateUserProfileModel>()

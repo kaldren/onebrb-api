@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetAllUsersSearch;
 
@@ -14,10 +14,10 @@ public record GetAllUsersSearchQuery : IRequest<IQueryable<UserProfileModel>>
 
 public class GetAllUsersSearchQueryHandler : IRequestHandler<GetAllUsersSearchQuery, IQueryable<UserProfileModel>>
 {
-    private readonly IGenericRepository<ProfileEntity> _profilesRepository;
+    private readonly IGenericRepository<UserEntity> _profilesRepository;
     private readonly IMapper _mapper;
 
-    public GetAllUsersSearchQueryHandler(IGenericRepository<ProfileEntity> profilesRepository, IMapper mapper)
+    public GetAllUsersSearchQueryHandler(IGenericRepository<UserEntity> profilesRepository, IMapper mapper)
     {
         _profilesRepository = profilesRepository;
         _mapper = mapper;

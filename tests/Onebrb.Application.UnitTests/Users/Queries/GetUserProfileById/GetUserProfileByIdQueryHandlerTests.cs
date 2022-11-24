@@ -6,7 +6,7 @@ namespace Onebrb.Application.UnitTests.Users.Queries.GetUserProfileById;
 
 public class GetUserProfileByIdQueryHandlerTests
 {
-    private readonly Mock<IGenericRepository<Domain.Entities.ProfileAggregate.ProfileEntity>> _mockRepo = new();
+    private readonly Mock<IGenericRepository<Domain.Entities.UserAggregate.UserEntity>> _mockRepo = new();
     private Fixture _fixture = new();
     private readonly Mock<IMapper> _mapper;
 

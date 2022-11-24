@@ -2,7 +2,7 @@
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetUserById;
 
@@ -14,12 +14,12 @@ public record GetUserByIdQuery : IRequest<UserProfileModel?>
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserProfileModel?>
 {
-    private readonly IGenericRepository<ProfileEntity> _profileRepository;
+    private readonly IGenericRepository<UserEntity> _profileRepository;
     private readonly IGenericRepository<RatingEntity> _ratingRepository;
     private readonly IMapper _mapper;
 
     public GetUserByIdQueryHandler(
-        IGenericRepository<ProfileEntity> profileRepository,
+        IGenericRepository<UserEntity> profileRepository,
         IGenericRepository<RatingEntity> ratingRepository,
         IMapper mapper)
     {
@@ -30,7 +30,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserPro
 
     public async Task<UserProfileModel?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        ProfileEntity? user = await _profileRepository.GetSingleOrDefault(p => p.Id == request.UserId);
+        UserEntity? user = await _profileRepository.GetSingleOrDefault(p => p.Id == request.UserId);
 
         if (user is null)
             return null;

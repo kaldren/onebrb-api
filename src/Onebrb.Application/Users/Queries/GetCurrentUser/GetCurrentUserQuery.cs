@@ -2,7 +2,7 @@
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Users.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Users.Queries.GetCurrentUser;
 
@@ -13,12 +13,12 @@ public record GetCurrentUserQuery : IRequest<UserProfileModel?>
 
 public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, UserProfileModel?>
 {
-    private readonly IGenericRepository<ProfileEntity> _profileRepository;
+    private readonly IGenericRepository<UserEntity> _profileRepository;
     private readonly IGenericRepository<RatingEntity> _ratingRepository;
     private readonly IMapper _mapper;
 
     public GetCurrentUserQueryHandler(
-        IGenericRepository<ProfileEntity> profileRepository,
+        IGenericRepository<UserEntity> profileRepository,
         IGenericRepository<RatingEntity> ratingRepository,
         IMapper mapper)
     {
@@ -29,7 +29,7 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, U
 
     public async Task<UserProfileModel?> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-        ProfileEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
+        UserEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
 
         if (profile is null)
             return null;

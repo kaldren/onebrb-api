@@ -3,7 +3,7 @@ using Moq;
 using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 using System.Linq.Expressions;
 
 namespace Onebrb.Application.UnitTests.Comments.Commands.PostCommentCommand;

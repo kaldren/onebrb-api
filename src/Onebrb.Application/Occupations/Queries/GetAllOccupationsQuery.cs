@@ -2,7 +2,7 @@
 using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Occupations.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Occupations.Queries;
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Onebrb.Domain.Entities.ProfileAggregate;
+namespace Onebrb.Domain.Entities.UserAggregate;
 
 public class CommentEntity : BaseEntity
 {
@@ -17,7 +17,7 @@ public class CommentEntity : BaseEntity
     /// <summary>
     /// Gets or sets the author
     /// </summary>
-    public virtual ProfileEntity? Author { get; set; }
+    public virtual UserEntity? Author { get; set; }
 
     /// <summary>
     /// Gets or sets the recipient id
@@ -27,7 +27,7 @@ public class CommentEntity : BaseEntity
     /// <summary>
     /// Gets or sets the recipient
     [ForeignKey(nameof(RecipientId))]
-    public virtual ProfileEntity? Recipient { get; set; }
+    public virtual UserEntity? Recipient { get; set; }
 
     /// <summary>
     /// Gets or sets the rating

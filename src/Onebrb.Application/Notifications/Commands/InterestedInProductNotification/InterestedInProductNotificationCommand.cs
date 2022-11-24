@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Onebrb.Application.Interfaces;
 using Onebrb.Application.Notifications.Models;
-using Onebrb.Domain.Entities.ProfileAggregate;
+using Onebrb.Domain.Entities.UserAggregate;
 
 namespace Onebrb.Application.Notifications.Commands.InterestedInProductNotification;
 
