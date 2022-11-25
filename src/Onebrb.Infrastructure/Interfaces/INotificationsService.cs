@@ -2,5 +2,5 @@
 
 public interface INotificationsService
 {
-    Task Notify();
+    Task Notify(string connectionId);
 }

@@ -7,12 +7,12 @@ using Onebrb.Domain.Exceptions.Comment;
 
 namespace Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
 
-public record PostSingleCommentCommand : IRequest<CommentModel>
+public record PostSingleCommentCommand : IRequest<CommentModel?>
 {
     public PostCommentModel Comment { get; set; }
 }
 
-public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentCommand, CommentModel>
+public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentCommand, CommentModel?>
 {
     private readonly IGenericRepository<CommentEntity> _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -25,7 +25,7 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
         _mapper = mapper;
     }
 
-    public async Task<CommentModel> Handle(PostSingleCommentCommand request, CancellationToken cancellationToken)
+    public async Task<CommentModel?> Handle(PostSingleCommentCommand request, CancellationToken cancellationToken)
     {
         string trackId = Guid.NewGuid().ToString();
 
@@ -50,6 +50,6 @@ public class PostCommentCommandHandler : IRequestHandler<PostSingleCommentComman
 
         CommentEntity? comment = await _commentRepository.GetSingleOrDefault(p => p.TrackId == trackId);
 
-        return _mapper.Map<CommentModel>(comment);
+        return _mapper.Map<CommentModel?>(comment);
     }
 }

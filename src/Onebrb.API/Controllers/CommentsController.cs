@@ -11,6 +11,7 @@ using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
 using Onebrb.Application.Users.Queries.GetUserExistByUserId;
+using Onebrb.Infrastructure.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
@@ -23,11 +24,13 @@ namespace Onebrb.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IAzureQueueService _azureQueueService;
 
-        public CommentsController(IMediator mediator, IMapper mapper)
+        public CommentsController(IMediator mediator, IMapper mapper, IAzureQueueService azureQueueService)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _azureQueueService = azureQueueService;
         }
 
         #region GET
@@ -87,7 +90,13 @@ namespace Onebrb.API.Controllers
             if (comments.Any())
                 return BadRequest("User already posted a comment to this user.");
 
-            CommentModel result = await _mediator.Send(new PostSingleCommentCommand() { Comment = model });
+            CommentModel? result = await _mediator.Send(new PostSingleCommentCommand() { Comment = model });
+
+            if (result != null)
+            {
+                // Notify
+                await _azureQueueService.InsertAsync("new-comment-notification-queue", "");
+            }
 
             return Ok(this._mapper.Map<CommentResponseModel>(result));
         }

@@ -18,13 +18,25 @@ namespace Onebrb.API.Controllers
             _notificationsService = notificationsService;
         }
 
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public async Task<ActionResult> Notify()
+        //{
+        //    await _notificationsService.Notify();
+
+        //    return Ok();
+        //}
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> Notify()
+        public async Task<ActionResult> Notify([FromQuery] string connectionId)
         {
-            await _notificationsService.Notify();
+            //NotificationsHub
+            await _notificationsService.Notify(connectionId);
 
             return Ok();
         }

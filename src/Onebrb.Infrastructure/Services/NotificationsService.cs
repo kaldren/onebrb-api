@@ -12,8 +12,12 @@ public class NotificationsService : INotificationsService
         _hubContext = hubContext;
     }
 
-    public async Task Notify()
+    public async Task Notify(string userId)
     {
-        await _hubContext.Clients.All.SendAsync("ToastNotification", "Hi mofo!");
+        var users = _hubContext.Clients.Users(userId);
+
+        await users.SendAsync("ToastNotification", $"Hi mofo {userId}!");
+
+        //await _hubContext.Clients.Client(userId).SendAsync("ToastNotification", "Hi mofo!");
     }
 }

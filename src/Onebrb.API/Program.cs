@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Identity.Web;
@@ -93,6 +94,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddApplicationServices();
 
 builder.Services.AddSignalR();
+builder.Services.AddSingleton<IUserIdProvider, IdBasedUserIdProvider>();
 builder.Services.AddResponseCompression(opts =>
 {
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
@@ -138,7 +140,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapHub<NotificationsHub>("api/notifications-hub");
 
 app.Run();
+
+
+//public class CustomUserIdProvider : IUserIdProvider
+//{
+//    public string? GetUserId(HubConnectionContext connection)
+//    {
+//        var userId = MyCustomUserClass.FindUserId(request.User.Identity.Name);
+//        return userId.ToString();
+//    }
+//}
