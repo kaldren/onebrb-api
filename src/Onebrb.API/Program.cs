@@ -143,13 +143,3 @@ app.MapControllers();
 app.MapHub<NotificationsHub>("api/notifications-hub");
 
 app.Run();
-
-
-//public class CustomUserIdProvider : IUserIdProvider
-//{
-//    public string? GetUserId(HubConnectionContext connection)
-//    {
-//        var userId = MyCustomUserClass.FindUserId(request.User.Identity.Name);
-//        return userId.ToString();
-//    }
-//}

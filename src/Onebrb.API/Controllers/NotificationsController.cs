@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onebrb.Infrastructure.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
 {
@@ -18,25 +19,13 @@ namespace Onebrb.API.Controllers
             _notificationsService = notificationsService;
         }
 
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //public async Task<ActionResult> Notify()
-        //{
-        //    await _notificationsService.Notify();
-
-        //    return Ok();
-        //}
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> Notify([FromQuery] string connectionId)
+        public async Task<ActionResult> Notify([FromQuery][Required] string userId, [FromQuery][Required] string message, [FromQuery] string method)
         {
-            //NotificationsHub
-            await _notificationsService.Notify(connectionId);
+            await _notificationsService.Notify(userId, message, method);
 
             return Ok();
         }
