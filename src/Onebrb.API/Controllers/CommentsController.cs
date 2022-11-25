@@ -25,12 +25,14 @@ namespace Onebrb.API.Controllers
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly IAzureQueueService _azureQueueService;
+        private readonly INotificationsService _notificationsService;
 
-        public CommentsController(IMediator mediator, IMapper mapper, IAzureQueueService azureQueueService)
+        public CommentsController(IMediator mediator, IMapper mapper, IAzureQueueService azureQueueService, INotificationsService notificationsService)
         {
             _mediator = mediator;
             _mapper = mapper;
             _azureQueueService = azureQueueService;
+            _notificationsService = notificationsService;
         }
 
         #region GET
@@ -76,6 +78,8 @@ namespace Onebrb.API.Controllers
         public async Task<ActionResult<CommentResponseModel>> PostCommentAsync([FromBody][Required] PostCommentRequestModel comment)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            string? firstNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
+            string? lastNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
 
             bool existingUser = await _mediator.Send(new GetUserExistByUserIdQueryQuery() { CurrentUserId = currentUserId });
 
@@ -94,8 +98,10 @@ namespace Onebrb.API.Controllers
 
             if (result != null)
             {
+                //await _azureQueueService.InsertAsync("new-comment-notification-queue", "");
+
                 // Notify
-                await _azureQueueService.InsertAsync("new-comment-notification-queue", "");
+                await _notificationsService.Notify(comment.RecipientId, $"You have received a new comment from {firstNameClaim} {lastNameClaim}.", "ToastNotification");
             }
 
             return Ok(this._mapper.Map<CommentResponseModel>(result));

@@ -12,7 +12,7 @@ public class NotificationsService : INotificationsService
         _hubContext = hubContext;
     }
 
-    public async Task Notify(string userId, string message, string method = "ToastNotification")
+    public async Task Notify(string userId, string message, string method)
     {
         var users = _hubContext.Clients.Users(userId);
 
