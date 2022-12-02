@@ -6,7 +6,7 @@ using Onebrb.API.Models.Requests.Comment;
 using Onebrb.API.Models.Responses.Comment;
 using Onebrb.Application.Comments.Commands.DeleteSingleComment;
 using Onebrb.Application.Comments.Commands.PatchSingleComment;
-using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
+using Onebrb.Application.Comments.Commands.PostSingleComment;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Comments.Queries.GetAllCommentsByUserId;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
@@ -83,8 +83,8 @@ namespace Onebrb.API.Controllers
 
             bool existingUser = await _mediator.Send(new GetUserExistByUserIdQueryQuery() { CurrentUserId = currentUserId });
 
-            if (existingUser == false)
-                return NotFound("The user doesn't exist.");
+            //if (existingUser == false)
+            //    return NotFound("The user doesn't exist.");
 
             PostCommentModel model = _mapper.Map<PostCommentModel>(comment);
             model.AuthorId = currentUserId;

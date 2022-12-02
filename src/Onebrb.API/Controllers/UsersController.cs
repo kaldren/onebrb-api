@@ -51,7 +51,7 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<ActionResult<UserProfileResponseModel>> GetUserAsync(string userId)
         {
             string? currentUserId = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;

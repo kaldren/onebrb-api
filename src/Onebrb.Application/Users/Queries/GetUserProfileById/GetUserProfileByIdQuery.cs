@@ -32,19 +32,25 @@ public class GetUserProfileByIdQueryHandler : IRequestHandler<GetUserProfileById
     public async Task<UserProfileModel?> Handle(GetUserProfileByIdQuery request, CancellationToken cancellationToken)
     {
         UserEntity? currentUser = await _profileRepository.GetSingleOrDefault(p => p.Id == request.CurrentUserId);
-
-        if (currentUser is null)
-            return null;
-
         UserEntity? profile = await _profileRepository.GetSingleOrDefault(p => p.Id == request.UserId);
+
+        if (currentUser is null && profile is null)
+            return null;
 
         if (profile is null)
             return null;
 
-        // Check for hidden settings
-        if (currentUser.Id != profile.Id)
+        if (currentUser is not null)
         {
-            //profile.Phone = profile.IsPhoneVisible.HasValue && profile.IsPhoneVisible.Value is true && !string.IsNullOrEmpty(profile.Phone) ? profile.Phone : default;
+            // Check for hidden settings
+            if (currentUser.Id != profile.Id)
+            {
+                //profile.Phone = profile.IsPhoneVisible.HasValue && profile.IsPhoneVisible.Value is true && !string.IsNullOrEmpty(profile.Phone) ? profile.Phone : default;
+                profile.Email = profile.IsEmailVisible && !string.IsNullOrEmpty(profile.Email) ? profile.Email : default;
+            }
+        }
+        else
+        {
             profile.Email = profile.IsEmailVisible && !string.IsNullOrEmpty(profile.Email) ? profile.Email : default;
         }
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
-using Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
+using Onebrb.Application.Comments.Commands.PostSingleComment;
 using Onebrb.Application.Comments.Models;
 using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.UserAggregate;

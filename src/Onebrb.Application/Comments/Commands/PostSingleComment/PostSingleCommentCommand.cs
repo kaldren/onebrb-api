@@ -5,7 +5,7 @@ using Onebrb.Application.Interfaces;
 using Onebrb.Domain.Entities.UserAggregate;
 using Onebrb.Domain.Exceptions.Comment;
 
-namespace Onebrb.Application.Comments.Commands.PostSingleCommentCommand;
+namespace Onebrb.Application.Comments.Commands.PostSingleComment;
 
 public record PostSingleCommentCommand : IRequest<CommentModel?>
 {
