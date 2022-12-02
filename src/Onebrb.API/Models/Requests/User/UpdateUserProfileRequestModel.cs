@@ -92,7 +92,7 @@ internal class SocialAccountAttribute : ValidationAttribute
         $"Invalid {social} account. Please provide valid account name.";
 
     public string GetErrorLengthMessage(string account, int min, int max) =>
-        $"{account} account length must be between {min} and {max}";
+        $"{account} account length must be between {min} and {max} characters.";
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
@@ -101,7 +101,12 @@ internal class SocialAccountAttribute : ValidationAttribute
 
         if (_socialPlatform == "LinkedIn" && !string.IsNullOrWhiteSpace(social.LinkedInProfile))
         {
-            if (social.LinkedInProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || urlRegex.IsMatch(social.LinkedInProfile))
+            if (social.LinkedInProfile.Trim().Length > ValidationConstants.SocialAccountMaxLength)
+            {
+                return new ValidationResult(GetErrorLengthMessage("LinkedIn", ValidationConstants.SocialAccountMinLength, ValidationConstants.SocialAccountMaxLength));
+            }
+
+            if (urlRegex.IsMatch(social.LinkedInProfile))
             {
                 return new ValidationResult(GetErrorMessage("LinkedIn"));
             }
@@ -109,7 +114,12 @@ internal class SocialAccountAttribute : ValidationAttribute
 
         if (_socialPlatform == "Facebook" && !string.IsNullOrWhiteSpace(social.FacebookProfile))
         {
-            if (social.FacebookProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || urlRegex.IsMatch(social.FacebookProfile))
+            if (social.FacebookProfile.Trim().Length > ValidationConstants.SocialAccountMaxLength)
+            {
+                return new ValidationResult(GetErrorLengthMessage("Facebook", ValidationConstants.SocialAccountMinLength, ValidationConstants.SocialAccountMaxLength));
+            }
+
+            if (urlRegex.IsMatch(social.FacebookProfile))
             {
                 return new ValidationResult(GetErrorMessage("Facebook"));
             }
@@ -117,7 +127,12 @@ internal class SocialAccountAttribute : ValidationAttribute
 
         if (_socialPlatform == "Instagram" && !string.IsNullOrWhiteSpace(social.InstagramProfile))
         {
-            if (social.InstagramProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || urlRegex.IsMatch(social.InstagramProfile))
+            if (social.InstagramProfile.Trim().Length > ValidationConstants.SocialAccountMaxLength)
+            {
+                return new ValidationResult(GetErrorLengthMessage("Instagram", ValidationConstants.SocialAccountMinLength, ValidationConstants.SocialAccountMaxLength));
+            }
+
+            if (urlRegex.IsMatch(social.InstagramProfile))
             {
                 return new ValidationResult(GetErrorMessage("Instagram"));
             }
