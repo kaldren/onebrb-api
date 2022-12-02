@@ -63,24 +63,31 @@ public class UpdateUserProfileRequestModel
     /// <summary>
     /// Gets or sets the linkedin profile
     /// </summary>
-    [LinkedIn]
+    [SocialAccount(SocialPlatform: "LinkedIn")]
     public string? LinkedInProfile { get; set; }
 
     /// <summary>
     /// Gets or sets the facebook profile
     /// </summary>
-    [Facebook]
+    [SocialAccount(SocialPlatform: "Facebook")]
     public string? FacebookProfile { get; set; }
 
     /// <summary>
     /// Gets or sets the instagram profile
     /// </summary>
-    [Instagram]
+    [SocialAccount(SocialPlatform: "Instagram")]
     public string? InstagramProfile { get; set; }
 }
 
-internal class LinkedInAttribute : ValidationAttribute
+internal class SocialAccountAttribute : ValidationAttribute
 {
+    private string _socialPlatform;
+
+    public SocialAccountAttribute(string SocialPlatform)
+    {
+        _socialPlatform = SocialPlatform;
+    }
+
     public string GetErrorMessage(string social) =>
         $"Invalid {social} account. Please provide valid account name.";
 
@@ -90,19 +97,29 @@ internal class LinkedInAttribute : ValidationAttribute
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
         var social = (UpdateUserProfileRequestModel)validationContext.ObjectInstance;
-
         var urlRegex = new Regex(@"((?:(?:http|ftp|ws)s?|sftp):\/\/?)?([^:/\s.#?]+\.[^:/\s#?]+|localhost)(:\d+)?((?:\/\w+)*\/)?([\w\-.]+[^#?\s]+)?([^#]+)?(#[\w-]*)?");
 
-        if (!string.IsNullOrWhiteSpace(social.LinkedInProfile))
+        if (_socialPlatform == "LinkedIn" && !string.IsNullOrWhiteSpace(social.LinkedInProfile))
         {
-            if (social.LinkedInProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || social.LinkedInProfile.Trim().Length > ValidationConstants.SocialAccountMaxLength)
-            {
-                return new ValidationResult(GetErrorLengthMessage("LinkedIn", ValidationConstants.SocialAccountMinLength, ValidationConstants.SocialAccountMaxLength));
-            }
-
             if (social.LinkedInProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || urlRegex.IsMatch(social.LinkedInProfile))
             {
                 return new ValidationResult(GetErrorMessage("LinkedIn"));
+            }
+        }
+
+        if (_socialPlatform == "Facebook" && !string.IsNullOrWhiteSpace(social.FacebookProfile))
+        {
+            if (social.FacebookProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || urlRegex.IsMatch(social.FacebookProfile))
+            {
+                return new ValidationResult(GetErrorMessage("Facebook"));
+            }
+        }
+
+        if (_socialPlatform == "Instagram" && !string.IsNullOrWhiteSpace(social.InstagramProfile))
+        {
+            if (social.InstagramProfile.Trim().Length < ValidationConstants.SocialAccountMinLength || urlRegex.IsMatch(social.InstagramProfile))
+            {
+                return new ValidationResult(GetErrorMessage("Instagram"));
             }
         }
 
