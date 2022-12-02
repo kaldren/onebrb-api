@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using Onebrb.Infrastructure.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onebrb.API.Controllers
 {
-    //[RequiredScope("Onebrb.Read")]
-    //[Authorize]
+    [RequiredScope("Onebrb.Read")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NotificationsController : ControllerBase

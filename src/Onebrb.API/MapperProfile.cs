@@ -1,5 +1,6 @@
 ﻿using Onebrb.API.Models.Requests;
 using Onebrb.API.Models.Requests.Comment;
+using Onebrb.API.Models.Requests.User;
 using Onebrb.API.Models.Responses.Comment;
 using Onebrb.API.Models.Responses.Occupation;
 using Onebrb.API.Models.Responses.Profile;

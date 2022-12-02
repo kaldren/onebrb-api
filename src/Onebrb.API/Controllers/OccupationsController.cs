@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using Onebrb.API.Models.Responses.Occupation;
 using Onebrb.Application.Occupations.Models;
 using Onebrb.Application.Occupations.Queries;
 
 namespace Onebrb.API.Controllers
 {
-    //[RequiredScope("Onebrb.Read")]
-    //[Authorize]
+    [RequiredScope("Onebrb.Read")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OccupationsController : ControllerBase

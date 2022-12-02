@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.Identity.Web.Resource;
-using Onebrb.API.Models.Requests;
+using Onebrb.API.Models.Requests.User;
 using Onebrb.API.Models.Responses.Comment;
 using Onebrb.API.Models.Responses.Occupation;
 using Onebrb.API.Models.Responses.Profile;
@@ -166,7 +166,6 @@ namespace Onebrb.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[AllowAnonymous]
         public async Task<ActionResult<UserRatingResponseModel>> GetUserRatingAsync(string userId)
         {
             UserRatingModel rating = await _mediator.Send(new GetUserRatingByUserIdQuery() { Id = userId });
