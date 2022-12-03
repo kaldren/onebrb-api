@@ -74,7 +74,6 @@ namespace Onebrb.API.Controllers
             string? userNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "name")?.Value;
             string? firstNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")?.Value;
             string? lastNameClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")?.Value;
-            string? jobClaim = User?.Claims?.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/job")?.Value;
 
             UserProfileModel? existingUser = await _mediator.Send(new GetUserProfileByIdQuery() { UserId = userIdClaim });
 
