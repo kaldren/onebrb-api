@@ -75,7 +75,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOnebrbSPA", policy =>
     {
-        policy.WithOrigins("https://localhost:7130")
+        policy.WithOrigins(builder.Configuration.GetValue<string>("Onebrb:SPAClient:Domain"))
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
@@ -114,15 +114,21 @@ if (app.Environment.IsDevelopment())
     app.UseMigrationsEndPoint();
 }
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 
-    var context = services.GetRequiredService<OnebrbDbContext>();
-    context.Database.EnsureDeleted();
-    context.Database.EnsureCreated();
-    DbInitializer.Initialize(context);
-}
+//    var logger = loggerFactory.CreateLogger<ILogger>();
+
+
+//    logger.LogInformation("Creating test data...");
+//    var context = services.GetRequiredService<OnebrbDbContext>();
+//    context.Database.EnsureDeleted();
+//    context.Database.EnsureCreated();
+//    DbInitializer.Initialize(context);
+//    logger.LogInformation("Test data inserted successfully...");
+//}
 
 using (var scope = app.Services.CreateScope())
 {
@@ -132,7 +138,7 @@ using (var scope = app.Services.CreateScope())
     loggerFactory.AddFile($@"{Directory.GetCurrentDirectory()}\Logs\log.txt");
 }
 
-app.UseCors(options => options.WithOrigins("https://localhost:7130").AllowAnyMethod().AllowAnyHeader());
+app.UseCors(options => options.WithOrigins(builder.Configuration.GetValue<string>("Onebrb:SPAClient:Domain")).AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
