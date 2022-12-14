@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Identity.Web;
 using Onebrb.Application;
 using Onebrb.Application.Comments.Queries.GetSingleCommentByCommentId;
@@ -18,20 +17,20 @@ var builder = WebApplication.CreateBuilder(args);
 string environment = builder.Environment.EnvironmentName;
 
 //Retrieve the Connection String from the secrets manager 
-var connectionString = builder.Configuration.GetConnectionString("AppConfig");
+//var connectionString = builder.Configuration.GetConnectionString("AppConfig");
 
-builder.Host.ConfigureAppConfiguration(builder =>
-{
-    //Connect to your App Config Store using the connection string
-    builder.AddAzureAppConfiguration(options =>
-                options
-                    .Connect(connectionString)
-                    // Load configuration values with no label
-                    .Select(KeyFilter.Any, LabelFilter.Null)
-                    // Override with any configuration values specific to current hosting env
-                    .Select(KeyFilter.Any, environment)
-            );
-});
+//builder.Host.ConfigureAppConfiguration(builder =>
+//{
+//    //Connect to your App Config Store using the connection string
+//    builder.AddAzureAppConfiguration(options =>
+//                options
+//                    .Connect(connectionString)
+//                    // Load configuration values with no label
+//                    .Select(KeyFilter.Any, LabelFilter.Null)
+//                    // Override with any configuration values specific to current hosting env
+//                    .Select(KeyFilter.Any, environment)
+//            );
+//});
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -58,8 +57,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDbContext<OnebrbDbContext>(options =>
 {
     options.UseLazyLoadingProxies();
-    options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"));
-    //options.UseInMemoryDatabase("Onebrb")
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"));
+    options.UseInMemoryDatabase("Onebrb");
 });
 
 // DI
