@@ -58,7 +58,8 @@ builder.Services.AddDbContext<OnebrbDbContext>(options =>
 {
     options.UseLazyLoadingProxies();
     //options.UseSqlServer(builder.Configuration.GetConnectionString("OnebrbContext"));
-    options.UseInMemoryDatabase("Onebrb");
+    options.UseNpgsql(builder.Configuration.GetConnectionString("OnebrbContext"));
+    //options.UseInMemoryDatabase("Onebrb");
 });
 
 // DI
@@ -113,21 +114,21 @@ if (app.Environment.IsDevelopment())
     app.UseMigrationsEndPoint();
 }
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 
-//    var logger = loggerFactory.CreateLogger<ILogger>();
+    var logger = loggerFactory.CreateLogger<ILogger>();
 
 
-//    logger.LogInformation("Creating test data...");
-//    var context = services.GetRequiredService<OnebrbDbContext>();
-//    context.Database.EnsureDeleted();
-//    context.Database.EnsureCreated();
-//    DbInitializer.Initialize(context);
-//    logger.LogInformation("Test data inserted successfully...");
-//}
+    logger.LogInformation("Creating test data...");
+    var context = services.GetRequiredService<OnebrbDbContext>();
+    context.Database.EnsureDeleted();
+    context.Database.EnsureCreated();
+    DbInitializer.Initialize(context);
+    logger.LogInformation("Test data inserted successfully...");
+}
 
 using (var scope = app.Services.CreateScope())
 {
