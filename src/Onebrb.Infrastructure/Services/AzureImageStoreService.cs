@@ -15,7 +15,7 @@ namespace Onebrb.Infrastructure.Services
         {
             _configuration = configuration;
 
-            _blobServiceClient = new BlobServiceClient(_configuration["Onebrb:Azure:StorageAccount:ConnectionString"]);
+            //_blobServiceClient = new BlobServiceClient(_configuration["Onebrb:Azure:StorageAccount:ConnectionString"]);
         }
 
         public bool IsImage(byte[] file)
