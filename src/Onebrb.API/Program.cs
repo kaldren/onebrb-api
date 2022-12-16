@@ -105,12 +105,13 @@ var app = builder.Build();
 
 app.UseResponseCompression();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseDeveloperExceptionPage();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 
     using (var scope = app.Services.CreateScope())
