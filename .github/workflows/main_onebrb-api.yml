@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'onebrb-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6E0591A1466D44F08E2A507F63FD3F7F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_808F358C11BA42179790B163071E1E0E }}
           package: .
